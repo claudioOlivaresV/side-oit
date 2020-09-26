@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  baseUrl: 'https://ito.dev.appslatam.com/',
+  production: false,
+  api: {
+    getDevices: '',
+
+  }
 };
 
 /*

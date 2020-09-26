@@ -11,6 +11,10 @@ import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './views/pages/error-page/error-page.component';
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
 
 @NgModule({
   declarations: [
@@ -22,6 +26,8 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
     AppRoutingModule,
     BrowserAnimationsModule,
     LayoutModule,
+    HttpClientModule,
+
   ],
   providers: [
     AuthGuard,

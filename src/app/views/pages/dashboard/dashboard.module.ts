@@ -13,16 +13,21 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { ChartsModule } from 'ng2-charts';
 
 import { DashboardComponent } from './dashboard.component';
+import { NewDeviceComponent } from './new-device/new-device.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent
+  },
+  {
+    path: 'new-device',
+    component: NewDeviceComponent
   }
 ]
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, NewDeviceComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
