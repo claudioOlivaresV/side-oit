@@ -12,6 +12,7 @@ import { ErrorPageComponent } from './views/pages/error-page/error-page.componen
 
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -27,6 +28,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     LayoutModule,
     HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
 
   ],
   providers: [

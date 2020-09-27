@@ -2,10 +2,10 @@
 
 <div class="row">
   <div class="col-md-4 col-9">
-    <h4 class="mb-3 mb-md-0">Dispositivos <span class="badge badge-primary px-3">1</span></h4>
+    <h4 class="mb-3 mb-md-0">Dispositivos <span class="badge badge-primary px-3">{{devicesFilter.length}}</span></h4>
   </div>
   <div class="d-block d-md-none col-3">
-    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center">
+    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" (click)="goToNewDevice()">
   
         <i class="btn-icon-prepend mr-0 " data-feather="plus-circle" appFeatherIcon></i>
         <span class="d-none ml-2 d-md-block">Agregar Dispositivo</span> 
@@ -25,7 +25,7 @@
     </form>
   </div>
   <div class="d-none d-md-block col-md-4">
-    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center">
+    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" (click)="goToNewDevice()" >
   
         <i class="btn-icon-prepend mr-0 " data-feather="plus-circle" appFeatherIcon></i>
         <span class="d-none ml-2 d-md-block">Agregar Dispositivo</span> 

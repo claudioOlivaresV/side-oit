@@ -13,6 +13,7 @@ import { Label, Color, SingleDataSet } from 'ng2-charts';
 // Progressbar.js
 import ProgressBar from 'progressbar.js';
 import { DevicesService } from 'src/app/services/devices/devices.service';
+import { Router } from '@angular/router';
 
 export type apexChartOptions = {
   series: ApexAxisChartSeries;
@@ -106,7 +107,9 @@ export class DashboardComponent implements OnInit {
 
 
 
-  constructor(private calendar: NgbCalendar, private service: DevicesService) {
+  constructor(private calendar: NgbCalendar,
+              private service: DevicesService,
+              private router: Router) {
 
     /**
      * ApexChart1 options
@@ -543,6 +546,9 @@ export class DashboardComponent implements OnInit {
     });
 
     console.log(this.devices);
+  }
+  goToNewDevice() {
+    this.router.navigate(['/dashboard/new-device']);
   }
 
 }
