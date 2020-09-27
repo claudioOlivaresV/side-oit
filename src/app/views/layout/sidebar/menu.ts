@@ -20,11 +20,11 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Listado',
-        link: '/apps/email/inbox',
+        link: 'dashboard/device-list',
       },
       {
         label: 'Nuevo',
-        link: '/apps/email/read'
+        link: '/dashboard/new-device'
       }
     ]
   },

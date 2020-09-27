@@ -2,10 +2,10 @@
 
 <div class="row">
   <div class="col-md-4 col-9">
-    <h4 class="mb-3 mb-md-0">Dispositivos <span class="badge badge-primary px-3">1</span></h4>
+    <h4 class="mb-3 mb-md-0">Dispositivos <span class="badge badge-primary px-3">{{devicesFilter.length}}</span></h4>
   </div>
   <div class="d-block d-md-none col-3">
-    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center">
+    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" (click)="goToNewDevice()">
   
         <i class="btn-icon-prepend mr-0 " data-feather="plus-circle" appFeatherIcon></i>
         <span class="d-none ml-2 d-md-block">Agregar Dispositivo</span> 
@@ -20,12 +20,12 @@
             <i class="feather icon-search"></i>
           </div>
         </div>
-        <input type="text" class="form-control" id="navbarForm" placeholder="Search here...">
+        <input type="text" class="form-control" id="navbarForm" placeholder="Search here..." (keyup)="filterByCell($event.target.value)">
       </div>
     </form>
   </div>
   <div class="d-none d-md-block col-md-4">
-    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center">
+    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" (click)="goToNewDevice()" >
   
         <i class="btn-icon-prepend mr-0 " data-feather="plus-circle" appFeatherIcon></i>
         <span class="d-none ml-2 d-md-block">Agregar Dispositivo</span> 
@@ -37,39 +37,41 @@
   <div class="spinner"></div>
 </div>
 <div class="row mt-5">
-  <div class="col-md-6 col-lg-4 col-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-6">
-            <h6 class="card-title mb-0">Demo</h6>
-            <p class="text-muted">Demo</p>
-           
+  <ng-container *ngFor="let item of devices; let i = index;" >
+    <div class="col-md-6 col-lg-4  col-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6">
+              <h6 class="card-title mb-0">{{item.name}}</h6>
+              <p class="text-muted">{{item.subName}}</p>
+             
+            </div>
+            <div class="col-6">
+              
+              <button class="btn btn-outline-primary">Sin lecturas</button>
+  
+            </div>
+  
           </div>
-          <div class="col-6">
-            
-            <button class="btn btn-outline-primary">Sin lecturas</button>
-
-          </div>
-
-        </div>
-      
-        <div class="row mt-4 mb-3">
-          <div class="col-6 d-flex justify-content-start">
-            <div>
-              <label class="d-flex align-items-center justify-content-end tx-10 text-uppercase font-weight-medium">Caudal</label>
-              <label class="font-weight-bold mb-0 text-right text-muted">- lts</label>
+        
+          <div class="row mt-4 mb-3">
+            <div class="col-6 d-flex justify-content-start">
+              <div>
+                <label class="d-flex align-items-center justify-content-end tx-10 text-uppercase font-weight-medium">Caudal</label>
+                <label class="font-weight-bold mb-0 text-right text-muted">{{item.flow}}</label>
+              </div>
+            </div>
+            <div class="col-6">
+              <div>
+                <label class="d-flex align-items-center justify-content-start tx-10 text-uppercase font-weight-medium">Irradiación Solar</label>
+                <label class="font-weight-bold mb-0 text-right text-muted">{{item.solarIrradiation}}</label>
+              </div>
             </div>
           </div>
-          <div class="col-6">
-            <div>
-              <label class="d-flex align-items-center justify-content-start tx-10 text-uppercase font-weight-medium">Irradiación Solar</label>
-              <label class="font-weight-bold mb-0 text-right text-muted">- Kw/h</label>
-            </div>
-          </div>
+          <button class="btn btn-primary btn-block">Ver detalle</button>
         </div>
-        <button class="btn btn-primary btn-block">Ver detalle</button>
       </div>
     </div>
-  </div>
+  </ng-container>
 </div>

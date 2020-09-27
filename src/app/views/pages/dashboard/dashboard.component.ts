@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ApexAxisChartSeries, ApexNonAxisChartSeries, ApexGrid, ApexChart, ApexXAxis, ApexYAxis, ApexMarkers, ApexStroke, ApexLegend, ApexResponsive, ApexTooltip, ApexFill, ApexDataLabels, ApexPlotOptions, ApexTitleSubtitle } from 'ng-apexcharts';
+import { ApexAxisChartSeries, ApexNonAxisChartSeries,
+         ApexGrid, ApexChart, ApexXAxis, ApexYAxis, ApexMarkers,
+         ApexStroke, ApexLegend, ApexResponsive, ApexTooltip, ApexFill, ApexDataLabels, ApexPlotOptions, ApexTitleSubtitle } from 'ng-apexcharts';
 
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,6 +12,8 @@ import { Label, Color, SingleDataSet } from 'ng2-charts';
 
 // Progressbar.js
 import ProgressBar from 'progressbar.js';
+import { DevicesService } from 'src/app/services/devices/devices.service';
+import { Router } from '@angular/router';
 
 export type apexChartOptions = {
   series: ApexAxisChartSeries;
@@ -40,6 +44,7 @@ export type apexChartOptions = {
 })
 export class DashboardComponent implements OnInit {
   devices: any[];
+  devicesFilter: any [];
   status = {
     data: null,
     loading: null,
@@ -94,7 +99,7 @@ export class DashboardComponent implements OnInit {
   };
   public ng2BarChart1Labels: Label[] = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   public ng2BarChart1Type: ChartType = 'bar';
-  public ng2BarChart1Colors: Color[] = [ { backgroundColor: "#727cf5" } ]
+  public ng2BarChart1Colors: Color[] = [ { backgroundColor: '#727cf5' } ]
   public ng2BarChart1Legend = false;
   public ng2BarChart1Data: ChartDataSets[] = [
     { data: [150,110,90,115,125,160,190,140,100,110,120,120], label: 'Sales', categoryPercentage: .6, barPercentage: .3 }
@@ -102,7 +107,9 @@ export class DashboardComponent implements OnInit {
 
 
 
-  constructor(private calendar: NgbCalendar) {
+  constructor(private calendar: NgbCalendar,
+              private service: DevicesService,
+              private router: Router) {
 
     /**
      * ApexChart1 options
@@ -470,43 +477,44 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
-    this.currentDate = this.calendar.getToday();
+    this.getData();
+
+    // this.currentDate = this.calendar.getToday();
 
     /**
      * Progressbar1 initialization
      */
-    var progressbar1 = new ProgressBar.Circle('#progressbar1', {
-      color: '#727cf5',
-      trailColor: 'rgba(77, 138, 240, .1)',
-      // This has to be the same size as the maximum width to
-      // prevent clipping
-      strokeWidth: 4,
-      trailWidth: 1,
-      easing: 'easeInOut',
-      duration: 1400,
-      text: {
-        autoStyleContainer: false
-      },
-      from: { color: '#727cf5', width: 1 },
-      to: { color: '#727cf5', width: 4 },
-      // Set default step function for all animate calls
-      step: (state, circle) => {
-        circle.path.setAttribute('stroke', state.color);
-        circle.path.setAttribute('stroke-width', state.width);
-    
-        var value = Math.round(circle.value() * 100);
-        if (value === 0) {
-          circle.setText('');
-        } else {
-          circle.setText(value + '%');
-        }
-    
-      }
-    });
-    progressbar1.text.style.fontFamily = "'Overpass', sans-serif;";
-    progressbar1.text.style.fontSize = '3rem';
-    progressbar1.animate(.78);
+    // var progressbar1 = new ProgressBar.Circle('#progressbar1', {
+    //   color: '#727cf5',
+    //   trailColor: 'rgba(77, 138, 240, .1)',
+    //   // This has to be the same size as the maximum width to
+    //   // prevent clipping
+    //   strokeWidth: 4,
+    //   trailWidth: 1,
+    //   easing: 'easeInOut',
+    //   duration: 1400,
+    //   text: {
+    //     autoStyleContainer: false
+    //   },
+    //   from: { color: '#727cf5', width: 1 },
+    //   to: { color: '#727cf5', width: 4 },
+    //   // Set default step function for all animate calls
+    //   step: (state, circle) => {
+    //     circle.path.setAttribute('stroke', state.color);
+    //     circle.path.setAttribute('stroke-width', state.width);
+
+    //     var value = Math.round(circle.value() * 100);
+    //     if (value === 0) {
+    //       circle.setText('');
+    //     } else {
+    //       circle.setText(value + '%');
+    //     }
+
+    //   }
+    // });
+    // progressbar1.text.style.fontFamily = "'Overpass', sans-serif;";
+    // progressbar1.text.style.fontSize = '3rem';
+    // progressbar1.animate(.78);
 
 
   }
@@ -515,10 +523,32 @@ export class DashboardComponent implements OnInit {
     this.status.data = false;
     this.status.loading = false;
     this.status.error = false;
-    setTimeout(() => {
+    this.service.getDevices().toPromise().then((rsp: any) => {
+      console.log(rsp);
+      this.devices = rsp;
+      this.devicesFilter = rsp;
+    }, err => {
+      console.log(err);
+    });
 
-    }, 3000);
+  }
 
+  filterByCell(filterValue: string): void {
+    this.devices = this.devicesFilter;
+    // console.log(type);
+    // console.log(filterValue);
+    // let approved = this.devices.filter(device => device.name.include(filterValue));
+    // this.devices = approved;
+
+    this.devices = this.devices.filter(function (item) {
+      // return !item.name.includes("1");
+      return item.name.includes(filterValue.toLocaleLowerCase());
+    });
+
+    console.log(this.devices);
+  }
+  goToNewDevice() {
+    this.router.navigate(['/dashboard/new-device']);
   }
 
 }

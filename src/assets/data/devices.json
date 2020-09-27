@@ -1,0 +1,30 @@
+[
+    {
+        "id": "id",
+        "name": "demo1",
+        "subName": "demo1",
+        "flow": "1 lts",
+        "solarIrradiation": "1 Kw/h"
+    },
+    {
+        "id": "id",
+        "name": "demo2",
+        "subName": "demo",
+        "flow": "2 lts",
+        "solarIrradiation": "2 Kw/h"
+    },
+    {
+        "id": "id",
+        "name": "demo 3",
+        "subName": "demo",
+        "flow": "3 lts",
+        "solarIrradiation": "3 Kw/h"
+    },
+    {
+        "id": "id",
+        "name": "demo 4",
+        "subName": "demo",
+        "flow": "4 lts",
+        "solarIrradiation": "4 Kw/h"
+    }
+]
