@@ -522,15 +522,21 @@ export class DashboardComponent implements OnInit {
 
   getData() {
     this.status.data = false;
-    this.status.loading = false;
+    this.status.loading = true;
     this.status.error = false;
-    this.service.getDevices().toPromise().then((rsp: any) => {
-      console.log(rsp);
-      this.devices = rsp;
-      this.devicesFilter = rsp;
-    }, err => {
-      console.log(err);
-    });
+    setTimeout(() => {
+      this.service.getDevices().toPromise().then((rsp: any) => {
+        console.log(rsp);
+        this.devices = rsp;
+        this.devicesFilter = rsp;
+        this.status.data = true;
+        this.status.loading = false;
+      }, err => {
+        console.log(err);
+        this.status.error = true;
+        this.status.loading = false;
+      });
+    }, 3000);
 
   }
 

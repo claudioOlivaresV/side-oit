@@ -17,44 +17,48 @@ export const MENU: MenuItem[] = [
   {
     label: 'Dispositivos',
     icon: 'cpu',
-    subItems: [
-      {
-        label: 'Listado',
-        link: 'dashboard/device-list',
-      },
-      {
-        label: 'Nuevo',
-        link: '/dashboard/new-device'
-      }
-    ]
+    link: 'dashboard/device-list',
+
+    // subItems: [
+    //   {
+    //     label: 'Listado',
+    //     link: 'dashboard/device-list',
+    //   },
+    //   {
+    //     label: 'Nuevo',
+    //     link: '/dashboard/new-device'
+    //   }
+    // ]
   },
   {
     label: 'Usuariarios',
     icon: 'users',
-    subItems: [
-      {
-        label: 'Listado',
-        link: '/dashboard/user-list',
-      },
-      {
-        label: 'Nuevo',
-        link: '/dashboard/new-user'
-      }
-    ]
+    link: '/dashboard/user-list',
+    // subItems: [
+    //   {
+    //     label: 'Listado',
+    //     link: '/dashboard/user-list',
+    //   },
+    //   {
+    //     label: 'Nuevo',
+    //     link: '/dashboard/new-user'
+    //   }
+    // ]
   },
   {
     label: 'Clientes',
     icon: 'briefcase',
-    subItems: [
-      {
-        label: 'Listado',
-        link: '/dashboard/client-list',
-      },
-      {
-        label: 'Nuevo',
-        link: '/dashboard/new-client'
-      }
-    ]
+    link: '/dashboard/client-list',
+    // subItems: [
+    //   {
+    //     label: 'Listado',
+    //     link: '/dashboard/client-list',
+    //   },
+    //   {
+    //     label: 'Nuevo',
+    //     link: '/dashboard/new-client'
+    //   }
+    // ]
   },
   {
     label: 'Configuración',

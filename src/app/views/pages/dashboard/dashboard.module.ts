@@ -22,6 +22,7 @@ import { NewUserComponent } from './new-user/new-user.component';
 import { ClientListComponent } from './client-list/client-list.component';
 import { NewClientComponent } from './new-client/new-client.component';
 import { GeneralComponent } from './general/general.component';
+import { UserList2Component } from './user-list2/user-list2.component';
 
 
 
@@ -44,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'user-list',
-    component: UserListComponent
+    component: UserList2Component
   },
   {
     path: 'new-user',
@@ -65,7 +66,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [DashboardComponent, NewDeviceComponent, DeviceListComponent, DeviceDetailComponent, NewUserComponent, ClientListComponent, NewClientComponent, GeneralComponent],
+  declarations: [DashboardComponent, NewDeviceComponent, DeviceListComponent, DeviceDetailComponent, NewUserComponent, ClientListComponent, NewClientComponent, GeneralComponent, UserList2Component],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

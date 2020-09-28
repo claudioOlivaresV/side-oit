@@ -1,5 +1,5 @@
 
-
+<ng-container *ngIf="status.data && !status.loading && !status.error">
 <div class="row">
   <div class="col-md-4 col-9">
     <h4 class="mb-3 mb-md-0">Dispositivos <span class="badge badge-primary px-3">{{devicesFilter.length}}</span></h4>
@@ -33,45 +33,51 @@
     </button>
   </div>
 </div>
-<div class="spinner-wrapper d-none">
-  <div class="spinner"></div>
-</div>
-<div class="row mt-5">
-  <ng-container *ngFor="let item of devices; let i = index;" >
-    <div class="col-md-6 col-lg-4  col-12 grid-margin stretch-card">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-6">
-              <h6 class="card-title mb-0">{{item.name}}</h6>
-              <p class="text-muted">{{item.subName}}</p>
-             
+
+
+  <div class="row mt-5">
+    <ng-container *ngFor="let item of devices; let i = index;" >
+      <div class="col-md-6 col-lg-4  col-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <h6 class="card-title mb-0">{{item.name}}</h6>
+                <p class="text-muted">{{item.subName}}</p>
+               
+              </div>
+              <div class="col-6">
+                
+                <button class="btn btn-outline-primary" (click)="goToDeviceDetail()" >Sin lecturas</button>
+    
+              </div>
+    
             </div>
-            <div class="col-6">
-              
-              <button class="btn btn-outline-primary" (click)="goToDeviceDetail()" >Sin lecturas</button>
-  
-            </div>
-  
-          </div>
-        
-          <div class="row mt-4 mb-3">
-            <div class="col-6 d-flex justify-content-start">
-              <div>
-                <label class="d-flex align-items-center justify-content-end tx-10 text-uppercase font-weight-medium">Caudal</label>
-                <label class="font-weight-bold mb-0 text-right text-muted">{{item.flow}}</label>
+          
+            <div class="row mt-4 mb-3">
+              <div class="col-6 d-flex justify-content-start">
+                <div>
+                  <label class="d-flex align-items-center justify-content-end tx-10 text-uppercase font-weight-medium">Caudal</label>
+                  <label class="font-weight-bold mb-0 text-right text-muted">{{item.flow}}</label>
+                </div>
+              </div>
+              <div class="col-6">
+                <div>
+                  <label class="d-flex align-items-center justify-content-start tx-10 text-uppercase font-weight-medium">Irradiación Solar</label>
+                  <label class="font-weight-bold mb-0 text-right text-muted">{{item.solarIrradiation}}</label>
+                </div>
               </div>
             </div>
-            <div class="col-6">
-              <div>
-                <label class="d-flex align-items-center justify-content-start tx-10 text-uppercase font-weight-medium">Irradiación Solar</label>
-                <label class="font-weight-bold mb-0 text-right text-muted">{{item.solarIrradiation}}</label>
-              </div>
-            </div>
+            <button class="btn btn-primary btn-block" (click)="goToDeviceDetail()">Ver detalle</button>
           </div>
-          <button class="btn btn-primary btn-block" (click)="goToDeviceDetail()">Ver detalle</button>
         </div>
       </div>
-    </div>
-  </ng-container>
-</div>
+    </ng-container>
+  </div>
+</ng-container>
+<ng-container *ngIf="!status.data && status.loading && !status.error">
+  <div class="spinner-wrapper d-block">
+    <div class="spinner"></div>
+  </div>
+</ng-container>
+
