@@ -1,0 +1,112 @@
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Detalle dispositivo: DEMO</li>
+    </ol>
+</nav>
+
+<div class="card my-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 col-6">
+                <h6 class="card-title mb-0">Demo</h6>
+                <p class="text-muted">Ñuñoa</p>
+            </div>
+            <div class="d-block d-md-none col-6">
+                <h6 class="card-title mb-0">Última Lectura</h6>
+                <h6> <span class="badge badge-primary">Sin Lecturas</span></h6>
+            </div>
+            <div class="col-md-9 col-12">
+                <div class="row mt-3 mt-md-0">
+                    <div class="col-md-3 col-4 d-none d-md-block">
+                        <h6 class="card-title mb-0">Última Lectura</h6>
+                        <h6> <span class="badge badge-primary">Sin Lecturas</span></h6>
+                    </div>
+                    <div class="col-md-9 col-12">
+                        <h6 class="card-title mb-0">Caudal</h6>
+                        <p class="mb-3">
+                            <ngb-progressbar type="primary" [value]="25" [showValue]="true"></ngb-progressbar>
+                        </p>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8 col-12">
+                <h6 class="card-title">Gráficos</h6>
+                <p class="card-description mb-0">Data {{type}}</p>
+            </div>
+            <div class="col-md-4 col-12 px-0 mt-3 mt-md-0">
+                <div class="form-group">
+                    <label for="exampleInputUsercalculation2" class="col-12 py-0 col-form-label">Tipo de dato</label>
+                    <div class="col-12">
+                        <select class="custom-select form-control" id="exampleFormControlSelect1" [(ngModel)]="type">
+                            <option value="caudal" selected>Caudal</option>
+                            <option value="solar">Irradación Solar</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <ng-container *ngIf="type === 'caudal' ">
+                <div class="col-12 mt-3">
+                 
+                    
+                          <div class="row align-items-start mb-2">
+                           
+                            <div class="col-12 d-flex justify-content-center justify-content-md-end">
+                              <div class="btn-group mb-3 mb-md-0" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-outline-primary">Today</button>
+                                <button type="button" class="btn btn-outline-primary d-none d-md-block">Week</button>
+                                <button type="button" class="btn btn-primary">Month</button>
+                                <button type="button" class="btn btn-outline-primary">Year</button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="flot-wrapper">
+                            <apx-chart
+                              [series]="apexChart4Options.series"
+                              [colors]="apexChart4Options.colors"
+                              [chart]="apexChart4Options.chart"
+                              [markers]="apexChart4Options.markers"
+                              [grid]="apexChart4Options.grid"
+                              [xaxis]="apexChart4Options.xaxis"
+                              [yaxis]="apexChart4Options.yaxis"
+                              [stroke]="apexChart4Options.stroke"
+                              [tooltip]="apexChart4Options.tooltip"
+                            ></apx-chart>
+                          </div>
+                     
+    
+                </div>
+            </ng-container>
+            <ng-container *ngIf="type === 'solar' " >
+                <div class="col-12">
+                    <div class="monthly-sales-chart-wrapper">
+                        <!-- <canvas id="monthly-sales-chart"></canvas> -->
+                        <canvas baseChart 
+                          [datasets]="ng2BarChart1Data"
+                          [labels]="ng2BarChart1Labels"
+                          [options]="ng2BarChart1Options"
+                          [colors]="ng2BarChart1Colors"
+                          [legend]="ng2BarChart1Legend"
+                          [chartType]="ng2BarChart1Type">
+                        </canvas>
+                      </div>
+    
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

@@ -43,6 +43,7 @@ export type apexChartOptions = {
   preserveWhitespaces: true
 })
 export class DashboardComponent implements OnInit {
+  myModel:string;
   devices: any[];
   devicesFilter: any [];
   status = {
@@ -533,14 +534,14 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  filterByCell(filterValue: string): void {
+  filterByCell(filterValue :any): void {
     this.devices = this.devicesFilter;
     // console.log(type);
     // console.log(filterValue);
     // let approved = this.devices.filter(device => device.name.include(filterValue));
     // this.devices = approved;
 
-    this.devices = this.devices.filter(function (item) {
+    this.devices = this.devices.filter( (item) => {
       // return !item.name.includes("1");
       return item.name.includes(filterValue.toLocaleLowerCase());
     });
@@ -549,6 +550,9 @@ export class DashboardComponent implements OnInit {
   }
   goToNewDevice() {
     this.router.navigate(['/dashboard/new-device']);
+  }
+  goToDeviceDetail() {
+    this.router.navigate(['/dashboard/device-detail']);
   }
 
 }

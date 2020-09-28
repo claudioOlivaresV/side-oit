@@ -20,7 +20,7 @@
             <i class="feather icon-search"></i>
           </div>
         </div>
-        <input type="text" class="form-control" id="navbarForm" placeholder="Search here..." (keyup)="filterByCell($event.target.value)">
+        <input type="text" class="form-control" id="navbarForm" placeholder="Search here..." (keyup)="filterByCell(myModel)" [(ngModel)]="myModel" name="filter">
       </div>
     </form>
   </div>
@@ -49,7 +49,7 @@
             </div>
             <div class="col-6">
               
-              <button class="btn btn-outline-primary">Sin lecturas</button>
+              <button class="btn btn-outline-primary" (click)="goToDeviceDetail()" >Sin lecturas</button>
   
             </div>
   
@@ -69,7 +69,7 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-primary btn-block">Ver detalle</button>
+          <button class="btn btn-primary btn-block" (click)="goToDeviceDetail()">Ver detalle</button>
         </div>
       </div>
     </div>

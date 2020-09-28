@@ -1,0 +1,153 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/dashboard/user-list">Usuarios</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Nuevo Usuario</li>
+    </ol>
+</nav>
+<form class="forms-sample" [formGroup]="form">
+    <div class="card mt-3">
+
+        <div class="card-body">
+            <h6 class="card-title">Agregar Usuario</h6>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 col-md-6"> 
+                          
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2"
+                                        class="col-sm-12 col-form-label">Nombre</label>
+                                    <div class="col-12 col-md-10">
+                                        <input type="email" class="form-control" id="exampleInputEmail2"
+                                            autocomplete="off" placeholder="Nombre" formControlName="name"
+                                            [ngClass]="{ 'is-invalid': form.controls.name.invalid && form.controls.name.touched}">
+                                        <div *ngIf="form.controls.name.invalid" class="invalid-feedback">
+                                            <p class="text-danger mt-1">Dato Obligatorio</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                        <div class="col-12 col-md-6">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2"
+                                        class="col-sm-12 col-form-label">Cargo</label>
+                                    <div class="col-12 col-md-10">
+                                        <input type="email" class="form-control" id="exampleInputEmail2"
+                                            autocomplete="off" placeholder="Nombre" formControlName="position"
+                                            [ngClass]="{ 'is-invalid': form.controls.position.invalid && form.controls.position.touched}">
+                                        <div *ngIf="form.controls.position.invalid" class="invalid-feedback">
+                                            <p class="text-danger mt-1">Dato Obligatorio</p>
+                                        </div>
+                                    </div>
+                                </div>
+                           
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputUsercalculation2"
+                                    class="col-sm-12 col-form-label">Rol</label>
+                                <div class="col-12 col-md-10">
+                                    <select class="custom-select form-control"
+                                        id="exampleFormControlSelect1" formControlName="role"
+                                        [ngClass]="{ 'is-invalid': form.controls.role.invalid && form.controls.role.touched}">
+                                        <option selected disabled>Seleccione un cliente</option>
+                                        <option>Cliente 1</option>
+                                        <option>Cliente 2</option>
+                                        <option>Cliente 3</option>
+                                        <option>Cliente 4</option>
+                                        <option>Cliente 5</option>
+                                    </select>
+                                    <div *ngIf="form.controls.role.invalid" class="invalid-feedback">
+                                        <p class="text-danger mt-1">Dato Obligatorio</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputUsercalculation2"
+                                    class="col-sm-12 col-form-label">Cliente</label>
+                                <div class="col-12 col-md-10">
+                                    <select class="custom-select form-control"
+                                        id="exampleFormControlSelect1" formControlName="client"
+                                        [ngClass]="{ 'is-invalid': form.controls.client.invalid && form.controls.client.touched}">
+                                        <option selected disabled>Seleccione un cliente</option>
+                                        <option>Cliente 1</option>
+                                        <option>Cliente 2</option>
+                                        <option>Cliente 3</option>
+                                        <option>Cliente 4</option>
+                                        <option>Cliente 5</option>
+                                    </select>
+                                    <div *ngIf="form.controls.client.invalid" class="invalid-feedback">
+                                        <p class="text-danger mt-1">Dato Obligatorio</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword2"
+                                    class="col-sm-12 col-form-label">Correo electrónico</label>
+                                <div class="col-12 col-md-10">
+                                    <input type="email" class="form-control" id="exampleInputPassword2"
+                                        autocomplete="off" placeholder="" formControlName="email"
+                                        [ngClass]="{ 'is-invalid': form.controls.email.invalid && form.controls.email.touched}">
+                                    <div *ngIf="form.controls.email.invalid" class="invalid-feedback">
+                                        <p class="text-danger mt-1">Dato Obligatorio, Ingrese un correo válido</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword2"
+                                    class="col-sm-12 col-form-label">Contraseña</label>
+                                <div class="col-12 col-md-10">
+                                    <input type="password" class="form-control" id="exampleInputPassword2"
+                                        autocomplete="off" placeholder="" formControlName="password"
+                                        [ngClass]="{ 'is-invalid': form.controls.password.invalid && form.controls.password.touched}">
+                                    <div *ngIf="form.controls.password.invalid" class="invalid-feedback">
+                                        <p class="text-danger mt-1">Dato Obligatorio</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+            
+                    <div class="row">
+                        <div class="col-12 px-4 mt-3">
+
+                            <button type="submit" class="btn btn-primary mr-2" (click)="save(form.value)"
+                                [disabled]="form.invalid || status.loading">
+                                <ng-container *ngIf="status.loading">
+                                    <span class="spinner-grow spinner-grow-sm mr-1" role="status"
+                                        aria-hidden="true"></span>
+                                    <span>Cargando</span>
+                                </ng-container>
+                                <ng-container *ngIf="!status.loading">
+                                    Guardar
+                                </ng-container>
+
+                            </button>
+                            <button class="btn btn-light">Cancel</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

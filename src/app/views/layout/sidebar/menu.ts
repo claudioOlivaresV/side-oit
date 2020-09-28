@@ -34,11 +34,11 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Listado',
-        link: '/apps/email/inbox',
+        link: '/dashboard/user-list',
       },
       {
         label: 'Nuevo',
-        link: '/apps/email/read'
+        link: '/dashboard/new-user'
       }
     ]
   },
@@ -48,11 +48,11 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: 'Listado',
-        link: '/apps/email/inbox',
+        link: '/dashboard/client-list',
       },
       {
         label: 'Nuevo',
-        link: '/apps/email/read'
+        link: '/dashboard/new-client'
       }
     ]
   },
@@ -63,7 +63,7 @@ export const MENU: MenuItem[] = [
   {
     label: 'General',
     icon: 'settings',
-    link: '/dashboard'
+    link: '/dashboard/general'
   },
   // {
   //   label: 'Chat',

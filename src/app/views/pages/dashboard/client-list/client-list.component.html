@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Dispositivos</li>
+        <li class="breadcrumb-item active" aria-current="page">Clientes</li>
     </ol>
 </nav>
 
@@ -12,8 +12,8 @@
         <div class="card-body">
           <div class="row">
               <div class="col-6">
-                  <h6 class="card-title">Dispositivos</h6>
-                  <p class="card-description mb-0">Lista de dispositivos</p>
+                  <h6 class="card-title">Clientes</h6>
+                  <p class="card-description mb-0">Lista de clientes</p>
               </div>
               <div class="col-3">
                 <button class="btn btn-outline-primary w-100">Exportar</button>
@@ -22,7 +22,7 @@
                 <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center">
   
                     <i class="btn-icon-prepend mr-0 " data-feather="plus-circle" appFeatherIcon></i>
-                    <span class="d-none ml-2 d-md-block" (click)="goToNewDevice()">Agregar Dispositivo</span> 
+                    <span class="d-none ml-2 d-md-block" (click)="goToNewClient()">Agregar Cliente</span> 
                  
                 </button>
 
@@ -34,12 +34,12 @@
             <table id="dataTableExample" class="table">
               <thead>
                 <tr>
-                  <th>Descripción</th>
-                  <th>N° Serie</th>
-                  <th>Ubicación</th>
-                  <th>Sensores</th>
-                  <th>Lectura</th>
-                  <th>Fecha Lectura</th>
+                  <th>Nombre</th>
+                  <th>Razon Social</th>
+                  <th>Rut</th>
+                  <th>Región</th>
+                  <th>Correo electrónico</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -236,4 +236,5 @@
       </div>
     </div>
   </div>
+
 

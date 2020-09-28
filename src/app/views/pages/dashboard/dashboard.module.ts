@@ -16,6 +16,12 @@ import { DashboardComponent } from './dashboard.component';
 import { NewDeviceComponent } from './new-device/new-device.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { DeviceListComponent } from './device-list/device-list.component';
+import { DeviceDetailComponent } from './device-detail/device-detail.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { NewUserComponent } from './new-user/new-user.component';
+import { ClientListComponent } from './client-list/client-list.component';
+import { NewClientComponent } from './new-client/new-client.component';
+import { GeneralComponent } from './general/general.component';
 
 
 
@@ -31,11 +37,35 @@ const routes: Routes = [
   {
     path: 'device-list',
     component: DeviceListComponent
+  },
+  {
+    path: 'device-detail',
+    component: DeviceDetailComponent
+  },
+  {
+    path: 'user-list',
+    component: UserListComponent
+  },
+  {
+    path: 'new-user',
+    component: NewUserComponent
+  },
+  {
+    path: 'client-list',
+    component: ClientListComponent
+  },
+  {
+    path: 'new-client',
+    component: NewClientComponent
+  },
+  {
+    path: 'general',
+    component: GeneralComponent
   }
 ]
 
 @NgModule({
-  declarations: [DashboardComponent, NewDeviceComponent, DeviceListComponent],
+  declarations: [DashboardComponent, NewDeviceComponent, DeviceListComponent, DeviceDetailComponent, NewUserComponent, ClientListComponent, NewClientComponent, GeneralComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
