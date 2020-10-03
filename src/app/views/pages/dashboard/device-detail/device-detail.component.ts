@@ -299,5 +299,6 @@ export class DeviceDetailComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
 
 }

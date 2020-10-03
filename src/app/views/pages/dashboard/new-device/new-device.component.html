@@ -1,22 +1,16 @@
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="">Home</a></li>
-        <li class="breadcrumb-item"><a routerLink="/dashboard/device-list">Dispositivos</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Nuevo Dispositivo</li>
-    </ol>
-</nav>
 
 
 
+<!-- 
 <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs mt-3">
     <li [ngbNavItem]="1">
         <a ngbNavLink>Nuevo Dispositivo</a>
-        <ng-template ngbNavContent>
+        <ng-template ngbNavContent> -->
             <form class="forms-sample" [formGroup]="form">
-                <div class="card">
+                <!-- <div class="card">
 
                     <div class="card-body">
-                        <h6 class="card-title">Agregar Dispositivo</h6>
+                        <h6 class="card-title">Agregar Dispositivo</h6> -->
 
                         <div class="row">
                             <div class="col-12">
@@ -24,7 +18,7 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputUsercalculation2"
-                                                class="col-sm-12 col-form-label">Cliente</label>
+                                                class="col-sm-12 col-form-label mb-0">Cliente</label>
                                             <div class="col-12 col-md-10">
                                                 <select class="custom-select form-control"
                                                     id="exampleFormControlSelect1" formControlName="client"
@@ -44,8 +38,8 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail2"
-                                                class="col-sm-12 col-form-label">Nombre</label>
+                                            <label for="exampleInputEmail2" 
+                                                class="col-sm-12 col-form-label mb-0">Nombre</label>
                                             <div class="col-12 col-md-10">
                                                 <input type="email" class="form-control" id="exampleInputEmail2"
                                                     autocomplete="off" placeholder="Nombre" formControlName="name"
@@ -62,7 +56,7 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputMobile"
-                                                class="col-sm-12 col-form-label">Descripción</label>
+                                                class="col-sm-12 col-form-label mb-0">Descripción</label>
                                             <div class="col-12 col-md-10">
                                                 <input type="text" class="form-control" id="exampleInputMobile"
                                                     placeholder="" formControlName="description"
@@ -75,7 +69,7 @@
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleInputPassword2" class="col-sm-12 col-form-label">Número
+                                            <label for="exampleInputPassword2" class="col-sm-12 col-form-label mb-0">Número
                                                 de Serie</label>
                                             <div class="col-12 col-md-10">
                                                 <input type="text" class="form-control" id="exampleInputPassword2"
@@ -94,7 +88,7 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputPassword2"
-                                                class="col-sm-12 col-form-label">Ubicación</label>
+                                                class="col-sm-12 col-form-label mb-0">Ubicación</label>
                                             <div class="col-12 col-md-10">
                                                 <input type="text" class="form-control" id="exampleInputPassword2"
                                                     autocomplete="off" placeholder="" formControlName="location"
@@ -108,7 +102,7 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputPassword2"
-                                                class="col-sm-12 col-form-label">Latitud</label>
+                                                class="col-sm-12 col-form-label mb-0">Latitud</label>
                                             <div class="col-12 col-md-10">
                                                 <input type="text" class="form-control" id="exampleInputPassword2"
                                                     autocomplete="off" placeholder="" formControlName="latitude"
@@ -126,7 +120,7 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputPassword2"
-                                                class="col-sm-12 col-form-label">Longitud</label>
+                                                class="col-sm-12 col-form-label mb-0">Longitud</label>
                                             <div class="col-12 col-md-10">
                                                 <input type="text" class="form-control" id="exampleInputPassword2"
                                                     autocomplete="off" placeholder="" formControlName="length"
@@ -141,7 +135,7 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputPassword2"
-                                                class="col-sm-12 col-form-label">Altura</label>
+                                                class="col-sm-12 col-form-label mb-0">Altura</label>
                                             <div class="col-12 col-md-10">
                                                 <input type="text" class="form-control" id="exampleInputPassword2"
                                                     autocomplete="off" placeholder="" formControlName="height"
@@ -160,7 +154,7 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputPassword2"
-                                                class="col-sm-12 col-form-label">Sensores</label>
+                                                class="col-sm-12 col-form-label mb-0">Sensores</label>
                                             <div class="col-12 col-md-10">
                                                 <input type="text" class="form-control" id="exampleInputPassword2"
                                                     autocomplete="off" placeholder="" formControlName="sensors"
@@ -195,11 +189,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    <!-- </div>
+                </div> -->
             </form>
-        </ng-template>
-    </li>
+        <!-- </ng-template> -->
+    <!-- </li>
     <li [ngbNavItem]="2">
         <a ngbNavLink>Sensores</a>
         <ng-template ngbNavContent>
@@ -326,4 +320,4 @@
     </li>
 </ul>
 
-<div [ngbNavOutlet]="nav" class="mt-2"></div>
+<div [ngbNavOutlet]="nav" class="mt-2"></div> -->

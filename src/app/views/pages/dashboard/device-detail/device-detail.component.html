@@ -9,32 +9,54 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-3 col-6">
-                <h6 class="card-title mb-0">Demo</h6>
-                <p class="text-muted">Ñuñoa</p>
+                <h6 class="card-title mb-0">Nombre dispositivo</h6>
+                <p class="text-muted">N° de serie</p>
+               
             </div>
-            <div class="d-block d-md-none col-6">
+            <div class="col-md-3">
                 <h6 class="card-title mb-0">Última Lectura</h6>
-                <h6> <span class="badge badge-primary">Sin Lecturas</span></h6>
+                <p class="text-muted">03-10-2020 14:05</p>
             </div>
-            <div class="col-md-9 col-12">
-                <div class="row mt-3 mt-md-0">
-                    <div class="col-md-3 col-4 d-none d-md-block">
-                        <h6 class="card-title mb-0">Última Lectura</h6>
-                        <h6> <span class="badge badge-primary">Sin Lecturas</span></h6>
-                    </div>
-                    <div class="col-md-9 col-12">
-                        <h6 class="card-title mb-0">Caudal</h6>
-                        <p class="mb-3">
-                            <ngb-progressbar type="primary" [value]="25" [showValue]="true"></ngb-progressbar>
-                        </p>
-
-
-                    </div>
-
-                </div>
-
+            <div class="col-md-2">
+                <h6 class="card-title mb-0">Rendimiento</h6>
+                <p class="text-muted">rendimiento</p>
             </div>
+            <div class="col-2 ">
+                <h6 class="card-title mb-0"> Estado</h6>
+                <p class="text-muted">Activo</p>
+            </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-danger btn-icon-text">
+                    <i class="feather icon-slash btn-icon-prepend"></i>
+                    Desactivar
+                  </button>
+            </div>
+           
 
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h6 class="card-title mb-1">Sensor  OnOff</h6>
+                <button type="button" class="btn btn-danger btn-icon-text" >
+                    <i class="feather icon-toggle-left btn-icon-prepend"></i>
+                    off
+                  </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h6 class="card-title mb-1">Sensor  OnOff</h6>
+                <button type="button" class="btn btn-success btn-icon-text" >
+                    <i class="feather icon-toggle-right btn-icon-prepend"></i>
+                    on
+                  </button>
+            </div>
         </div>
     </div>
 </div>
@@ -48,7 +70,7 @@
             </div>
             <div class="col-md-4 col-12 px-0 mt-3 mt-md-0">
                 <div class="form-group">
-                    <label for="exampleInputUsercalculation2" class="col-12 py-0 col-form-label">Tipo de dato</label>
+                    <label for="exampleInputUsercalculation2" class="col-12 py-0 col-form-label">Tipo de sensor</label>
                     <div class="col-12">
                         <select class="custom-select form-control" id="exampleFormControlSelect1" [(ngModel)]="type">
                             <option value="caudal" selected>Caudal</option>

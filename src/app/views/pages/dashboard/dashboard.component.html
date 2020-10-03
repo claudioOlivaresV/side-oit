@@ -5,7 +5,8 @@
     <h4 class="mb-3 mb-md-0">Dispositivos <span class="badge badge-primary px-3">{{devicesFilter.length}}</span></h4>
   </div>
   <div class="d-block d-md-none col-3">
-    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" (click)="goToNewDevice()">
+    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" 
+    data-toggle="modal" data-target="#exampleModal">
   
         <i class="btn-icon-prepend mr-0 " data-feather="plus-circle" appFeatherIcon></i>
         <span class="d-none ml-2 d-md-block">Agregar Dispositivo</span> 
@@ -25,7 +26,8 @@
     </form>
   </div>
   <div class="d-none d-md-block col-md-4">
-    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" (click)="goToNewDevice()" >
+    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" 
+    (click)="openBasicModal(basicModal)">
   
         <i class="btn-icon-prepend mr-0 " data-feather="plus-circle" appFeatherIcon></i>
         <span class="d-none ml-2 d-md-block">Agregar Dispositivo</span> 
@@ -40,6 +42,10 @@
       <div class="col-md-6 col-lg-4  col-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
+       
+            <div class=" position-absolute cicle rounded-circle on"></div>
+   
+
             <div class="row">
               <div class="col-6">
                 <h6 class="card-title mb-0">{{item.name}}</h6>
@@ -81,3 +87,207 @@
   </div>
 </ng-container>
 
+<ng-template #basicModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+    <button type="button" class="close" (click)="modal.close('by: close icon')" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="forms-sample" [formGroup]="form">
+              <div class="row">
+                  <div class="col-12">
+                      <div class="row">
+                          <div class="col-12 col-md-6">
+                              <div class="form-group">
+                                  <label for="exampleInputUsercalculation2"
+                                      class="col-sm-12 col-form-label">Cliente</label>
+                                  <div class="col-12 col-md-10">
+                                      <select class="custom-select form-control"
+                                          id="exampleFormControlSelect1" formControlName="client"
+                                          [ngClass]="{ 'is-invalid': form.controls.client.invalid && form.controls.client.touched}">
+                                          <option selected disabled>Seleccione un cliente</option>
+                                          <option>Cliente 1</option>
+                                          <option>Cliente 2</option>
+                                          <option>Cliente 3</option>
+                                          <option>Cliente 4</option>
+                                          <option>Cliente 5</option>
+                                      </select>
+                                      <div *ngIf="form.controls.client.invalid" class="invalid-feedback">
+                                          <p class="text-danger mt-1">Dato Obligatorio</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                              <div class="form-group">
+                                  <label for="exampleInputEmail2"
+                                      class="col-sm-12 col-form-label">Nombre</label>
+                                  <div class="col-12 col-md-10">
+                                      <input type="email" class="form-control" id="exampleInputEmail2"
+                                          autocomplete="off" placeholder="Nombre" formControlName="name"
+                                          [ngClass]="{ 'is-invalid': form.controls.name.invalid && form.controls.name.touched}">
+                                      <div *ngIf="form.controls.name.invalid" class="invalid-feedback">
+                                          <p class="text-danger mt-1">Dato Obligatorio</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                      <div class="row">
+                          <div class="col-12 col-md-6">
+                              <div class="form-group">
+                                  <label for="exampleInputMobile"
+                                      class="col-sm-12 col-form-label">Descripción</label>
+                                  <div class="col-12 col-md-10">
+                                      <input type="text" class="form-control" id="exampleInputMobile"
+                                          placeholder="" formControlName="description"
+                                          [ngClass]="{ 'is-invalid': form.controls.description.invalid && form.controls.description.touched}">
+                                      <div *ngIf="form.controls.description.invalid" class="invalid-feedback">
+                                          <p class="text-danger mt-1">Dato Obligatorio</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                              <div class="form-group">
+                                  <label for="exampleInputPassword2" class="col-sm-12 col-form-label">Número
+                                      de Serie</label>
+                                  <div class="col-12 col-md-10">
+                                      <input type="text" class="form-control" id="exampleInputPassword2"
+                                          autocomplete="off" placeholder="" formControlName="serialNumber"
+                                          [ngClass]="{ 'is-invalid': form.controls.serialNumber.invalid && form.controls.serialNumber.touched}">
+                                      <div *ngIf="form.controls.serialNumber.invalid"
+                                          class="invalid-feedback">
+                                          <p class="text-danger mt-1">Dato Obligatorio</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                      </div>
+                      <div class="row">
+                          <div class="col-12 col-md-6">
+                              <div class="form-group">
+                                  <label for="exampleInputPassword2"
+                                      class="col-sm-12 col-form-label">Ubicación</label>
+                                  <div class="col-12 col-md-10">
+                                      <input type="text" class="form-control" id="exampleInputPassword2"
+                                          autocomplete="off" placeholder="" formControlName="location"
+                                          [ngClass]="{ 'is-invalid': form.controls.location.invalid && form.controls.location.touched}">
+                                      <div *ngIf="form.controls.location.invalid" class="invalid-feedback">
+                                          <p class="text-danger mt-1">Dato Obligatorio</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-12 col-md-6">
+                              <div class="form-group">
+                                  <label for="exampleInputPassword2"
+                                      class="col-sm-12 col-form-label">Latitud</label>
+                                  <div class="col-12 col-md-10">
+                                      <input type="text" class="form-control" id="exampleInputPassword2"
+                                          autocomplete="off" placeholder="" formControlName="latitude"
+                                          [ngClass]="{ 'is-invalid': form.controls.latitude.invalid && form.controls.latitude.touched}">
+                                      <div *ngIf="form.controls.latitude.invalid" class="invalid-feedback">
+                                          <p class="text-danger mt-1">Dato Obligatorio</p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+
+                      </div>
+                      <div class="row">
+                          <div class="col-12 col-md-6">
+                              <div class="form-group">
+                                  <label for="exampleInputPassword2"
+                                      class="col-sm-12 col-form-label">Longitud</label>
+                                  <div class="col-12 col-md-10">
+                                      <input type="text" class="form-control" id="exampleInputPassword2"
+                                          autocomplete="off" placeholder="" formControlName="length"
+                                          [ngClass]="{ 'is-invalid': form.controls.length.invalid && form.controls.length.touched}">
+                                      <div *ngIf="form.controls.length.invalid" class="invalid-feedback">
+                                          <p class="text-danger mt-1">Dato Obligatorio</p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+                          <div class="col-12 col-md-6">
+                              <div class="form-group">
+                                  <label for="exampleInputPassword2"
+                                      class="col-sm-12 col-form-label">Altura</label>
+                                  <div class="col-12 col-md-10">
+                                      <input type="text" class="form-control" id="exampleInputPassword2"
+                                          autocomplete="off" placeholder="" formControlName="height"
+                                          [ngClass]="{ 'is-invalid': form.controls.height.invalid && form.controls.height.touched}">
+                                      <div *ngIf="form.controls.height.invalid" class="invalid-feedback">
+                                          <p class="text-danger mt-1">Dato Obligatorio</p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+
+
+                      </div>
+                      <div class="row">
+                          <div class="col-12 col-md-6">
+                              <div class="form-group">
+                                  <label for="exampleInputPassword2"
+                                      class="col-sm-12 col-form-label">Sensores</label>
+                                  <div class="col-12 col-md-10">
+                                      <input type="text" class="form-control" id="exampleInputPassword2"
+                                          autocomplete="off" placeholder="" formControlName="sensors"
+                                          [ngClass]="{ 'is-invalid': form.controls.sensors.invalid && form.controls.sensors.touched}">
+                                      <div *ngIf="form.controls.sensors.invalid" class="invalid-feedback">
+                                          <p class="text-danger mt-1">Dato Obligatorio</p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-12 px-4 mt-3">
+
+                              <button type="submit" class="btn btn-primary mr-2" (click)="save(form.value)"
+                                  [disabled]="form.invalid || statusSave.loading">
+                                  <ng-container *ngIf="statusSave.loading">
+                                      <span class="spinner-grow spinner-grow-sm mr-1" role="statusSave"
+                                          aria-hidden="true"></span>
+                                      <span>Cargando</span>
+                                  </ng-container>
+                                  <ng-container *ngIf="!statusSave.loading">
+                                      Guardar
+                                  </ng-container>
+
+                              </button>
+                              <button class="btn btn-light">Cancel</button>
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
+  </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary"  (click)="modal.close('by: close button')">Close</button>
+    <button type="submit" class="btn btn-primary mr-2" (click)="save(form.value, modal)"
+    [disabled]="form.invalid || statusSave.loading">
+    <ng-container *ngIf="statusSave.loading">
+        <span class="spinner-grow spinner-grow-sm mr-1" role="statusSave"
+            aria-hidden="true"></span>
+        <span>Cargando</span>
+    </ng-container>
+    <ng-container *ngIf="!statusSave.loading">
+        Guardar
+    </ng-container>
+
+</button>
+  </div>
+</ng-template>
