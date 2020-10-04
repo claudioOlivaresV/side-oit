@@ -86,16 +86,10 @@
             </div>
             <div class="col-md-4 mt-5">
                 <button type="submit" class="btn btn-primary mr-2 w-100" (click)="saveSensor(form.value)"
-                            [disabled]="form.invalid || statusSave.loading">
-                            <ng-container *ngIf="statusSave.loading">
-                                <span class="spinner-grow spinner-grow-sm mr-1" role="status"
-                                    aria-hidden="true"></span>
-                                <span>Cargando</span>
-                            </ng-container>
-                            <ng-container *ngIf="!statusSave.loading">
+                            [disabled]="form.invalid">
+                       
                                 Agregar
-                            </ng-container>
-      
+
                         </button>
       
             </div>
@@ -114,16 +108,19 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Prefijo</td>
-                <td>Sensor</td>
-                <td>Primer sensor</td>
-                <td>3</td>
-                <td>lts</td>
-                <td><button type="button" class="btn btn-primary btn-icon">
-                  <i class="feather icon-check-square"></i>
-                </button></td>
-              </tr>
+                <ng-container *ngFor="let sensor of sensors; let i = index;" >
+                    <tr>
+                      <td>{{sensor.preFixed}}</td>
+                      <td>{{sensor.nameSensor}}</td>
+                      <td>{{sensor.desciptionSensor}}</td>
+                      <td>{{sensor.calculation}}</td>
+                      <td>{{sensor.type}}</td>
+                      <td>
+                       <button (click)="removeSensor(i)" type="button" class="btn btn-primary btn-icon">
+                        <i class="feather icon-check-square"></i>
+                      </button></td>
+                    </tr>
+                </ng-container>
             </tbody>
           </table>
         </div>

@@ -21,6 +21,7 @@ export class AddSensorComponent implements OnInit {
     loading: null,
     error: null
   }
+  sensors = [];
   types: any [];
   form: FormGroup;
 
@@ -38,8 +39,11 @@ export class AddSensorComponent implements OnInit {
     console.log(this.device);
     this.getType();
   }
-  saveSensor(){
-
+  saveSensor(value){
+    this.sensors.push(value);
+  }
+  removeSensor(index){
+    this.sensors.splice(index, 1);
   }
   getType() {
     this.statusType.data = false;

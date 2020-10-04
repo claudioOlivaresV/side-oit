@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
@@ -11,18 +11,29 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 export class DevicesService {
 
   constructor(private http: HttpClient, private firestore: AngularFirestore) { }
-
+  // dashboard
   public getDevices() {
     // return this.http.get(environment.baseUrl + environment.api.getDevices);
      return this.http.get('./assets/data/devices.json');
   }
+  // device maintainer
   public getDevicesData() {
-    // return this.http.get(environment.baseUrl + environment.api.getDevices);
-     return this.http.get('./assets/data/devicesData.json');
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.get(environment.baseUrl + environment.api.deviceData, { headers });
   }
+  public addDevice(device) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.deviceData, device, { headers });
+  }
+
+  // cliente maintainer
   public getCliente() {
-    // return this.http.get(environment.baseUrl + environment.api.getDevices);
-     return this.http.get('./assets/data/clientes.json');
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.get(environment.baseUrl + environment.api.clienteData, { headers });
+    //  return this.http.get('./assets/data/clientes.json');
   }
   public getType() {
     // return this.http.get(environment.baseUrl + environment.api.getDevices);

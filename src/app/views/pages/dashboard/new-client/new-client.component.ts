@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +18,7 @@ export class NewClientComponent implements OnInit {
     error: null
   }
 
-  constructor() {
+  constructor(public activeModal: NgbActiveModal) {
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
       businessName: new FormControl('', Validators.required),
@@ -45,6 +46,9 @@ export class NewClientComponent implements OnInit {
       });
     }, 3000);
     console.log(values);
+  }
+  closeModal() {
+    this.activeModal.close();
   }
 
 }

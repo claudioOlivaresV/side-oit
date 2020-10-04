@@ -53,11 +53,19 @@ export class NewDeviceComponent implements OnInit {
     this.status.loading = true;
     this.status.error = false;
       this.service.getCliente().toPromise().then((rsp: any) => {
-        setTimeout(() => {
-          this.clients = rsp;
+        console.log(rsp);
+          this.clients = rsp.data.map((data) => {
+          let object = {};
+            if(data.activo){
+              object = {
+                idClient: data.idCliente,
+                name: data.nombre,
+              }
+            }
+            return object;
+          });
           this.status.data = true;
           this.status.loading = false;
-        }, 2000);
       }, err => {
         this.status.error = true;
         this.status.loading = false;
@@ -65,8 +73,19 @@ export class NewDeviceComponent implements OnInit {
   }
 
   save(values) {
+    const device = {
+      option: 'CREAR-DISPOSITIVO',
+      idCliente: values.client ,
+      nombre: values.name,
+      descripcion: values.description,
+      numeroSerie: values.serialNumber,
+      ubicacion: values.location,
+      latitud: values.latitude,
+      longitud: values.length,
+      altura: values.height,
+      intervaloTiempo: values.timeInterval
+    }
     this.statusSave.loading = true;
-    setTimeout(() => {
       this.statusSave.loading = false;
       if(this.device.isEdit) {
         this.activeModal.close();
@@ -75,12 +94,20 @@ export class NewDeviceComponent implements OnInit {
         );
 
       } else {
-        this.activeModal.close();
-        Swal.fire(
-          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo agregado', icon: 'success'}
-        );
+        this.service.addDevice(device).toPromise().then((rsp: any) => {
+            this.statusSave.loading = false;
+            this.activeModal.close(true);
+            Swal.fire(
+              { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo agregado', icon: 'success'}
+            );
+        }, err => {
+          this.statusSave.error = true;
+          this.statusSave.loading = false;
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning'}
+          );
+        });
       }
-    }, 3000);
   }
   closeModal(){
     this.activeModal.close();

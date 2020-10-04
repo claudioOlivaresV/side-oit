@@ -30,6 +30,8 @@ export class DeviceListComponent implements OnInit {
 
   modalReference: any;
   basicModalCloseResult = '';
+  myModel:string;
+
 
 
   constructor(private router: Router,  private modalService: NgbModal,private service: DevicesService) {
@@ -54,11 +56,46 @@ export class DeviceListComponent implements OnInit {
     this.status.data = false;
     this.status.loading = true;
     this.status.error = false;
-    setTimeout(() => {
       this.service.getDevicesData().toPromise().then((rsp: any) => {
         console.log(rsp);
-        this.devices = rsp;
-        this.devicesFilter = rsp;
+        this.devices = rsp.data.map((data) => {
+          const object = {
+            id: data.idDispositivo,
+            idClient: data.idCliente,
+            client: "",
+            name: data.nombre,
+            description: data.descripcion,
+            serialNumber: data.numeroSerie,
+            location: data.ubicacion,
+            latitude: data.latitud,
+            numberOfSensors: "",
+            lastReading: data.ultimaModificacion,
+            length: data.longitud,
+            height: data.altura,
+            timeInterval: data.intervaloTiempo,
+            active: data.activo
+          }
+          return object;
+        });
+        this.devicesFilter = rsp.data.map((data) => {
+          const object = {
+            id: data.idDispositivo,
+            idClient: data.idCliente,
+            client: "",
+            name: data.nombre,
+            description: data.descripcion,
+            serialNumber: data.numeroSerie,
+            location: data.ubicacion,
+            latitude: data.latitud,
+            numberOfSensors: "",
+            lastReading: data.ultimaModificacion,
+            length: data.longitud,
+            height: data.altura,
+            timeInterval: data.intervaloTiempo,
+            active: data.activo
+          }
+          return object;
+        });
         this.status.data = true;
         this.status.loading = false;
       }, err => {
@@ -66,8 +103,6 @@ export class DeviceListComponent implements OnInit {
         this.status.error = true;
         this.status.loading = false;
       });
-    }, 3000);
-
   }
   goToNewDevice() {
     this.router.navigate(['/dashboard/new-device']);
@@ -99,6 +134,7 @@ export class DeviceListComponent implements OnInit {
     modalRef.result.then((result) => {
       if (result) {
         console.log(result);
+        this.tryAgain();
       }
     });
     // this.modalReference = this.modalService.open(NewDeviceComponent, {size: 'lg', scrollable: true}).result.then((result) => {
@@ -134,5 +170,17 @@ export class DeviceListComponent implements OnInit {
         )
       }
     })
+  }
+  tryAgain() {
+    this.status.data = false;
+    this.status.loading = false;
+    this.status.error = false;
+    this.getData();
+  }
+  filterByCell(filterValue :any): void {
+    this.devices = this.devicesFilter;
+    this.devices = this.devices.filter( (item) => {
+      return item.description.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim());
+  });
   }
 }

@@ -118,11 +118,11 @@ export class DashboardComponent implements OnInit {
       console.log(this.basicModalCloseResult);
     }).catch((res) => {});
   }
-  save(values, modal) {
+  
+  save(values) {
     this.statusSave.loading = true;
     setTimeout(() => {
       this.statusSave.loading = false;
-      modal.close();
       Swal.fire(
         { toast: true, position: 'bottom-end', showConfirmButton: true, timer: 10000, title: 'Signed in successfully', icon: 'success'}
       );

@@ -3,11 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  baseUrl: 'https://ito.dev.appslatam.com/',
+
+  baseUrl: 'https://us-east1-grand-lamp-280803.cloudfunctions.net/',
+  token: 'c2lkZTIwMjA=',
   production: false,
   api: {
     getDevices: '',
-    getDeviceData: '',
+    deviceData: 'side-dispositivo-function',
+    clienteData: 'side-cliente-function'
 
   },
   firebase: {
