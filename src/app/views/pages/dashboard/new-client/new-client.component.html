@@ -9,17 +9,17 @@
         <form class="forms-sample" [formGroup]="form">
       
         
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-10">
+                            <div class="row ">
                                 <div class="col-12 col-md-6"> 
                                   
                                         <div class="form-group">
                                             <label for="exampleInputEmail2"
                                                 class="col-sm-12 col-form-label">Nombre</label>
-                                            <div class="col-12 col-md-10">
+                                            <div class="col-12">
                                                 <input type="text" class="form-control" id="exampleInputEmail2"
-                                                    autocomplete="off" placeholder="Nombre" formControlName="name"
+                                                    autocomplete="off" placeholder="" formControlName="name"
                                                     [ngClass]="{ 'is-invalid': form.controls.name.invalid && form.controls.name.touched}">
                                                 <div *ngIf="form.controls.name.invalid" class="invalid-feedback">
                                                     <p class="text-danger mt-1">Dato Obligatorio</p>
@@ -33,9 +33,9 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail2"
                                                 class="col-sm-12 col-form-label">Razón Social</label>
-                                            <div class="col-12 col-md-10">
+                                            <div class="col-12">
                                                 <input type="text" class="form-control" id="exampleInputEmail2"
-                                                    autocomplete="off" placeholder="Nombre" formControlName="businessName"
+                                                    autocomplete="off" placeholder="" formControlName="businessName"
                                                     [ngClass]="{ 'is-invalid': form.controls.businessName.invalid && form.controls.businessName.touched}">
                                                 <div *ngIf="form.controls.businessName.invalid" class="invalid-feedback">
                                                     <p class="text-danger mt-1">Dato Obligatorio</p>
@@ -51,9 +51,9 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail2"
                                             class="col-sm-12 col-form-label">Rut</label>
-                                        <div class="col-12 col-md-10">
+                                        <div class="col-12">
                                             <input type="text" class="form-control" id="exampleInputEmail2"
-                                                autocomplete="off" placeholder="Nombre" formControlName="rut"
+                                                autocomplete="off" placeholder="" formControlName="rut"
                                                 [ngClass]="{ 'is-invalid': form.controls.rut.invalid && form.controls.rut.touched}">
                                             <div *ngIf="form.controls.rut.invalid" class="invalid-feedback">
                                                 <p class="text-danger mt-1">Dato Obligatorio</p>
@@ -65,9 +65,9 @@
                                     <div class="form-group">
                                         <label for="exampleInputEmail2"
                                             class="col-sm-12 col-form-label">Dirección</label>
-                                        <div class="col-12 col-md-10">
+                                        <div class="col-12">
                                             <input type="text" class="form-control" id="exampleInputEmail2"
-                                                autocomplete="off" placeholder="Nombre" formControlName="address"
+                                                autocomplete="off" placeholder="" formControlName="address"
                                                 [ngClass]="{ 'is-invalid': form.controls.address.invalid && form.controls.address.touched}">
                                             <div *ngIf="form.controls.address.invalid" class="invalid-feedback">
                                                 <p class="text-danger mt-1">Dato Obligatorio</p>
@@ -82,7 +82,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputPassword2"
                                             class="col-sm-12 col-form-label">Región</label>
-                                        <div class="col-12 col-md-10">
+                                        <div class="col-12">
                                             <input type="text" class="form-control" id="exampleInputPassword2"
                                                 autocomplete="off" placeholder="" formControlName="region"
                                                 [ngClass]="{ 'is-invalid': form.controls.region.invalid && form.controls.region.touched}">
@@ -96,7 +96,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputPassword2"
                                             class="col-sm-12 col-form-label">Comuna</label>
-                                        <div class="col-12 col-md-10">
+                                        <div class="col-12">
                                             <input type="text" class="form-control" id="exampleInputPassword2"
                                                 autocomplete="off" placeholder="" formControlName="commune"
                                                 [ngClass]="{ 'is-invalid': form.controls.commune.invalid && form.controls.commune.touched}">
@@ -114,7 +114,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputPassword2"
                                             class="col-sm-12 col-form-label">Teléfono</label>
-                                        <div class="col-12 col-md-10">
+                                        <div class="col-12">
                                             <input type="text" class="form-control" id="exampleInputPassword2"
                                                 autocomplete="off" placeholder="" formControlName="phone"
                                                 [ngClass]="{ 'is-invalid': form.controls.phone.invalid && form.controls.phone.touched}">
@@ -128,7 +128,7 @@
                                     <div class="form-group">
                                         <label for="exampleInputPassword2"
                                             class="col-sm-12 col-form-label">Correo electrónico</label>
-                                        <div class="col-12 col-md-10">
+                                        <div class="col-12">
                                             <input type="email" class="form-control" id="exampleInputPassword2"
                                                 autocomplete="off" placeholder="" formControlName="email"
                                                 [ngClass]="{ 'is-invalid': form.controls.email.invalid && form.controls.email.touched}">

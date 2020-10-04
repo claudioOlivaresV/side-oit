@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataTable } from 'simple-datatables';
+import { DevicesService } from 'src/app/services/devices/devices.service';
 import { NewClientComponent } from '../new-client/new-client.component';
 
 
@@ -12,27 +13,83 @@ import { NewClientComponent } from '../new-client/new-client.component';
 })
 export class ClientListComponent implements OnInit {
 
-  constructor(private router: Router, private modalService: NgbModal) { }
+  constructor(private router: Router, private modalService: NgbModal, private service: DevicesService) { }
+  status = {
+    data: null,
+    loading: null,
+    error: null
+  }
+  clients: any[];
+  clientsFilter: any[];
+  myModel:string;
 
   ngOnInit(): void {
     // const dataTable = new DataTable("#dataTableExample");
+    this.getData();
+  }
+  getData() {
+    this.status.data = false;
+    this.status.loading = true;
+    this.status.error = false;
+      this.service.getCliente().toPromise().then((rsp: any) => {
+        console.log(rsp);
+        this.clients = rsp.data;
+        this.clientsFilter = rsp.data;
+        this.status.data = true;
+        this.status.loading = false;
+      }, err => {
+        console.log(err);
+        this.status.error = true;
+        this.status.loading = false;
+      });
   }
 
   addClient() {
-    const device = {
+    const client = {
       isEdit: false,
       data: null,
     }
-    console.log('click');
     const modalRef = this.modalService.open(NewClientComponent, {size: 'lg', scrollable: true,  backdrop: 'static',
     keyboard: false});
-    modalRef.componentInstance.device = device;
+    modalRef.componentInstance.client = client;
     modalRef.result.then((result) => {
       if (result) {
         console.log(result);
+        this.tryAgain();
       }
     });
 
+  }
+  remove(){
+
+  }
+  edit(clientInfo){
+    const client = {
+      isEdit: true,
+      data: clientInfo,
+    }
+    const modalRef = this.modalService.open(NewClientComponent, {size: 'lg', scrollable: true,  backdrop: 'static',
+    keyboard: false});
+    modalRef.componentInstance.client = client;
+    modalRef.result.then((result) => {
+      if (result) {
+        console.log(result);
+        this.tryAgain();
+      }
+    });
+
+  }
+  tryAgain() {
+    this.status.data = false;
+    this.status.loading = false;
+    this.status.error = false;
+    this.getData();
+  }
+  filterByCell(filterValue :any): void {
+    this.clients = this.clientsFilter;
+    this.clients = this.clientsFilter.filter( (item) => {
+      return item.nombre.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim());
+  });
   }
 
 }

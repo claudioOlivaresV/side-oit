@@ -1,5 +1,5 @@
 export const environment = {
-  baseUrl: 'https://ito.dev.appslatam.com/',
+  baseUrl: 'https://us-east1-grand-lamp-280803.cloudfunctions.net/',
   production: true,
   api: {
     getDevices: '',
