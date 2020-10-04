@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Agregar Cliente</h5>
+    <h5 class="modal-title" id="exampleModalLabel">{{client.isEdit ? 'Editar' : 'Agregar'}} Cliente</h5>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -154,7 +154,7 @@
       </ng-container> -->
   </div>
   <div class="modal-footer">
-    <button class="btn btn-light" (click)="closeModal()">Cancel</button>
+    <button class="btn btn-light" (click)="closeModal()">Cerrar</button>
     <button type="submit" class="btn btn-primary mr-2" (click)="save(form.value)"
     [disabled]="form.invalid || status.loading">
     <ng-container *ngIf="status.loading">

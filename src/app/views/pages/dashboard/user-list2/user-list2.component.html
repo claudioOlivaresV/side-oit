@@ -1,38 +1,59 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
-    </ol>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="">Home</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
+  </ol>
 </nav>
 
-<div class="row mt-3">
+<ng-container *ngIf="status.data && !status.loading && !status.error">
+  <div class="row mt-3">
     <div class="col-md-12 stretch-card">
       <div class="card">
         <div class="card-body">
           <div class="row">
-              <div class="col-6">
-                  <h6 class="card-title">Usuarios</h6>
-                  <p class="card-description mb-0">Lista de Usuarios</p>
-              </div>
-              <div class="col-3">
-                <button class="btn btn-outline-primary w-100">Exportar</button>
-              </div>
-              <div class="col-3">
-                <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center">
-  
-                    <i class="btn-icon-prepend mr-0 " data-feather="plus-circle" appFeatherIcon></i>
-                    <span class="d-none ml-2 d-md-block" (click)="goToNewUser()">Agregar Usuario</span> 
-                 
-                </button>
+            <div class="col-6">
+              <h6 class="card-title">Usuarios</h6>
+              <p class="card-description mb-0">Lista de Usuarios</p>
+            </div>
+            <div class="col-3">
+              <button class="btn btn-outline-primary w-100">Exportar</button>
+            </div>
+            <div class="col-3">
+              <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center"
+                (click)="add()">
 
-              </div>
+                <i class="btn-icon-prepend mr-0 " data-feather="plus-circle" appFeatherIcon></i>
+                <span class="d-none ml-2 d-md-block">Agregar Cliente</span>
 
+              </button>
+
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-3">
+              <form class="search-form">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="feather icon-search"></i>
+                    </div>
+                  </div>
+                  <input type="text" class="form-control" id="navbarForm" placeholder="Buscar.."
+                    (keyup)="filterByCell(myModel)" [(ngModel)]="myModel" name="filter">
+                </div>
+              </form>
+            </div>
           </div>
 
           <div class="table-responsive mt-3">
             <table id="dataTableExample" class="table">
               <thead>
                 <tr>
+                  <th>Nombre</th>
                   <th>Cargo</th>
                   <th>Rol</th>
                   <th>Correo electrónico</th>
@@ -41,28 +62,27 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Tiger Nixon</td>
-                  <td>System Architect</td>
-                  <td>Edinburgh</td>
-                  <td>61</td>
-                  <td>2011/04/25</td>
-                
-                </tr>
-                <tr>
-                  <td>Garrett Winters</td>
-                  <td>Accountant</td>
-                  <td>Tokyo</td>
-                  <td>63</td>
-                  <td>2011/07/25</td>
-                </tr>
-                <tr>
-                  <td>Ashton Cox</td>
-                  <td>Junior Technical Author</td>
-                  <td>San Francisco</td>
-                  <td>66</td>
-                  <td>2009/01/12</td>
-                </tr>
+                <ng-container *ngFor="let user of users; let i = index;">
+                  <tr>
+                    <td>{{user.nombre}}</td>
+                    <td>{{user.cargo}}</td>
+                    <td>{{user.idRol}}</td>
+                    <td>{{user.correoElectronico}}</td>
+                    <td>{{user.activo}}</td>
+                    <td>{{user.correoElectronico }}</td>
+                    <td>
+
+                      <button type="button" class="btn btn-outline-primary btn-icon px-1 mr-2" (click)="edit(user)">
+                        <i data-feather="edit" appFeatherIcon></i>
+                      </button>
+                      <button type="button" class="btn btn-danger btn-icon  px-1 mr-2" (click)="remove()">
+                        <i data-feather="trash" appFeatherIcon></i>
+                      </button>
+                    </td>
+
+                  </tr>
+                </ng-container>
+
 
               </tbody>
               <tfoot>
@@ -81,3 +101,11 @@
       </div>
     </div>
   </div>
+
+</ng-container>
+
+<ng-container *ngIf="!status.data && status.loading && !status.error">
+  <div class="spinner-wrapper d-block">
+    <div class="spinner"></div>
+  </div>
+</ng-container>

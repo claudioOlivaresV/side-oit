@@ -4,7 +4,10 @@ export const environment = {
   api: {
     getDevices: '',
     deviceData: 'side-dispositivo-function',
-    clienteData: 'side-cliente-function'
+    clienteData: 'side-cliente-function',
+    userData: 'side-usuario-function',
+    login: 'side-login-function',
+    sensorData: 'side-usuario-function'
   },
   firebase: {
     apiKey: 'AIzaSyA-Ph5XHtWdYHBRtD5vDrhAOThJMty6SPw',

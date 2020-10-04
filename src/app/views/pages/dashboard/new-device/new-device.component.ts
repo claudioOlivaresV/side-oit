@@ -88,7 +88,7 @@ export class NewDeviceComponent implements OnInit {
     this.statusSave.loading = true;
       this.statusSave.loading = false;
       if(this.device.isEdit) {
-        this.activeModal.close();
+        this.activeModal.close(true);
         Swal.fire(
           { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo editado correctamente', icon: 'success'}
         );

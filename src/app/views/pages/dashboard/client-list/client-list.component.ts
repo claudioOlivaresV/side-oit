@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataTable } from 'simple-datatables';
 import { DevicesService } from 'src/app/services/devices/devices.service';
+import Swal from 'sweetalert2';
 import { NewClientComponent } from '../new-client/new-client.component';
 
 
@@ -61,6 +62,20 @@ export class ClientListComponent implements OnInit {
 
   }
   remove(){
+    Swal.fire({
+      title: 'Está eliminando un cliente',
+      text: '¿Está seguro?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'No'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Cliente eliminado correctamente', icon: 'success'}
+        )
+      }
+    })
 
   }
   edit(clientInfo){
