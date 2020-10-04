@@ -41,6 +41,7 @@ export class DashboardComponent implements OnInit {
     loading: null,
     error: null
   }
+  public deviceFire: any = [];
 
 
 
@@ -50,7 +51,6 @@ export class DashboardComponent implements OnInit {
               private service: DevicesService,
               private router: Router,
               private modalService: NgbModal) {
-                
                 this.form = new FormGroup({
                   client: new FormControl('', Validators.required),
                   name: new FormControl('', Validators.required),
@@ -66,6 +66,16 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    this.service.getDataDashboard().subscribe((data) => {
+      data.forEach((data: any) => {
+        // console.log(data.payload.doc.data());
+        this.deviceFire.push( {
+          id: data.payload.doc.id,
+          data: data.payload.doc.data()
+        });
+      })
+    });
+    console.log(this.deviceFire);
   }
 
   getData() {
@@ -91,8 +101,8 @@ export class DashboardComponent implements OnInit {
   filterByCell(filterValue :any): void {
     this.devices = this.devicesFilter;
     this.devices = this.devices.filter( (item) => {
-      return item.name.includes(filterValue.toLocaleLowerCase());
-    });
+      return item.name.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim());
+  });
 
     console.log(this.devices);
   }

@@ -1,0 +1,11 @@
+[
+    {
+        "id": "1",
+        "preFixed": "pre",
+        "nameSensor": "Nombre",
+        "desciptionSensor": "Sensor uno",
+        "calculation": "3",
+        "type": "lts"
+    }
+    
+]

@@ -1,0 +1,140 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Sensores</h5>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ng-container *ngIf="!statusType.loading">
+        <form class="forms-sample" [formGroup]="form">
+          <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Prefijo</label>
+                    <div class="col-12">
+                        <input type="email" class="form-control" id="exampleInputEmail2"
+                            autocomplete="off" placeholder="" formControlName="preFixed"
+                            [ngClass]="{ 'is-invalid': form.controls.preFixed.invalid && form.controls.preFixed.touched}">
+                        <div *ngIf="form.controls.preFixed.invalid" class="invalid-feedback">
+                            <p class="text-danger mt-1">Dato Obligatorio</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Nombre</label>
+                      <div class="col-12">
+                          <input type="email" class="form-control" id="exampleInputEmail2"
+                              autocomplete="off" placeholder="" formControlName="nameSensor"
+                              [ngClass]="{ 'is-invalid': form.controls.nameSensor.invalid && form.controls.nameSensor.touched}">
+                          <div *ngIf="form.controls.nameSensor.invalid" class="invalid-feedback">
+                              <p class="text-danger mt-1">Dato Obligatorio</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+         
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Descripción</label>
+                      <div class="col-12">
+                          <input type="email" class="form-control" id="exampleInputEmail2"
+                              autocomplete="off" placeholder="" formControlName="desciptionSensor"
+                              [ngClass]="{ 'is-invalid': form.controls.desciptionSensor.invalid && form.controls.desciptionSensor.touched}">
+                          <div *ngIf="form.controls.desciptionSensor.invalid" class="invalid-feedback">
+                              <p class="text-danger mt-1">Dato Obligatorio</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Cálculo</label>
+                    <div class="col-12">
+                        <input type="email" class="form-control" id="exampleInputEmail2"
+                            autocomplete="off" placeholder="" formControlName="calculation"
+                            [ngClass]="{ 'is-invalid': form.controls.calculation.invalid && form.controls.calculation.touched}">
+                        <div *ngIf="form.controls.calculation.invalid" class="invalid-feedback">
+                            <p class="text-danger mt-1">Dato Obligatorio</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="exampleInputUsercalculation2"
+                        class="col-sm-12 col-form-label">Tipo</label>
+                    <div class="col-12">
+                        <select class="custom-select form-control" id="exampleFormControlSelect1"
+                            formControlName="type"
+                            [ngClass]="{ 'is-invalid': form.controls.type.invalid && form.controls.type.touched}">
+                            <option selected disabled>Seleccione una opción</option>
+                            <ng-container *ngFor="let item of types; let i = index;" >
+                                <option [value]="item.id">{{item.name}}</option>
+    
+                              </ng-container>
+      
+                        </select>
+                        <div *ngIf="form.controls.type.invalid" class="invalid-feedback">
+                            <p class="text-danger mt-1">Dato Obligatorio</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mt-5">
+                <button type="submit" class="btn btn-primary mr-2 w-100" (click)="saveSensor(form.value)"
+                            [disabled]="form.invalid || statusSave.loading">
+                            <ng-container *ngIf="statusSave.loading">
+                                <span class="spinner-grow spinner-grow-sm mr-1" role="status"
+                                    aria-hidden="true"></span>
+                                <span>Cargando</span>
+                            </ng-container>
+                            <ng-container *ngIf="!statusSave.loading">
+                                Agregar
+                            </ng-container>
+      
+                        </button>
+      
+            </div>
+        </div>
+        </form>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Prefijo</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Cálculo</th>
+                <th>Tipo</th>
+                <th>Activo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Prefijo</td>
+                <td>Sensor</td>
+                <td>Primer sensor</td>
+                <td>3</td>
+                <td>lts</td>
+                <td><button type="button" class="btn btn-primary btn-icon">
+                  <i class="feather icon-check-square"></i>
+                </button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="statusType.loading">
+        <div class="spinner-wrapper d-block bg-white h-100">
+          <div class="spinner"></div>
+        </div>
+      </ng-container>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary"(click)="closeModal()" >Cerrar</button>
+    <button type="button" class="btn btn-primary" >Guardar</button>
+  </div>

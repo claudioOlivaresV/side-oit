@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DevicesService } from 'src/app/services/devices/devices.service';
 import Swal from 'sweetalert2';
 
 
@@ -9,69 +12,77 @@ import Swal from 'sweetalert2';
   styleUrls: ['./new-device.component.scss'],
 })
 export class NewDeviceComponent implements OnInit {
-  active = 1;
-  form: FormGroup;
-  formSensor: FormGroup;
+  @Output()
+  propagar = new EventEmitter<any>();
 
+  @Input() public device;
+
+  form: FormGroup;
+  statusSave = {
+    data: null,
+    loading: null,
+    error: null
+  }
   status = {
     data: null,
     loading: null,
     error: null
   }
-  statusSensor = {
-    data: null,
-    loading: null,
-    error: null
-  }
-
-  constructor() {
-    this.form = new FormGroup({
-      client: new FormControl('', Validators.required),
-      name: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-      serialNumber: new FormControl('', Validators.required),
-      location: new FormControl('', Validators.required),
-      latitude: new FormControl('', Validators.required),
-      length: new FormControl('', Validators.required),
-      height:new FormControl('', Validators.required),
-      sensors: new FormControl('', Validators.required),
-     })
-     this.formSensor = new FormGroup({
-      nameSensor: new FormControl('', Validators.required),
-      desciptionSensor: new FormControl('', Validators.required),
-      calculation: new FormControl('', Validators.required),
-      type: new FormControl('', Validators.required),
-     })
+  clients: any [];
+  basicModalCloseResult = '';
+  constructor(private router: Router,  private modalService: NgbModal, public activeModal: NgbActiveModal,
+              private service: DevicesService) {
    }
-
   ngOnInit(): void {
-  }
-  prevent(event): void {
-    event.preventDefault();
-  }
-  save(values) {
-    this.status.loading = true;
-    setTimeout(() => {
-      this.status.loading = false;
-      Swal.fire({
-        icon: 'success',
-        title: 'Dispositivo agregado',
-        showConfirmButton: true,
-      });
-    }, 3000);
-    console.log(values);
-  }
-  saveSensor(values) {
-    this.statusSensor.loading = true;
-    setTimeout(() => {
-      this.statusSensor.loading = false;
-      Swal.fire({
-        icon: 'success',
-        title: 'Sensor agregado',
-        showConfirmButton: true,
-      });
-    }, 3000);
-    console.log(values);
+    this.getClients();
+    this.form = new FormGroup({
+      client: new FormControl(this.device.isEdit ? this.device.data.idClient : '', Validators.required),
+      name: new FormControl(this.device.isEdit ? this.device.data.name : '', Validators.required),
+      description: new FormControl(this.device.isEdit ? this.device.data.description : '', Validators.required),
+      serialNumber: new FormControl(this.device.isEdit ? this.device.data.serialNumber : '', Validators.required),
+      location: new FormControl(this.device.isEdit ? this.device.data.location : '', Validators.required),
+      latitude: new FormControl(this.device.isEdit ? this.device.data.latitude : '', Validators.required),
+      length: new FormControl(this.device.isEdit ? this.device.data.length : '', Validators.required),
+      height:new FormControl(this.device.isEdit ? this.device.data.height : '', Validators.required),
+      timeInterval: new FormControl(this.device.isEdit ? this.device.data.timeInterval : '', Validators.required),
+     })
   }
 
+  getClients() {
+    this.status.data = false;
+    this.status.loading = true;
+    this.status.error = false;
+      this.service.getCliente().toPromise().then((rsp: any) => {
+        setTimeout(() => {
+          this.clients = rsp;
+          this.status.data = true;
+          this.status.loading = false;
+        }, 2000);
+      }, err => {
+        this.status.error = true;
+        this.status.loading = false;
+      });
+  }
+
+  save(values) {
+    this.statusSave.loading = true;
+    setTimeout(() => {
+      this.statusSave.loading = false;
+      if(this.device.isEdit) {
+        this.activeModal.close();
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo editado correctamente', icon: 'success'}
+        );
+
+      } else {
+        this.activeModal.close();
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo agregado', icon: 'success'}
+        );
+      }
+    }, 3000);
+  }
+  closeModal(){
+    this.activeModal.close();
+  }
 }

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "grand-lamp-280803"
+  },
+  "targets": {
+    "grand-lamp-280803": {
+      "hosting": {
+        "side-dev": [
+          "side-dev"
+        ]
+      }
+    }
+  }
+}

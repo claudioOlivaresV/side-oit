@@ -1,28 +1,28 @@
 [
     {
         "id": "id",
-        "name": "Nombre dispositivo",
+        "name": "Dispositivo 1",
         "subName": "N° de serie",
         "flow": "1 lts",
         "solarIrradiation": "1 Kw/h"
     },
     {
         "id": "id",
-        "name": "Nombre dispositivo",
+        "name": "Nombre dispositivo 2",
         "subName": "N° de serie",
         "flow": "2 lts",
         "solarIrradiation": "2 Kw/h"
     },
     {
         "id": "id",
-        "name": "Nombre dispositivo",
+        "name": "Nombre dispositivo 3",
         "subName": "N° de serie",
         "flow": "3 lts",
         "solarIrradiation": "3 Kw/h"
     },
     {
         "id": "id",
-        "name": "Nombre dispositivo",
+        "name": "Nombre dispositivo 4",
         "subName": "N° de serie",
         "flow": "4 lts",
         "solarIrradiation": "4 Kw/h"

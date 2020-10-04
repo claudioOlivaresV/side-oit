@@ -1,0 +1,18 @@
+[
+    {
+        "id": "id",
+        "idClient": "1",
+        "client": "cliente",
+        "name": "nombre",
+        "description": "descripcion",
+        "serialNumber": "numero de serie",
+        "location": "ubicacion",
+        "latitude": "latitud",
+        "numberOfSensors": 3,
+        "lastReading": "03/10/2020",
+        "length": "longitud",
+        "height": "altura",
+        "timeInterval": "intervalo de tiempo"
+
+    }
+]

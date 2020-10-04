@@ -23,6 +23,15 @@ import { ClientListComponent } from './client-list/client-list.component';
 import { NewClientComponent } from './new-client/new-client.component';
 import { GeneralComponent } from './general/general.component';
 import { UserList2Component } from './user-list2/user-list2.component';
+import { AddSensorComponent } from './add-sensor/add-sensor.component';
+
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+
+
+
 
 
 
@@ -66,7 +75,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [DashboardComponent, NewDeviceComponent, DeviceListComponent, DeviceDetailComponent, NewUserComponent, ClientListComponent, NewClientComponent, GeneralComponent, UserList2Component],
+  declarations: [DashboardComponent, NewDeviceComponent, DeviceListComponent, DeviceDetailComponent, NewUserComponent, ClientListComponent, NewClientComponent, GeneralComponent, UserList2Component, AddSensorComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -77,6 +86,13 @@ const routes: Routes = [
     NgApexchartsModule,
     ChartsModule,
     NgbModule,
+
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAnalyticsModule,
+    AngularFirestoreModule,
+    
+
+
     ReactiveFormsModule,
     SweetAlert2Module.forRoot(),
   ],
