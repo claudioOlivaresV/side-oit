@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 .fondo {
-    background:url('../src/assets/images/background.jpg');
+    position:relative;
+    background: rgb(5,13,25);  /* Se usa en caso de falla para los computadores antiguos */
+    background: rgba(5,13,25,0.5);
+    background: url('../src/assets/images/background.jpg') no-repeat;
+    background-size: cover;
 }

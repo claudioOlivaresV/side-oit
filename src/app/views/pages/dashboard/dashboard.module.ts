@@ -17,7 +17,6 @@ import { NewDeviceComponent } from './new-device/new-device.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { DeviceListComponent } from './device-list/device-list.component';
 import { DeviceDetailComponent } from './device-detail/device-detail.component';
-import { UserListComponent } from './user-list/user-list.component';
 import { NewUserComponent } from './new-user/new-user.component';
 import { ClientListComponent } from './client-list/client-list.component';
 import { NewClientComponent } from './new-client/new-client.component';
