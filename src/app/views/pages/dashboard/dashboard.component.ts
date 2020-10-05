@@ -25,6 +25,7 @@ import Swal from 'sweetalert2';
   preserveWhitespaces: true
 })
 export class DashboardComponent implements OnInit {
+  userInfo:any;
   form: FormGroup;
   myModel:string;
   modalReference: any;
@@ -83,25 +84,19 @@ export class DashboardComponent implements OnInit {
     this.status.loading = true;
     this.status.error = false;
     setTimeout(() => {
-      this.service.getDevices().toPromise().then((rsp: any) => {
-        console.log(rsp);
-        this.devices = rsp;
-        this.devicesFilter = rsp;
+      this.userInfo = JSON.parse(sessionStorage.getItem('user-info'));
+        this.devices = this.userInfo;
+        this.devicesFilter = this.userInfo;
         this.status.data = true;
-        this.status.loading = false;
-      }, err => {
-        console.log(err);
-        this.status.error = true;
-        this.status.loading = false;
-      });
-    }, 3000);
+        this.status.loading = false
+    }, 2000);
 
   }
 
   filterByCell(filterValue :any): void {
     this.devices = this.devicesFilter;
     this.devices = this.devices.filter( (item) => {
-      return item.name.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim());
+      return item.nombre.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim());
   });
 
     console.log(this.devices);

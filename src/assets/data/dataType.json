@@ -1,26 +1,26 @@
 [
     {
-        "idType": "1",
+        "idType": "lts",
         "name": "lts"
     },
     {
-        "idType": "2",
+        "idType": "m3",
         "name": "m3"
     },
     {
-        "idType": "3",
+        "idType": "%",
         "name": "%"
     },
     {
-        "idType": "3",
+        "idType": "Kw/h",
         "name": "Kw/h"
     },
     {
-        "idType": "4",
+        "idType": "mts",
         "name": "mts"
     },
     {
-        "idType": "5",
+        "idType": "cms",
         "name": "cms"
     }
     

@@ -8,14 +8,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  userInfo:any;
 
   constructor(
-    @Inject(DOCUMENT) private document: Document, 
+    @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.userInfo = JSON.parse(sessionStorage.getItem('user-info'));
+    console.log(this.userInfo);
   }
 
   /**
@@ -31,9 +34,9 @@ export class NavbarComponent implements OnInit {
    */
   onLogout(e) {
     e.preventDefault();
-    localStorage.removeItem('isLoggedin');
+    sessionStorage.removeItem('isLoggedin');
 
-    if (!localStorage.getItem('isLoggedin')) {
+    if (!sessionStorage.getItem('isLoggedin')) {
       this.router.navigate(['/auth/login']);
     }
   }

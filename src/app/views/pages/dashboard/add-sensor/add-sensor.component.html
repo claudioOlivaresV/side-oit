@@ -13,9 +13,9 @@
                     <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Prefijo</label>
                     <div class="col-12">
                         <input type="email" class="form-control" id="exampleInputEmail2"
-                            autocomplete="off" placeholder="" formControlName="preFixed"
-                            [ngClass]="{ 'is-invalid': form.controls.preFixed.invalid && form.controls.preFixed.touched}">
-                        <div *ngIf="form.controls.preFixed.invalid" class="invalid-feedback">
+                            autocomplete="off" placeholder="" formControlName="prefijo"
+                            [ngClass]="{ 'is-invalid': form.controls.prefijo.invalid && form.controls.prefijo.touched}">
+                        <div *ngIf="form.controls.prefijo.invalid" class="invalid-feedback">
                             <p class="text-danger mt-1">Dato Obligatorio</p>
                         </div>
                     </div>
@@ -26,9 +26,9 @@
                       <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Nombre</label>
                       <div class="col-12">
                           <input type="email" class="form-control" id="exampleInputEmail2"
-                              autocomplete="off" placeholder="" formControlName="nameSensor"
-                              [ngClass]="{ 'is-invalid': form.controls.nameSensor.invalid && form.controls.nameSensor.touched}">
-                          <div *ngIf="form.controls.nameSensor.invalid" class="invalid-feedback">
+                              autocomplete="off" placeholder="" formControlName="nombre"
+                              [ngClass]="{ 'is-invalid': form.controls.nombre.invalid && form.controls.nombre.touched}">
+                          <div *ngIf="form.controls.nombre.invalid" class="invalid-feedback">
                               <p class="text-danger mt-1">Dato Obligatorio</p>
                           </div>
                       </div>
@@ -40,9 +40,9 @@
                       <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Descripción</label>
                       <div class="col-12">
                           <input type="email" class="form-control" id="exampleInputEmail2"
-                              autocomplete="off" placeholder="" formControlName="desciptionSensor"
-                              [ngClass]="{ 'is-invalid': form.controls.desciptionSensor.invalid && form.controls.desciptionSensor.touched}">
-                          <div *ngIf="form.controls.desciptionSensor.invalid" class="invalid-feedback">
+                              autocomplete="off" placeholder="" formControlName="descripcion"
+                              [ngClass]="{ 'is-invalid': form.controls.descripcion.invalid && form.controls.descripcion.touched}">
+                          <div *ngIf="form.controls.descripcion.invalid" class="invalid-feedback">
                               <p class="text-danger mt-1">Dato Obligatorio</p>
                           </div>
                       </div>
@@ -55,9 +55,9 @@
                     <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Cálculo</label>
                     <div class="col-12">
                         <input type="email" class="form-control" id="exampleInputEmail2"
-                            autocomplete="off" placeholder="" formControlName="calculation"
-                            [ngClass]="{ 'is-invalid': form.controls.calculation.invalid && form.controls.calculation.touched}">
-                        <div *ngIf="form.controls.calculation.invalid" class="invalid-feedback">
+                            autocomplete="off" placeholder="" formControlName="calculo"
+                            [ngClass]="{ 'is-invalid': form.controls.calculo.invalid && form.controls.calculo.touched}">
+                        <div *ngIf="form.controls.calculo.invalid" class="invalid-feedback">
                             <p class="text-danger mt-1">Dato Obligatorio</p>
                         </div>
                     </div>
@@ -69,16 +69,14 @@
                         class="col-sm-12 col-form-label">Tipo</label>
                     <div class="col-12">
                         <select class="custom-select form-control" id="exampleFormControlSelect1"
-                            formControlName="type"
-                            [ngClass]="{ 'is-invalid': form.controls.type.invalid && form.controls.type.touched}">
+                            formControlName="tipo"
+                            [ngClass]="{ 'is-invalid': form.controls.tipo.invalid && form.controls.tipo.touched}">
                             <option selected disabled>Seleccione una opción</option>
                             <ng-container *ngFor="let item of types; let i = index;" >
-                                <option [value]="item.id">{{item.name}}</option>
-    
-                              </ng-container>
-      
+                                <option [value]="item.idType">{{item.name}}</option>
+                            </ng-container>
                         </select>
-                        <div *ngIf="form.controls.type.invalid" class="invalid-feedback">
+                        <div *ngIf="form.controls.tipo.invalid" class="invalid-feedback">
                             <p class="text-danger mt-1">Dato Obligatorio</p>
                         </div>
                     </div>
@@ -110,11 +108,11 @@
             <tbody>
                 <ng-container *ngFor="let sensor of sensors; let i = index;" >
                     <tr>
-                      <td>{{sensor.preFixed}}</td>
-                      <td>{{sensor.nameSensor}}</td>
-                      <td>{{sensor.desciptionSensor}}</td>
-                      <td>{{sensor.calculation}}</td>
-                      <td>{{sensor.type}}</td>
+                      <td>{{sensor.prefijo}}</td>
+                      <td>{{sensor.nombre}}</td>
+                      <td>{{sensor.descripcion}}</td>
+                      <td>{{sensor.calculo}}</td>
+                      <td>{{sensor.tipo}}</td>
                       <td>
                        <button (click)="removeSensor(i)" type="button" class="btn btn-primary btn-icon">
                         <i class="feather icon-check-square"></i>
@@ -133,5 +131,14 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary"(click)="closeModal()" >Cerrar</button>
-    <button type="button" class="btn btn-primary" >Guardar</button>
+    <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!sensors.length || statusSave.loading">
+    <ng-container *ngIf="statusSave.loading">
+        <span class="spinner-grow spinner-grow-sm mr-1" role="status"
+            aria-hidden="true"></span>
+        <span>Cargando</span>
+    </ng-container>
+    <ng-container *ngIf="!statusSave.loading">
+        Guardar
+    </ng-container>
+    </button>
   </div>

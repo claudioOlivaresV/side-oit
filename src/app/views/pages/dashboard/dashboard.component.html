@@ -14,6 +14,9 @@
     </button>
   </div>
   <div class="col-md-4 col-12">
+    
+  </div>
+  <div class="col-12 mt-md-0 mt-3 col-md-4">
     <form class="search-form">
       <div class="input-group">
         <div class="input-group-prepend">
@@ -24,15 +27,13 @@
         <input type="text" class="form-control" id="navbarForm" placeholder="Search here..." (keyup)="filterByCell(myModel)" [(ngModel)]="myModel" name="filter">
       </div>
     </form>
-  </div>
-  <div class="d-none d-md-block col-md-4">
    
   </div>
 </div>
 
 
   <div class="row mt-5">
-    <ng-container *ngFor="let item of deviceFire; let i = index;" >
+    <ng-container *ngFor="let item of devices; let i = index;" >
       <div class="col-md-6 col-lg-4  col-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
@@ -42,8 +43,8 @@
 
             <div class="row">
               <div class="col-6">
-                <h6 class="card-title mb-0">{{item.name}}</h6>
-                <p class="text-muted">{{item.subName}}</p>
+                <h6 class="card-title mb-0">{{item.nombre}}</h6>
+                <p class="text-muted">{{item.numeroSerie}}</p>
                
               </div>
               <div class="col-6">

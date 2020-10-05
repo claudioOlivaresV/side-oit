@@ -13,6 +13,7 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
+  
 
   @ViewChild('sidebarToggler') sidebarToggler: ElementRef;
 
@@ -41,6 +42,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.menuItems = MENU;
+    
 
     /**
      * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)

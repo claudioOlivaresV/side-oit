@@ -57,6 +57,12 @@ export class DevicesService {
     return this.http.post(environment.baseUrl + environment.api.sensorData, sensor, { headers });
   }
 
+  public login(user) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.login, user, { headers });
+  }
+
   public getType() {
     // return this.http.get(environment.baseUrl + environment.api.getDevices);
      return this.http.get('./assets/data/dataType.json');

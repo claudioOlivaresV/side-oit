@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-4 pr-md-0">
           <div class="auth-left-wrapper">
-            
+
           </div>
         </div>
         <div class="col-md-8 pl-md-0">
@@ -12,18 +12,39 @@
             <img src="../../../../assets/images/logo.webp">
 
             <h5 class="text-muted font-weight-normal my-4">Bienvenido</h5>
-            <form class="forms-sample">
+            <form class="forms-sample" [formGroup]="form">
               <div class="form-group">
                 <label for="exampleInputEmail1">Correo electrónico</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" value="admin@demo.com">
+                <input type="email" formControlName="correo"
+                  [ngClass]="{ 'is-invalid': form.controls.correo.invalid && form.controls.correo.touched}"
+                  class="form-control" id="exampleInputEmail1" placeholder="Email">
+                <div *ngIf="form.controls.correo.invalid" class="invalid-feedback">
+                  <p class="text-danger mt-1">Dato Obligatorio</p>
+                </div>
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Contraseña</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" autocomplete="current-password" placeholder="Password" value="12345678">
+                <input type="password" formControlName="contrasena" class="form-control"
+                  [ngClass]="{ 'is-invalid': form.controls.contrasena.invalid && form.controls.contrasena.touched}"
+                  id="exampleInputPassword1" autocomplete="current-password" placeholder="Password" value="">
+                <div *ngIf="form.controls.contrasena.invalid" class="invalid-feedback">
+                  <p class="text-danger mt-1">Dato Obligatorio</p>
+                </div>
               </div>
 
               <div class="mt-3">
-                <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0" (click)="onLoggedin($event)">Ingresar</button>
+                <button type="submit" class="btn btn-primary mr-2 mb-2 mb-md-0" [disabled]="form.invalid || status.loading" (click)="onLoggedin(form.value)">
+                  <ng-container *ngIf="status.loading">
+                    <span class="spinner-grow spinner-grow-sm mr-1" role="status" aria-hidden="true"></span>
+                    <span>Cargando</span>
+                  </ng-container>
+                  <ng-container *ngIf="!status.loading">
+                    Ingresar
+                  </ng-container>
+                </button>
+                <div *ngIf="status.error" >
+                  <p class="text-danger mt-1">Correo electrónico o contraseña inválida </p>
+                </div>
               </div>
               <!-- <a routerLink="/auth/register" class="d-block mt-3 text-muted">Not a user? Sign up</a> -->
             </form>
