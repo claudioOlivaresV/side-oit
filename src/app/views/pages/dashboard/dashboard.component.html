@@ -2,7 +2,7 @@
 <ng-container *ngIf="status.data && !status.loading && !status.error">
 <div class="row">
   <div class="col-md-4 col-9">
-    <h4 class="mb-3 mb-md-0">Dispositivos <span class="badge badge-primary px-3">{{deviceFire.length}}</span></h4>
+    <h4 class="mb-3 mb-md-0">Dispositivos <span class="badge badge-primary px-3">{{devices.length}}</span></h4>
   </div>
   <div class="d-block d-md-none col-3">
     <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" 
@@ -42,32 +42,28 @@
    
 
             <div class="row">
-              <div class="col-6">
+              <div class="col-5">
                 <h6 class="card-title mb-0">{{item.nombre}}</h6>
                 <p class="text-muted">{{item.numeroSerie}}</p>
                
               </div>
-              <div class="col-6">
+              <div class="col-7">
                 
-                <button class="btn btn-outline-primary" (click)="goToDeviceDetail()" >Sin lecturas</button>
+                <button class="btn btn-outline-primary w-100 px-0" (click)="goToDeviceDetail()" >{{item.ultimaModificacion | date: 'dd/MM/yyyy HH:mm'}} </button>
     
               </div>
     
             </div>
           
             <div class="row mt-4 mb-3">
-              <div class="col-6 d-flex justify-content-start">
-                <div>
-                  <label class="d-flex align-items-center justify-content-end tx-10 text-uppercase font-weight-medium">Caudal</label>
-                  <label class="font-weight-bold mb-0 text-right text-muted">{{item.flow}}</label>
+              <ng-container *ngFor="let sensor of item.sensor; let i = index;" >
+                <div class="col-6 d-flex justify-content-start mb-2">
+                  <div>
+                    <label class="d-flex align-items-center justify-content-end tx-10 text-uppercase font-weight-medium">{{sensor.nombre}}</label>
+                    <label class="font-weight-bold mb-0 text-right text-muted">{{sensor.prefijo}}</label>
+                  </div>
                 </div>
-              </div>
-              <div class="col-6">
-                <div>
-                  <label class="d-flex align-items-center justify-content-start tx-10 text-uppercase font-weight-medium">Irradiación Solar</label>
-                  <label class="font-weight-bold mb-0 text-right text-muted">{{item.solarIrradiation}}</label>
-                </div>
-              </div>
+              </ng-container>
             </div>
             <button class="btn btn-primary btn-block" (click)="goToDeviceDetail()">Ver detalle</button>
           </div>

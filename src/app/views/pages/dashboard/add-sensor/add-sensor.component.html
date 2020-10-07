@@ -103,6 +103,7 @@
                 <th>Cálculo</th>
                 <th>Tipo</th>
                 <th>Activo</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -113,10 +114,15 @@
                       <td>{{sensor.descripcion}}</td>
                       <td>{{sensor.calculo}}</td>
                       <td>{{sensor.tipo}}</td>
+                      <td>{{sensor.activo ? 'Activo' : 'No activo'}}</td>
                       <td>
-                       <button (click)="removeSensor(i)" type="button" class="btn btn-primary btn-icon">
-                        <i class="feather icon-check-square"></i>
-                      </button></td>
+                        <button type="button" class="btn btn-outline-primary btn-icon px-1 mr-2" (click)="edit(sensor)" >
+                            <i  data-feather="edit" appFeatherIcon></i>
+                           </button>
+                           <button type="button" class="btn btn-danger btn-icon  px-1 mr-2" (click)="remove(sensor.id)">
+                            <i  data-feather="trash" appFeatherIcon></i>
+                           </button>
+                      </td>
                     </tr>
                 </ng-container>
             </tbody>

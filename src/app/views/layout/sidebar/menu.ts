@@ -60,15 +60,15 @@ export const MENU: MenuItem[] = [
     //   }
     // ]
   },
-  {
-    label: 'Configuración',
-    isTitle: true
-  },
-  {
-    label: 'General',
-    icon: 'settings',
-    link: '/dashboard/general'
-  },
+  // {
+  //   label: 'Configuración',
+  //   isTitle: true
+  // },
+  // {
+  //   label: 'General',
+  //   icon: 'settings',
+  //   link: '/dashboard/general'
+  // },
   // {
   //   label: 'Chat',
   //   icon: 'message-square',

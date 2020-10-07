@@ -73,7 +73,7 @@
                                 <button type="button" class="btn btn-outline-primary btn-icon px-1 mr-2" (click)="editDevice(item)" >
                                   <i  data-feather="edit" appFeatherIcon></i>
                                  </button>
-                                 <button type="button" class="btn btn-danger btn-icon  px-1 mr-2" (click)="removeDevice()">
+                                 <button type="button" class="btn btn-danger btn-icon  px-1 mr-2" (click)="removeDevice(item.id)">
                                   <i  data-feather="trash" appFeatherIcon></i>
                                  </button>
                                  <button type="button" class="btn btn-primary" (click)="addSensor(item)">

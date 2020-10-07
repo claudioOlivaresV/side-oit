@@ -34,6 +34,8 @@ export class NewDeviceComponent implements OnInit {
               private service: DevicesService) {
    }
   ngOnInit(): void {
+    console.log(this.device);
+    
     this.getClients();
     this.form = new FormGroup({
       client: new FormControl(this.device.isEdit ? this.device.data.idClient : '', Validators.required),
@@ -74,7 +76,8 @@ export class NewDeviceComponent implements OnInit {
 
   save(values) {
     const device = {
-      option: 'CREAR-DISPOSITIVO',
+      option: this.device.isEdit ? 'MODIFICAR-DISPOSITIVO' : 'CREAR-DISPOSITIVO',
+      idDispositivo: this.device.isEdit ? this.device.data.id : null,
       idCliente: values.client ,
       nombre: values.name,
       descripcion: values.description,
@@ -86,12 +89,21 @@ export class NewDeviceComponent implements OnInit {
       intervaloTiempo: values.timeInterval
     }
     this.statusSave.loading = true;
-      this.statusSave.loading = false;
+
       if(this.device.isEdit) {
-        this.activeModal.close(true);
+        this.service.editDevice(device).toPromise().then((rsp: any) => {
+          this.statusSave.loading = false;
+          this.activeModal.close(true);
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo editado', icon: 'success'}
+          );
+      }, err => {
+        this.statusSave.error = true;
+        this.statusSave.loading = false;
         Swal.fire(
-          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo editado correctamente', icon: 'success'}
+          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning'}
         );
+      });
 
       } else {
         this.service.addDevice(device).toPromise().then((rsp: any) => {

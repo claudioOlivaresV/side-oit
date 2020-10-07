@@ -191,7 +191,7 @@
       <li class="nav-item nav-profile" ngbDropdown>
         <a class="nav-link" ngbDropdownToggle id="profileDropdown">
           <div class=" text-white icon30 rounded-circle d-flex justify-content-center align-items-center">
-            <span class="mt-1">{{userInfo[0].idCliente[0].nombre.substring(0, 1).toUpperCase()}}</span>
+            <span class="mt-1">{{userInfo.datosUsuario.nombre.substring(0, 1).toUpperCase()}}</span>
           </div>
           
           <!-- <img src="https://via.placeholder.com/30x30" alt="profile"> -->
@@ -200,12 +200,12 @@
           <div class="dropdown-header d-flex flex-column align-items-center">
             <div class="figure mb-3">
               <div class=" text-white icon80 rounded-circle d-flex justify-content-center align-items-center">
-                <h2 class="mt-2">{{userInfo[0].idCliente[0].nombre.substring(0, 1).toUpperCase()}}</h2>
+                <h2 class="mt-2">{{userInfo.datosUsuario.nombre.substring(0, 1).toUpperCase()}}</h2>
               </div>
             </div>
             <div class="info text-center">
-              <p class="name font-weight-bold mb-0" *ngIf="userInfo">{{userInfo[0].idCliente[0].nombre}}</p>
-              <p class="email text-muted mb-3" *ngIf="userInfo">{{userInfo[0].idCliente[0].correoElectronico}}</p>
+              <p class="name font-weight-bold mb-0" *ngIf="userInfo">{{userInfo.datosUsuario.nombre}}</p>
+              <p class="email text-muted mb-3" *ngIf="userInfo">{{userInfo.datosUsuario.correoElectronico}}</p>
             </div>
           </div>
           <div class="dropdown-body">

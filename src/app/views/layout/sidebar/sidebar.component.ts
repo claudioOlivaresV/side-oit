@@ -13,14 +13,15 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
-  
+
 
   @ViewChild('sidebarToggler') sidebarToggler: ElementRef;
 
   menuItems = [];
+  role: any;
   @ViewChild('sidebarMenu') sidebarMenu: ElementRef;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, router: Router) { 
+  constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, router: Router) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
 
@@ -42,8 +43,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.menuItems = MENU;
-    
-
+    this.role = JSON.parse(sessionStorage.getItem('user-info')).idRol;
+    console.log(this.role);
     /**
      * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
      */
@@ -55,7 +56,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     // activate menu item
     new MetisMenu(this.sidebarMenu.nativeElement);
-    
     this._activateMenuDropdown();
   }
 
@@ -89,7 +89,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    */
   operSidebarFolded() {
     if (this.document.body.classList.contains('sidebar-folded')){
-      this.document.body.classList.add("open-sidebar-folded");
+      this.document.body.classList.add('open-sidebar-folded');
     }
   }
 
@@ -99,7 +99,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    */
   closeSidebarFolded() {
     if (this.document.body.classList.contains('sidebar-folded')){
-      this.document.body.classList.remove("open-sidebar-folded");
+      this.document.body.classList.remove('open-sidebar-folded');
     }
   }
 
@@ -149,7 +149,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   resetMenuItems() {
 
     const links = document.getElementsByClassName('nav-link-ref');
-    
     for (let i = 0; i < links.length; i++) {
       const menuItemEl = links[i];
       menuItemEl.classList.remove('mm-active');
@@ -158,7 +157,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       if (parentEl) {
           parentEl.classList.remove('mm-active');
           const parent2El = parentEl.parentElement;
-          
           if (parent2El) {
             parent2El.classList.remove('mm-show');
           }
@@ -198,13 +196,10 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     const links = document.getElementsByClassName('nav-link-ref');
 
     let menuItemEl = null;
-    
     for (let i = 0; i < links.length; i++) {
       // tslint:disable-next-line: no-string-literal
         if (window.location.pathname === links[i]['pathname']) {
-          
             menuItemEl = links[i];
-            
             break;
         }
     }

@@ -22,8 +22,13 @@ export class AddSensorComponent implements OnInit {
     loading: null,
     error: null
   }
+  statusSensors = {
+    data: null,
+    loading: null,
+    error: null
+  }
   sensors = [];
-  types: any [];
+  types: any[];
   form: FormGroup;
 
   constructor(public activeModal: NgbActiveModal, private service: DevicesService) {
@@ -37,35 +42,54 @@ export class AddSensorComponent implements OnInit {
       descripcion: new FormControl('', Validators.required),
       calculo: new FormControl('', Validators.required),
       tipo: new FormControl('', Validators.required),
-     })
+    })
     console.log(this.device);
     this.getType();
+    this.getSensors();
   }
-  saveSensor(value){
+  getSensors() {
+    const dataDevice = {
+      option: "OBTENER-SENSORES",
+      idDispositivo: this.device.id
+    }
+    this.statusSensors.data = false;
+    this.statusSensors.loading = true;
+    this.statusSensors.error = false;
+    this.service.getSensor(dataDevice).toPromise().then((rsp: any) => {
+      console.log(rsp);
+      this.sensors = rsp.data;
+    }, err => {
+      console.log(err);
+      console.log(err);
+      this.statusSensors.error = true;
+      this.statusSensors.loading = false;
+    });
+
+  }
+  saveSensor(value) {
     this.sensors.push(value);
     console.log(value);
-    
   }
-  removeSensor(index){
+  removeSensor(index) {
     this.sensors.splice(index, 1);
   }
   getType() {
     this.statusType.data = false;
     this.statusType.loading = true;
     this.statusType.error = false;
-      this.service.getType().toPromise().then((rsp: any) => {
-        setTimeout(() => {
-          this.types = rsp;
-          this.statusType.data = true;
-          this.statusType.loading = false;
-        }, 2000);
-      }, err => {
-        this.statusType.error = true;
+    this.service.getType().toPromise().then((rsp: any) => {
+      setTimeout(() => {
+        this.types = rsp;
+        this.statusType.data = true;
         this.statusType.loading = false;
-      });
+      }, 2000);
+    }, err => {
+      this.statusType.error = true;
+      this.statusType.loading = false;
+    });
   }
 
-  closeModal(){
+  closeModal() {
     this.activeModal.close();
   }
   save() {
@@ -77,20 +101,26 @@ export class AddSensorComponent implements OnInit {
     this.statusSave.data = false;
     this.statusSave.loading = true;
     this.statusSave.error = false;
-      this.service.addSensor(sensors).toPromise().then((rsp: any) => {
-        console.log(rsp);
-        this.activeModal.close(true);
-        Swal.fire(
-          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Sensor agregado', icon: 'success'}
-        );
-      }, err => {
-        console.log(err);
-        this.statusSave.error = true;
-        this.statusSave.loading = false;
-        Swal.fire(
-          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning'}
-        );
-      });
+    this.service.addSensor(sensors).toPromise().then((rsp: any) => {
+      console.log(rsp);
+      this.activeModal.close(true);
+      Swal.fire(
+        { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Sensor agregado', icon: 'success' }
+      );
+    }, err => {
+      console.log(err);
+      this.statusSave.error = true;
+      this.statusSave.loading = false;
+      Swal.fire(
+        { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning' }
+      );
+    });
+  }
+  remove(sensor){
+
+  }
+  edit(sensor){
+    
   }
 
 }

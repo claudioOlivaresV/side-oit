@@ -39,7 +39,8 @@ export class NewClientComponent implements OnInit {
   }
   save(values){
     const client = {
-      option: 'CREAR-CLIENTE',
+      option: this.client.isEdit ? 'MODIFICAR-CLIENTE' : 'CREAR-CLIENTE',
+      idCliente: this.client.isEdit ? this.client.data.idCliente : null,
       nombre: values.name,
       razonSocial: values.businessName,
       rut: values.rut,
@@ -67,11 +68,19 @@ export class NewClientComponent implements OnInit {
       );
     });
     } else {
-      this.status.loading = false;
+      this.service.editClient(client).toPromise().then((rsp: any) => {
+        this.status.loading = false;
         this.activeModal.close(true);
         Swal.fire(
-          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Cliente editado', icon: 'success'}
+          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Cliente modificado', icon: 'success'}
         );
+    }, err => {
+      this.status.error = true;
+      this.status.loading = false;
+      Swal.fire(
+        { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning'}
+      );
+    });
 
     }
   }

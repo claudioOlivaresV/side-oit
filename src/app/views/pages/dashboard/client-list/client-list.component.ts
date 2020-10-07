@@ -61,7 +61,7 @@ export class ClientListComponent implements OnInit {
     });
 
   }
-  remove(){
+  remove(clientId){
     Swal.fire({
       title: 'Está eliminando un cliente',
       text: '¿Está seguro?',
@@ -71,9 +71,23 @@ export class ClientListComponent implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Cliente eliminado correctamente', icon: 'success'}
-        )
+        const client = {
+          option: 'DELETE-CLIENTE',
+          idCliente: clientId
+        }
+        this.service.deleteClient(client).toPromise().then((rsp: any) => {
+          console.log(rsp);
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Cliente eliminado correctamente', icon: 'success'}
+          )
+          this.tryAgain();
+        }, err => {
+          console.log(err);
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, intentelo nuevamente',
+            icon: 'warning'}
+          )
+        });
       }
     })
 

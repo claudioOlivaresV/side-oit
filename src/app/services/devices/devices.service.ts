@@ -27,6 +27,16 @@ export class DevicesService {
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
     return this.http.post(environment.baseUrl + environment.api.deviceData, device, { headers });
   }
+  public editDevice(device) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.deviceData, device, { headers });
+  }
+  deleteDevice(user) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.deviceData, user, { headers });
+  }
 
   // cliente maintainer
   public getCliente() {
@@ -39,6 +49,17 @@ export class DevicesService {
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
     return this.http.post(environment.baseUrl + environment.api.clienteData, client, { headers });
   }
+  editClient(client) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.clienteData, client, { headers });
+  }
+
+  deleteClient(user) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.clienteData, user, { headers });
+  }
    // user maintainer
    public getUsers() {
     let headers: HttpHeaders = new HttpHeaders();
@@ -50,11 +71,26 @@ export class DevicesService {
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
     return this.http.post(environment.baseUrl + environment.api.userData, user, { headers });
   }
+  public editUser(user) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.userData, user, { headers });
+  }
+  deleteUser(user) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.userData, user, { headers });
+  }
   // sensor services
   public addSensor(sensor) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
     return this.http.post(environment.baseUrl + environment.api.sensorData, sensor, { headers });
+  }
+  public getSensor(device) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.sensorData, device, { headers });
   }
 
   public login(user) {

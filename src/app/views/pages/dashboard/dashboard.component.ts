@@ -76,7 +76,19 @@ export class DashboardComponent implements OnInit {
         });
       })
     });
+    setTimeout(() => {
+      this.compareDevice();
+    }, 3000);
     console.log(this.deviceFire);
+  }
+  compareDevice() {
+    this.devices.forEach((element, index) => {
+      this.deviceFire.forEach(elementFire => {
+        if(element.numeroSerie === elementFire.data.data.serie){
+          this.devices[index].sensor.push(elementFire.data.data)
+        }
+      });
+    });
   }
 
   getData() {
@@ -85,8 +97,8 @@ export class DashboardComponent implements OnInit {
     this.status.error = false;
     setTimeout(() => {
       this.userInfo = JSON.parse(sessionStorage.getItem('user-info'));
-        this.devices = this.userInfo;
-        this.devicesFilter = this.userInfo;
+        this.devices = this.userInfo.data;
+        this.devicesFilter = this.userInfo.data;
         this.status.data = true;
         this.status.loading = false
     }, 2000);

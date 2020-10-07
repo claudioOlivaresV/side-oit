@@ -42,18 +42,19 @@ export class NewUserComponent implements OnInit {
   }
 
   constructor(public activeModal: NgbActiveModal, private service: DevicesService) {
-    this.form = new FormGroup({
-      name: new FormControl('', Validators.required),
-      position: new FormControl('', Validators.required),
-      role: new FormControl('', Validators.required),
-      client: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
-     })
   }
 
   ngOnInit(): void {
+    console.log(this.user);
     this.getClients();
+    this.form = new FormGroup({
+      name: new FormControl(this.user.isEdit ? this.user.data.nombre : '', Validators.required),
+      position: new FormControl(this.user.isEdit ? this.user.data.cargo : '', Validators.required),
+      role: new FormControl(this.user.isEdit ? this.user.data.idRol : '', Validators.required),
+      client: new FormControl(this.user.isEdit ? this.user.data.idCliente : '', Validators.required),
+      email: new FormControl(this.user.isEdit ? this.user.data.correoElectronico : '', [Validators.required, Validators.email]),
+      password: new FormControl(this.user.isEdit ? this.user.data.contraseña : '', Validators.required),
+     })
   }
   getClients() {
     this.status.data = false;
@@ -72,7 +73,8 @@ export class NewUserComponent implements OnInit {
 
   save(values){
     const user = {
-      option: 'CREAR-USUARIO',
+      option:  this.user.isEdit ? 'MODIFICAR-USUARIO' : 'CREAR-USUARIO',
+      idUsuario: this.user.isEdit ? this.user.data.idUsuario : null,
       idCliente: values.client,
       idRol: values.role,
       nombre: values.name,
@@ -82,20 +84,37 @@ export class NewUserComponent implements OnInit {
     }
     console.log(values);
     this.statusSave.loading = true;
-    this.service.addUser(user).toPromise().then((rsp: any) => {
-      console.log(rsp);
-        this.statusSave.loading = false;
-        this.activeModal.close(true);
+    if(!this.user.isEdit) {
+      this.service.addUser(user).toPromise().then((rsp: any) => {
+        console.log(rsp);
+          this.statusSave.loading = false;
+          this.activeModal.close(true);
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Usuario agregado correctamente', icon: 'success'}
+          );
+      }, err => {
         Swal.fire(
-          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Usuario agregado correctamente', icon: 'success'}
+          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning'}
         );
-    }, err => {
-      Swal.fire(
-        { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Usuario agregado correctamente', icon: 'success'}
-      );
-      this.statusSave.error = true;
-      this.statusSave.loading = false;
-    });
+        this.statusSave.error = true;
+        this.statusSave.loading = false;
+      });
+    } else {
+      this.service.editUser(user).toPromise().then((rsp: any) => {
+        console.log(rsp);
+          this.statusSave.loading = false;
+          this.activeModal.close(true);
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Usuario editado correctamente', icon: 'success'}
+          );
+      }, err => {
+        Swal.fire(
+          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning'}
+        );
+        this.statusSave.error = true;
+        this.statusSave.loading = false;
+      });
+    }
 
   }
   closeModal() {

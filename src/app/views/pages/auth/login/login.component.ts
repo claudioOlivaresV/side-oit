@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
       this.service.login(user).toPromise().then((rsp: any) => {
         console.log(rsp);
         sessionStorage.setItem('isLoggedin', 'true');
-        sessionStorage.setItem('user-info', JSON.stringify(rsp.data));
+        sessionStorage.setItem('user-info', JSON.stringify(rsp));
         this.router.navigate([this.returnUrl]);
         this.status.data = true;
         this.status.loading = false;

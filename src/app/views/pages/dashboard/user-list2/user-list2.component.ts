@@ -61,7 +61,7 @@ export class UserList2Component implements OnInit {
     });
 
   }
-  remove(){
+  remove(userId){
     Swal.fire({
       title: 'Está eliminando un usuario',
       text: '¿Está seguro?',
@@ -71,9 +71,24 @@ export class UserList2Component implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Usuario eliminado correctamente', icon: 'success'}
-        )
+        const user = {
+          option: 'DELETE-USUARIO',
+          idUsuario: userId
+        }
+        console.log(user);
+        this.service.deleteUser(user).toPromise().then((rsp: any) => {
+          console.log(rsp);
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Usuario eliminado correctamente', icon: 'success'}
+          )
+          this.tryAgain();
+        }, err => {
+          console.log(err);
+          Swal.fire(
+            { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, intentelo nuevamente',
+            icon: 'warning'}
+          )
+        });
       }
     })
   }
@@ -82,7 +97,7 @@ export class UserList2Component implements OnInit {
       isEdit: true,
       data: userInfo,
     }
-    const modalRef = this.modalService.open(NewClientComponent, {size: 'lg', scrollable: true,  backdrop: 'static',
+    const modalRef = this.modalService.open(NewUserComponent, {size: 'lg', scrollable: true,  backdrop: 'static',
     keyboard: false});
     modalRef.componentInstance.user = user;
     modalRef.result.then((result) => {

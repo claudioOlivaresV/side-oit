@@ -118,6 +118,7 @@ export class DeviceListComponent implements OnInit {
     modalRef.result.then((result) => {
       if (result) {
         console.log(result);
+        this.tryAgain();
       }
     });
 
@@ -155,7 +156,8 @@ export class DeviceListComponent implements OnInit {
     });
 
   }
-  removeDevice(){
+  removeDevice(deviceId){
+    console.log(deviceId);
     Swal.fire({
       title: 'Está eliminando un dispositivo',
       text: '¿Está seguro?',
@@ -165,9 +167,24 @@ export class DeviceListComponent implements OnInit {
       cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo eliminado correctamente', icon: 'success'}
-        )
+          const device = {
+            option: 'DELETE-DISPOSITIVO',
+            idDispositivo: deviceId
+          }
+          console.log(device);
+          this.service.deleteDevice(device).toPromise().then((rsp: any) => {
+            console.log(rsp);
+            Swal.fire(
+              { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo eliminado correctamente', icon: 'success'}
+            )
+            this.tryAgain();
+          }, err => {
+            console.log(err);
+            Swal.fire(
+              { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, intentelo nuevamente',
+              icon: 'warning'}
+            )
+          });
       }
     })
   }
