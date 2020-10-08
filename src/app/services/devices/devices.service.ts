@@ -92,11 +92,26 @@ export class DevicesService {
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
     return this.http.post(environment.baseUrl + environment.api.sensorData, device, { headers });
   }
+  public removeSensor(sensor) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.sensorData, sensor, { headers });
+  }
+  public editSensor(sensor) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.sensorData, sensor, { headers });
+  }
 
   public login(user) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
     return this.http.post(environment.baseUrl + environment.api.login, user, { headers });
+  }
+  public changePassword(user) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.userData, user, { headers });
   }
 
   public getType() {

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ChangePasswordComponent } from '../../pages/dashboard/change-password/change-password.component';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +14,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
+    private modalService: NgbModal,
     private renderer: Renderer2,
     private router: Router
   ) { }
@@ -39,6 +42,17 @@ export class NavbarComponent implements OnInit {
     if (!sessionStorage.getItem('isLoggedin')) {
       this.router.navigate(['/auth/login']);
     }
+  }
+  changePassword(event){
+    event.stopPropagation();
+    const modalRef = this.modalService.open(ChangePasswordComponent, {size: 'md', scrollable: true,  backdrop: 'static',
+    keyboard: false});
+    modalRef.result.then((result) => {
+      if (result) {
+        console.log(result);
+        // this.tryAgain();
+      }
+    });
   }
 
 }

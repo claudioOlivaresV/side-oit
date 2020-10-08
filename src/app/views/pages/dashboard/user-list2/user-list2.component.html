@@ -82,6 +82,13 @@
 
                   </tr>
                 </ng-container>
+                <ng-container *ngIf="!users.length">
+                  <tr>
+                      <td colspan="7" class="text-center">
+                         No existen usuarios registrados
+                      </td>
+                  </tr>
+              </ng-container>
 
 
               </tbody>

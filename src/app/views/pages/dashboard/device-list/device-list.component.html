@@ -82,6 +82,13 @@
                               </td>
                             </tr>
                         </ng-container>
+                        <ng-container *ngIf="!devices.length">
+                          <tr>
+                              <td colspan="6" class="text-center">
+                                 No existen dispositivos registrados
+                              </td>
+                          </tr>
+                      </ng-container>
 
                       </tbody>
                     </table>
