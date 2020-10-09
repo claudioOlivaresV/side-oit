@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
     error: null
   }
   public deviceFire: any = [];
+  idUser:any;
 
 
 
@@ -66,7 +67,9 @@ export class DashboardComponent implements OnInit {
               }
 
   ngOnInit(): void {
-    this.getData();
+    this.idUser = JSON.parse(sessionStorage.getItem('user-info')).datosUsuario.idCliente;
+    
+    this.getData(this.idUser);
     this.service.getDataDashboard().subscribe((data) => {
       data.forEach((data: any) => {
         // console.log(data.payload.doc.data());
@@ -77,7 +80,7 @@ export class DashboardComponent implements OnInit {
       })
     });
     setTimeout(() => {
-      this.compareDevice();
+      // this.compareDevice();
     }, 3000);
     console.log(this.deviceFire);
   }
@@ -91,17 +94,32 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getData() {
+  getData(idClient) {
+    const device = {
+      option: "OBTENER-DISPOSITIVO-POR-ID-CLIENTE",
+      idCliente: idClient
+  }
     this.status.data = false;
     this.status.loading = true;
     this.status.error = false;
-    setTimeout(() => {
-      this.userInfo = JSON.parse(sessionStorage.getItem('user-info'));
-        this.devices = this.userInfo.data;
-        this.devicesFilter = this.userInfo.data;
-        this.status.data = true;
-        this.status.loading = false
-    }, 2000);
+    this.service.getDevices(device).toPromise().then((rsp: any) => {
+      console.log(rsp);
+      this.devices = rsp.data;
+      this.devicesFilter = rsp.data;
+      this.status.data = true;
+      this.status.loading = false;
+    }, err => {
+      console.log(err);
+      this.status.error = true;
+      this.status.loading = false;
+    });
+    // setTimeout(() => {
+    //   this.userInfo = JSON.parse(sessionStorage.getItem('user-info'));
+    //     this.devices = this.userInfo.data;
+    //     this.devicesFilter = this.userInfo.data;
+    //     this.status.data = true;
+    //     this.status.loading = false
+    // }, 2000);
 
   }
 
@@ -121,11 +139,11 @@ export class DashboardComponent implements OnInit {
   }
   openBasicModal(content) {
     this.modalReference = this.modalService.open(content, {size: 'xl', scrollable: true}).result.then((result) => {
-      this.basicModalCloseResult = "Modal closed" + result;
+      this.basicModalCloseResult = 'Modal closed' + result;
       console.log(this.basicModalCloseResult);
     }).catch((res) => {});
   }
-  
+
   save(values) {
     this.statusSave.loading = true;
     setTimeout(() => {

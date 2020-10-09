@@ -12,9 +12,11 @@ export class DevicesService {
 
   constructor(private http: HttpClient, private firestore: AngularFirestore) { }
   // dashboard
-  public getDevices() {
-    // return this.http.get(environment.baseUrl + environment.api.getDevices);
-     return this.http.get('./assets/data/devices.json');
+  public getDevices(user) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+     return this.http.post(environment.baseUrl + environment.api.deviceData, user, { headers });
+    //  return this.http.get('./assets/data/devices.json');
   }
   // device maintainer
   public getDevicesData() {
@@ -123,6 +125,8 @@ export class DevicesService {
      return this.http.get('./assets/data/sensorOfDevice.json');
   }
   public getDataDashboard() {
+    // return this.firestore.collection('side-rasp-pi',ref =>
+    // ref.where('serie', '==', '12345678')).snapshotChanges();
     return this.firestore.collection('side-rasp-pi').snapshotChanges();
   }
 

@@ -46,7 +46,7 @@ export class AddSensorComponent implements OnInit {
   ngOnInit(): void {
     this.statusRemove.data = true;
     this.form = new FormGroup({
-      idSensorDispositivo: new FormControl(this.device.id, Validators.required),
+      idDispositivo: new FormControl(this.device.id, Validators.required),
       prefijo: new FormControl('', Validators.required),
       nombre: new FormControl('', Validators.required),
       descripcion: new FormControl('', Validators.required),
@@ -114,6 +114,7 @@ export class AddSensorComponent implements OnInit {
       option: 'CREAR-SENSOR',
       sensor: [values]
     }
+    console.log(sensors);
     this.statusSensors.loading = true;
     this.service.addSensor(sensors).toPromise().then((rsp: any) => {
       console.log(rsp);
