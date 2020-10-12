@@ -11,19 +11,26 @@
         <div class="col-md-12 stretch-card">
           <div class="card">
             <div class="card-body">
-              <div class="row">
-                  <div class="col-6">
+              <div class="row mb-3 mb-md-0">
+                  <div class="col-6 col-md-4 col-xl-6">
                       <h6 class="card-title">Dispositivos</h6>
                       <p class="card-description mb-0">Lista de dispositivos</p>
                   </div>
-                  <div class="col-3">
-                    <button class="btn btn-outline-primary w-100" >Exportar</button>
+                  <div class="col-3 col-md-4 col-xl-3">
+                    <button class="btn btn-outline-primary  btn-icon-text w-100 d-flex justify-content-center" >
+                      <div>
+                        <em class="btn-icon-prepend mr-0 d-block  d-md-none" data-feather="download" appFeatherIcon></em>
+                        <span class="d-none ml-2 d-md-block"  >Exportar</span> 
+                      </div>
+                    </button>
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 col-md-4 col-xl-3">
                     <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" (click)="addDevice()">
-      
-                        <i class="btn-icon-prepend mr-0 " data-feather="plus-circle" appFeatherIcon></i>
-                        <span class="d-none ml-2 d-md-block"  >Agregar Dispositivo</span> 
+                       <div>
+                         <em class="btn-icon-prepend mr-0 d-block  d-md-none " data-feather="plus-circle" appFeatherIcon></em>
+                         <span class="d-none ml-2 d-md-block"  >Agregar Dispositivo</span> 
+
+                       </div>
                      
                     </button>
     
@@ -31,15 +38,13 @@
     
               </div>
               <div class="row">
-                <div class="col-3"></div>
-                <div class="col-3"></div>
-                <div class="col-3"></div>
-                <div class="col-3">
+                <div class="col-0 col-md-4 col-xl-6"></div>
+                <div class="col-12 col-md-8 col-xl-6">
                   <form class="search-form">
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <div class="input-group-text">
-                          <i class="feather icon-search"></i>
+                          <em class="feather icon-search"></em>
                         </div>
                       </div>
                       <input type="text" class="form-control" id="navbarForm" placeholder="Buscar.." (keyup)="filterByCell(myModel)" [(ngModel)]="myModel" name="filter">
@@ -52,12 +57,13 @@
                     <table id="dataTableExample" class="table">
                       <thead>
                         <tr>
-                          <th>Descripción</th>
-                          <th>N° Serie</th>
-                          <th>Ubicación</th>
-                          <th>Sensores</th>
-                          <th>Fecha Lectura</th>
-                          <th>Acciones</th>
+                          <th id="">Descripción</th>
+                          <th id="">N° Serie</th>
+                          <th id="">Ubicación</th>
+                          <th id="">Sensores</th>
+                          <th id="">Intervalo</th>
+                          <th id="">Fecha Lectura</th>
+                          <th id="">Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -67,6 +73,7 @@
                               <td>{{item.serialNumber}}</td>
                               <td>{{item.location}}</td>
                               <td>{{item.numberOfSensors}}</td>
+                              <td>{{item.timeInterval}}</td>
                               <td>{{item.lastReading | date:"dd/MM/yyyy - HH:mm" }}</td>
                               <td>
                               

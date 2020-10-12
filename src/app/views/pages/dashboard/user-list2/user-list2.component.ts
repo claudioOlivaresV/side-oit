@@ -22,10 +22,16 @@ export class UserList2Component implements OnInit {
   users: any[];
   usersFilter: any[];
   myModel:string;
+  role: any;
 
-  constructor(private modalService: NgbModal, private service: DevicesService) { }
+  constructor(private router: Router, private modalService: NgbModal, private service: DevicesService) { }
 
   ngOnInit(): void {
+    this.role = JSON.parse(sessionStorage.getItem('user-info')).idRol;
+    console.log(this.role);
+    if( this.role === 2 || this.role === undefined ) {
+      this.router.navigate(['/dashboard'])
+    }
     this.getData();
   }
   getData() {

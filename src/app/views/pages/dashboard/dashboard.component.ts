@@ -42,8 +42,9 @@ export class DashboardComponent implements OnInit {
     loading: null,
     error: null
   }
-  public deviceFire: any = [];
+  public sensorFire: any = [];
   idUser:any;
+  logIds = ['12345678', '23456789']
 
 
 
@@ -68,30 +69,58 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUser = JSON.parse(sessionStorage.getItem('user-info')).datosUsuario.idCliente;
-    
     this.getData(this.idUser);
-    this.service.getDataDashboard().subscribe((data) => {
-      data.forEach((data: any) => {
-        // console.log(data.payload.doc.data());
-        this.deviceFire.push( {
-          id: data.payload.doc.id,
-          data: data.payload.doc.data()
-        });
-      })
-    });
-    setTimeout(() => {
-      // this.compareDevice();
-    }, 3000);
-    console.log(this.deviceFire);
+  
+
   }
   compareDevice() {
     this.devices.forEach((element, index) => {
-      this.deviceFire.forEach(elementFire => {
-        if(element.numeroSerie === elementFire.data.data.serie){
-          this.devices[index].sensor.push(elementFire.data.data)
+      this.sensorFire.forEach(elementFire => {
+        if(element.numeroSerie !== elementFire.serie){
+          this.sensorFire.splice(index, 1)
         }
       });
     });
+  }
+  getDataFire(){
+    
+    this.service.getDataDashboard().subscribe((data) => {
+      data.forEach((data: any) => {
+
+        console.log(data.payload.doc.data());
+        
+
+        this.devices.forEach(element => {
+          if(element.numeroSerie === data.payload.doc.data().data.serie){
+            const unix = (parseInt(data.payload.doc.data().data.timestamp) * 1000) ;
+            const dateObject = new Date(unix)
+            console.log(dateObject);
+            element.date = dateObject;
+            console.log(data.payload.doc.data().data.sensores);
+            // element.sensores = data.payload.doc.data().data.sensores;
+
+            data.payload.doc.data().data.sensores.forEach(elementInt => {
+              const index = element.sensor.map(function(e) { return e.prefijo; }).indexOf((elementInt.nombre));
+              console.log(index);
+              if(index >= 0){
+                console.log('actulizando');
+                
+                element.sensor[index].valor = elementInt.valor
+              }
+
+            });
+            // const date = new Date( unix  * 1000).toISOString().slice(0, 20);
+            // console.log(date);
+              // this.sensorFire.push(data.payload.doc.data());
+              
+              
+            }
+        });
+      })
+    });
+ 
+
+
   }
 
   getData(idClient) {
@@ -106,6 +135,7 @@ export class DashboardComponent implements OnInit {
       console.log(rsp);
       this.devices = rsp.data;
       this.devicesFilter = rsp.data;
+      this.getDataFire();
       this.status.data = true;
       this.status.loading = false;
     }, err => {

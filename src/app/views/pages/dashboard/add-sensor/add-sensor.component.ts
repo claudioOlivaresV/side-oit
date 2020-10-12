@@ -49,14 +49,14 @@ export class AddSensorComponent implements OnInit {
       idDispositivo: new FormControl(this.device.id, Validators.required),
       prefijo: new FormControl('', Validators.required),
       nombre: new FormControl('', Validators.required),
-      descripcion: new FormControl('', Validators.required),
+      descripcion: new FormControl('', ),
       calculo: new FormControl('', Validators.required),
       tipo: new FormControl('', Validators.required),
     })
     this.formEdit = new FormGroup({
       prefijo: new FormControl('', Validators.required),
       nombre: new FormControl('', Validators.required),
-      descripcion: new FormControl( '', Validators.required),
+      descripcion: new FormControl( '', ),
       calculo: new FormControl('', Validators.required),
       tipo: new FormControl('', Validators.required),
     })
@@ -118,6 +118,7 @@ export class AddSensorComponent implements OnInit {
     this.statusSensors.loading = true;
     this.service.addSensor(sensors).toPromise().then((rsp: any) => {
       console.log(rsp);
+      this.form.reset();
       this.tryAgain();
       Swal.fire(
         { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Sensor agregado', icon: 'success' }
@@ -196,6 +197,7 @@ export class AddSensorComponent implements OnInit {
     this.service.editSensor(sensors).toPromise().then((rsp: any) => {
       console.log(rsp);
       this.isEdit = false;
+      this.formEdit.reset();
       this.tryAgain();
       Swal.fire(
         { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Sensor editado', icon: 'success' }

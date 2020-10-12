@@ -13,7 +13,8 @@ export const environment = {
     clienteData: 'side-cliente-function',
     userData: 'side-usuario-function',
     login: 'side-login-function',
-    sensorData: 'side-dispositivo-function'
+    sensorData: 'side-dispositivo-function',
+    deviceDetail: 'side-historico-function'
 
   },
   firebase: {

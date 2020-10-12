@@ -22,7 +22,7 @@
          
           <li class="nav-item"  >
             <a class="nav-link nav-link-ref" [routerLink]="'/dashboard'" >
-              <i class="link-icon" [attr.data-feather]="'home'" appFeatherIcon ></i>
+              <em class="link-icon" [attr.data-feather]="'home'" appFeatherIcon ></em>
               <span class="link-title"> Dashboard</span>
             </a>
           </li>
@@ -30,20 +30,27 @@
             <li class="nav-item nav-category">Administración</li>
             <li class="nav-item"  >
               <a class="nav-link nav-link-ref" [routerLink]="'/dashboard/device-list'" >
-                <i class="link-icon" [attr.data-feather]="'cpu'" appFeatherIcon ></i>
+                <em class="link-icon" [attr.data-feather]="'cpu'" appFeatherIcon ></em>
                 <span class="link-title"> Dispositivos</span>
               </a>
             </li>
             <li class="nav-item"  >
               <a class="nav-link nav-link-ref" [routerLink]="'/dashboard/user-list'" >
-                <i class="link-icon" [attr.data-feather]="'users'" appFeatherIcon ></i>
+                <em class="link-icon" [attr.data-feather]="'users'" appFeatherIcon ></em>
                 <span class="link-title"> Usuariarios</span>
               </a>
             </li>
             <li class="nav-item"  >
               <a class="nav-link nav-link-ref" [routerLink]="'/dashboard/client-list'" >
-                <i class="link-icon" [attr.data-feather]="'briefcase'" appFeatherIcon ></i>
+                <em class="link-icon" [attr.data-feather]="'briefcase'" appFeatherIcon ></em>
                 <span class="link-title"> Clientes</span>
+              </a>
+            </li>
+            <li class="nav-item nav-category">Configuración</li>
+            <li class="nav-item"  >
+              <a class="nav-link nav-link-ref" [routerLink]="'/dashboard/general'" >
+                <em class="link-icon" [attr.data-feather]="'settings'" appFeatherIcon ></em>
+                <span class="link-title"> Tipo de sensores</span>
               </a>
             </li>
           </ng-container>

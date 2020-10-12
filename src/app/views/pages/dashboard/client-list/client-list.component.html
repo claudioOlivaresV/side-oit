@@ -10,38 +10,41 @@
     <div class="col-md-12 stretch-card">
       <div class="card">
         <div class="card-body">
-          <div class="row">
-              <div class="col-6">
+          <div class="row mb-3 mb-md-0">
+              <div class="col-6 col-md-4 col-xl-6">
                   <h6 class="card-title">Clientes</h6>
                   <p class="card-description mb-0">Lista de clientes</p>
               </div>
-              <div class="col-3">
-                <button class="btn btn-outline-primary w-100">Exportar</button>
+              <div class="col-3 col-md-4 col-xl-3">
+                <button class="btn btn-outline-primary  btn-icon-text w-100 d-flex justify-content-center" >
+                  <div>
+                    <em class="btn-icon-prepend mr-0 d-block  d-md-none" data-feather="download" appFeatherIcon></em>
+                    <span class="d-none ml-2 d-md-block"  >Exportar</span> 
+                  </div>
+                </button>
               </div>
-              <div class="col-3">
-                <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" (click)="addClient()">
-      
-                  <i class="btn-icon-prepend mr-0 " data-feather="plus-circle" appFeatherIcon></i>
+              <div class="col-3 col-md-4 col-xl-3">
+                <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center"
+                (click)="addClient()">
+                <div>
+                  <em class="btn-icon-prepend mr-0 d-block  d-md-none " data-feather="plus-circle" appFeatherIcon></em>
                   <span class="d-none ml-2 d-md-block"  >Agregar Cliente</span> 
-               
+                </div>
               </button>
-
               </div>
 
           </div>
           <div class="row">
-            <div class="col-3"></div>
-            <div class="col-3"></div>
-            <div class="col-3"></div>
-            <div class="col-3">
+            <div class="col-0 col-md-4 col-xl-6"></div>
+            <div class="col-12 col-md-8 col-xl-6">
               <form class="search-form">
                 <div class="input-group">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
-                      <i class="feather icon-search"></i>
+                      <em class="feather icon-search"></em>
                     </div>
                   </div>
-                  <input type="text" class="form-control" id="navbarForm" placeholder="Buscar .." (keyup)="filterByCell(myModel)" [(ngModel)]="myModel" name="filter">
+                  <input type="text" class="form-control" id="navbarForm" placeholder="Buscar.." (keyup)="filterByCell(myModel)" [(ngModel)]="myModel" name="filter">
                 </div>
               </form>
             </div>
@@ -51,12 +54,12 @@
             <table id="dataTableExample" class="table">
               <thead>
                 <tr>
-                  <th>Nombre</th>
-                  <th>Razon Social</th>
-                  <th>Rut</th>
-                  <th>Región</th>
-                  <th>Correo electrónico</th>
-                  <th>Acciones</th>
+                  <th id="">Nombre</th>
+                  <th id="">Razon Social</th>
+                  <th id="">Rut</th>
+                  <th id="">Región</th>
+                  <th id="">Correo electrónico</th>
+                  <th id="">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -87,16 +90,7 @@
                   </tr>
               </ng-container>
               </tbody>
-              <tfoot>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </tfoot>
+            
             </table>
           </div>
         </div>

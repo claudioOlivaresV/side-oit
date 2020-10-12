@@ -31,6 +31,7 @@ export class DeviceListComponent implements OnInit {
   modalReference: any;
   basicModalCloseResult = '';
   myModel:string;
+  role: number;
 
 
 
@@ -51,6 +52,12 @@ export class DeviceListComponent implements OnInit {
   ngOnInit(): void {
     // const dataTable = new DataTable("#dataTableExample");
     this.getData();
+    this.role = JSON.parse(sessionStorage.getItem('user-info')).idRol;
+    console.log(this.role);
+    if( this.role === 2 || this.role === undefined ) {
+      this.router.navigate(['/dashboard'])
+    }
+
   }
   getData() {
     this.status.data = false;

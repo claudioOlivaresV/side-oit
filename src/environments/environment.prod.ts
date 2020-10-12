@@ -7,7 +7,7 @@ export const environment = {
     clienteData: 'side-cliente-function',
     userData: 'side-usuario-function',
     login: 'side-login-function',
-    sensorData: 'side-usuario-function'
+    sensorData: 'side-dispositivo-function'
   },
   firebase: {
     apiKey: 'AIzaSyA-Ph5XHtWdYHBRtD5vDrhAOThJMty6SPw',

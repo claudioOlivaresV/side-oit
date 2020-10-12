@@ -22,6 +22,10 @@
     {
         "idType": "cms",
         "name": "cms"
+    },
+    {
+        "idType": "on/off",
+        "name": "on/off"
     }
     
     

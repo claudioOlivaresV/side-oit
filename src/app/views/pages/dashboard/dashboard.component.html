@@ -4,7 +4,7 @@
   <div class="col-md-4 col-9">
     <h4 class="mb-3 mb-md-0">Dispositivos <span class="badge badge-primary px-3">{{devices.length}}</span></h4>
   </div>
-  <div class="d-block d-md-none col-3">
+  <!-- <div class="d-block d-md-none col-3">
     <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" 
     data-toggle="modal" data-target="#exampleModal">
   
@@ -12,7 +12,7 @@
         <span class="d-none ml-2 d-md-block">Agregar Dispositivo</span> 
      
     </button>
-  </div>
+  </div> -->
   <div class="col-md-4 col-12">
     
   </div>
@@ -21,10 +21,10 @@
       <div class="input-group">
         <div class="input-group-prepend">
           <div class="input-group-text">
-            <i class="feather icon-search"></i>
+            <em class="feather icon-search"></em>
           </div>
         </div>
-        <input type="text" class="form-control" id="navbarForm" placeholder="Search here..." (keyup)="filterByCell(myModel)" [(ngModel)]="myModel" name="filter">
+        <input type="text" class="form-control" id="navbarForm" placeholder="Filtrar aquí..." (keyup)="filterByCell(myModel)" [(ngModel)]="myModel" name="filter">
       </div>
     </form>
    
@@ -34,33 +34,51 @@
 
   <div class="row mt-5">
     <ng-container *ngFor="let item of devices; let i = index;" >
-      <div class="col-md-6 col-lg-4  col-12 grid-margin stretch-card">
+      <div class="col-md-6 col-lg-6 col-xl-4  col-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
        
-            <div class=" position-absolute cicle rounded-circle on"></div>
+            <div class=" position-absolute cicle rounded-circle " [ngClass]="{ 'on': item.activo, 'off': !item.activo }" ></div>
    
 
             <div class="row">
-              <div class="col-5">
+              <div class="col-12 mb-2">
                 <h6 class="card-title mb-0">{{item.nombre}}</h6>
                 <p class="text-muted">{{item.numeroSerie}}</p>
                
               </div>
-              <div class="col-7">
-                
-                <button class="btn btn-outline-primary w-100 px-0" (click)="goToDeviceDetail()" >{{item.ultimaModificacion | date: 'dd/MM/yyyy HH:mm'}} </button>
+              <div class="col-12">
+                <!-- <h6 class="card-title mb-0">Última actualización</h6> -->
+                <p class="text-primary"><i data-feather="clock" appFeatherIcon></i> {{item.date | date: 'dd/MM/yyyy HH:mm'}}</p>
+                <!-- <button class="btn btn-outline-primary w-100 px-0" (click)="goToDeviceDetail()" >{{item.date | date: 'dd/MM/yyyy HH:mm'}} </button> -->
     
               </div>
     
             </div>
-          
+            <div class="dropdown-divider"></div>
             <div class="row mt-4 mb-3">
               <ng-container *ngFor="let sensor of item.sensor; let i = index;" >
-                <div class="col-6 d-flex justify-content-start mb-2">
+                <div class="col-12 d-flex justify-content-start mb-2">
                   <div>
-                    <label class="d-flex align-items-center justify-content-end tx-10 text-uppercase font-weight-medium">{{sensor.nombre}}</label>
-                    <label class="font-weight-bold mb-0 text-right text-muted">{{sensor.prefijo}}</label>
+                   
+                    
+                    
+                    <label class=" text-muted">{{sensor.nombre}}:</label>
+                    <label class="text-uppercase font-weight-medium"> {{sensor.tipo === 'on/off' ? (sensor.valor === '1.0' ? 'ON' : 'OFF' )  : sensor.valor}} {{sensor.tipo === 'on/off' ? '' : sensor.tipo }}</label>
+                    <ng-container *ngIf="sensor.tipo === 'lts'" >
+                      <em data-feather="droplet" appFeatherIcon></em>
+                    </ng-container>
+                    <ng-container *ngIf="sensor.tipo === 'Kw/h'" >
+                      <em data-feather="zap" appFeatherIcon></em>
+                    </ng-container>
+                    <ng-container *ngIf="sensor.tipo === 'm3'" >
+                      <em data-feather="box" appFeatherIcon></em>
+                    </ng-container>
+                    <ng-container *ngIf="sensor.tipo === 'mts' || sensor.tipo === 'cms' " >
+                      <em data-feather="layers" appFeatherIcon></em>
+                    </ng-container>
+                    
+                    
                   </div>
                 </div>
               </ng-container>

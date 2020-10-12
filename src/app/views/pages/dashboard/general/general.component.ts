@@ -11,6 +11,11 @@ export class GeneralComponent implements OnInit {
   active = 1;
   form: FormGroup;
   formSensor: FormGroup;
+  types: any = [{nombre: 'lts', descripcion: 'litros'}];
+  typesFilter: any = [{nombre: 'lts', descripcion: 'litros'}];
+  myModel:string;
+
+
 
   status = {
     data: null,
@@ -37,6 +42,9 @@ export class GeneralComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  getData(){
+
+  }
   save(values) {
     this.status.loading = true;
     setTimeout(() => {
@@ -60,6 +68,27 @@ export class GeneralComponent implements OnInit {
       });
     }, 3000);
     console.log(values);
+  }
+  addType() {
+
+  }
+  edit(type) {
+
+  }
+  remove(type){
+
+  }
+  tryAgain() {
+    this.status.data = false;
+    this.status.loading = false;
+    this.status.error = false;
+    this.getData();
+  }
+  filterByCell(filterValue :any): void {
+    this.types = this.typesFilter;
+    this.types = this.typesFilter.filter( (item) => {
+      return item.nombre.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim());
+  });
   }
 
 }

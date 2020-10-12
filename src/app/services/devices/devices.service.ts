@@ -18,6 +18,12 @@ export class DevicesService {
      return this.http.post(environment.baseUrl + environment.api.deviceData, user, { headers });
     //  return this.http.get('./assets/data/devices.json');
   }
+  public getDeviceDetail(info) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+     return this.http.post(environment.baseUrl + environment.api.deviceDetail, info, { headers });
+    //  return this.http.get('./assets/data/devices.json');
+  }
   // device maintainer
   public getDevicesData() {
     let headers: HttpHeaders = new HttpHeaders();
@@ -127,6 +133,9 @@ export class DevicesService {
   public getDataDashboard() {
     // return this.firestore.collection('side-rasp-pi',ref =>
     // ref.where('serie', '==', '12345678')).snapshotChanges();
+    // return this.firestore.collection('side-rasp-pi', ref => ref
+    // .orderBy("timestamp")
+    // .limitToLast(1)).snapshotChanges();
     return this.firestore.collection('side-rasp-pi').snapshotChanges();
   }
 

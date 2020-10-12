@@ -13,6 +13,7 @@ import { NewClientComponent } from '../new-client/new-client.component';
   styleUrls: ['./client-list.component.scss']
 })
 export class ClientListComponent implements OnInit {
+  role: any;
 
   constructor(private router: Router, private modalService: NgbModal, private service: DevicesService) { }
   status = {
@@ -25,6 +26,10 @@ export class ClientListComponent implements OnInit {
   myModel:string;
 
   ngOnInit(): void {
+    this.role = JSON.parse(sessionStorage.getItem('user-info')).idRol;
+    if( this.role === 2 || this.role === undefined ) {
+      this.router.navigate(['/dashboard'])
+    }
     // const dataTable = new DataTable("#dataTableExample");
     this.getData();
   }
