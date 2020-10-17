@@ -1,0 +1,64 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">
+        {{senorType.isEdit ? 'Editar' : 'Agregar'}} tipo de medida</h5>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+        <form class="forms-sample" [formGroup]="form">
+            <div class="row d-flex justify-content-center">
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col-6 "> 
+                          
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2"
+                                        class="col-sm-12 col-form-label">Nombre</label>
+                                    <div class="col-12">
+                                        <input type="text" class="form-control" id="exampleInputEmail2"
+                                            autocomplete="off" placeholder="lts" formControlName="prefijo"
+                                            [ngClass]="{ 'is-invalid': form.controls.prefijo.invalid && form.controls.prefijo.touched}">
+                                        <div *ngIf="form.controls.prefijo.invalid" class="invalid-feedback">
+                                            <p class="text-danger mt-1">Dato Obligatorio</p>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="col-6 "> 
+                          
+                            <div class="form-group">
+                                <label for="exampleInputEmail2"
+                                    class="col-sm-12 col-form-label">Descripción</label>
+                                <div class="col-12">
+                                    <input type="text" class="form-control" id="exampleInputEmail2"
+                                        autocomplete="off" placeholder="Litros" formControlName="descripcion"
+                                        [ngClass]="{ 'is-invalid': form.controls.descripcion.invalid && form.controls.descripcion.touched}">
+                                    <div *ngIf="form.controls.descripcion.invalid" class="invalid-feedback">
+                                        <p class="text-danger mt-1">Dato Obligatorio</p>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>                    
+                    </div>
+                </div>
+            </div>
+        </form>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-light" (click)="closeModal()">Cerrar</button>
+    <button type="submit" class="btn btn-primary mr-2" (click)="save(form.value)"
+    [disabled]="form.invalid || statusSave.loading">
+    <ng-container *ngIf="statusSave.loading">
+        <span class="spinner-grow spinner-grow-sm mr-1" role="status"
+            aria-hidden="true"></span>
+        <span>Cargando</span>
+    </ng-container>
+    <ng-container *ngIf="!statusSave.loading">
+        {{senorType.isEdit ? 'Editar' : 'Guardar'}}
+    </ng-container>
+
+</button>
+  </div>
+

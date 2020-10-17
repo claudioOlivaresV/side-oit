@@ -51,14 +51,16 @@ export class AddSensorComponent implements OnInit {
       nombre: new FormControl('', Validators.required),
       descripcion: new FormControl('', ),
       calculo: new FormControl('', Validators.required),
-      tipo: new FormControl('', Validators.required),
+      idTipoSensor: new FormControl('', Validators.required),
+      output: new FormControl(false, ),
     })
     this.formEdit = new FormGroup({
       prefijo: new FormControl('', Validators.required),
       nombre: new FormControl('', Validators.required),
       descripcion: new FormControl( '', ),
       calculo: new FormControl('', Validators.required),
-      tipo: new FormControl('', Validators.required),
+      idTipoSensor: new FormControl('', Validators.required),
+      output: new FormControl('')
     })
     console.log(this.device);
     this.getType();
@@ -94,12 +96,11 @@ export class AddSensorComponent implements OnInit {
     this.statusType.data = false;
     this.statusType.loading = true;
     this.statusType.error = false;
-    this.service.getType().toPromise().then((rsp: any) => {
-      setTimeout(() => {
-        this.types = rsp;
+    this.service.getTypeSensor().toPromise().then((rsp: any) => {
+      console.log(rsp);
+        this.types = rsp.data;
         this.statusType.data = true;
         this.statusType.loading = false;
-      }, 2000);
     }, err => {
       this.statusType.error = true;
       this.statusType.loading = false;
@@ -167,7 +168,8 @@ export class AddSensorComponent implements OnInit {
     this.formEdit.controls.nombre.setValue(sensor.nombre)
     this.formEdit.controls.descripcion.setValue(sensor.descripcion)
     this.formEdit.controls.calculo.setValue(sensor.calculo)
-    this.formEdit.controls.tipo.setValue(sensor.tipo)
+    this.formEdit.controls.idTipoSensor.setValue(sensor.idTipoSensor)
+    this.formEdit.controls.output.setValue(sensor.output)
   }
   tryAgain() {
     this.statusType.data = false;
@@ -185,11 +187,12 @@ export class AddSensorComponent implements OnInit {
       option: 'MODIFICAR-SENSOR',
       idSensorDispositivo: this.sensorEdit.idSensorDispositivo,
       idDispositivo: this.device.id,
-      tipo: sensor.tipo,
+      tipo: parseInt(sensor.idTipoSensor),
       nombre: sensor.nombre,
       calculo: sensor.calculo,
       descripcion: sensor.descripcion,
-      prefijo: sensor.prefijo
+      prefijo: sensor.prefijo,
+      output: sensor.output
     }
     console.log(sensors);
 

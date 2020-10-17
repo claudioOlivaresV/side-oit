@@ -126,6 +126,30 @@ export class DevicesService {
     // return this.http.get(environment.baseUrl + environment.api.getDevices);
      return this.http.get('./assets/data/dataType.json');
   }
+  public getTypeSensor() {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.get(environment.baseUrl + environment.api.typeSensor, { headers });
+  }
+  public addTypeSensor(typeSensor) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.typeSensor, typeSensor, { headers });
+  }
+  public editTypeSensor(typeSensor) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.typeSensor, typeSensor, { headers });
+  }
+  public deleteTypeSensor(typeSensor) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.typeSensor, typeSensor, { headers });
+  }
+
+
+
+
   public getSensorOfDevice() {
     // return this.http.get(environment.baseUrl + environment.api.getDevices);
      return this.http.get('./assets/data/sensorOfDevice.json');

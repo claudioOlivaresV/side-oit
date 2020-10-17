@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ApexAxisChartSeries, ApexNonAxisChartSeries, ApexGrid, ApexChart,
+import {
+  ApexAxisChartSeries, ApexNonAxisChartSeries, ApexGrid, ApexChart,
   ApexXAxis, ApexYAxis, ApexMarkers, ApexStroke, ApexLegend, ApexResponsive, ApexTooltip,
-  ApexFill, ApexDataLabels, ApexPlotOptions, ApexTitleSubtitle } from 'ng-apexcharts';
+  ApexFill, ApexDataLabels, ApexPlotOptions, ApexTitleSubtitle
+} from 'ng-apexcharts';
 import { ChartOptions, ChartType, ChartDataSets, RadialChartOptions } from 'chart.js';
 import { Label, Color, SingleDataSet } from 'ng2-charts';
 import { DevicesService } from 'src/app/services/devices/devices.service';
@@ -66,12 +68,12 @@ export class DeviceDetailComponent implements OnInit {
       }]
     }
   };
-  public ng2BarChart1Labels: Label[] = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  public ng2BarChart1Labels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   public ng2BarChart1Type: ChartType = 'bar';
-  public ng2BarChart1Colors: Color[] = [ { backgroundColor: "#727cf5" } ]
+  public ng2BarChart1Colors: Color[] = [{ backgroundColor: "#727cf5" }]
   public ng2BarChart1Legend = false;
   public ng2BarChart1Data: ChartDataSets[] = [
-    { data: [150,110,90,115,125,160,190,140,100,110,120,120], label: 'Sales', categoryPercentage: .6, barPercentage: .3 }
+    { data: [150, 110, 90, 115, 125, 160, 190, 140, 100, 110, 120, 120], label: 'Sales', categoryPercentage: .6, barPercentage: .3 }
   ];
 
 
@@ -89,9 +91,12 @@ export class DeviceDetailComponent implements OnInit {
       },
       series: [
         {
+          data: [12, 123]
+        },
+        {
           data: []
         }
-    ],
+      ],
       stroke: {
         width: 2,
         curve: "straight"
@@ -106,7 +111,7 @@ export class DeviceDetailComponent implements OnInit {
         }
       },
       xaxis: {
-        categories: ["Jan","","","","","","","","","","","","","","","","Feb","","","","","","","","","","","","","","","","Mar","","","","","","","","","","","","","","","","Apr","","","","","","","","","","","","","","","","May","","","","","","","","","","","","","","","","Jun","","","","","","","","","","","","","","","","Jul","","","","","","","","","","","","","","","","Aug","","","","","","","","","","","","","","","","Sep","","","","","","","","","","","","","","","","Oct","","","","",""],
+        categories: ["Jan", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Feb", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Mar", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Apr", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "May", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Jun", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Jul", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Aug", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Sep", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "Oct", "", "", "", "", ""],
         labels: {
           style: {
             colors: '#686868',
@@ -139,7 +144,7 @@ export class DeviceDetailComponent implements OnInit {
         },
         y: {
           title: {
-            formatter: function(e) {
+            formatter: function (e) {
               return ""
             }
           }
@@ -149,7 +154,7 @@ export class DeviceDetailComponent implements OnInit {
         }
       }
     };
-   }
+  }
 
   ngOnInit(): void {
     this.getData();
@@ -157,7 +162,7 @@ export class DeviceDetailComponent implements OnInit {
   getData() {
     const query = {
       serie: "12345678",
-  }
+    }
 
     this.service.getDeviceDetail(query).toPromise().then((rsp: any) => {
       console.log(rsp);
@@ -175,7 +180,7 @@ export class DeviceDetailComponent implements OnInit {
       // }))
 
       // console.log(series);
-      
+
 
     }, err => {
       console.log(err);

@@ -30,6 +30,10 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestor
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { AddEditSensorTypeComponent } from './add-edit-sensor-type/add-edit-sensor-type.component';
+
+
 
 
 
@@ -75,7 +79,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [DashboardComponent, NewDeviceComponent, DeviceListComponent, DeviceDetailComponent, NewUserComponent, ClientListComponent, NewClientComponent, GeneralComponent, UserList2Component, AddSensorComponent, ChangePasswordComponent],
+  declarations: [DashboardComponent, NewDeviceComponent, DeviceListComponent, DeviceDetailComponent, NewUserComponent, ClientListComponent, NewClientComponent, GeneralComponent, UserList2Component, AddSensorComponent, ChangePasswordComponent, AddEditSensorTypeComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -95,6 +99,7 @@ const routes: Routes = [
 
     ReactiveFormsModule,
     SweetAlert2Module.forRoot(),
+    MatSlideToggleModule
   ],
   bootstrap: [NewDeviceComponent]
 })

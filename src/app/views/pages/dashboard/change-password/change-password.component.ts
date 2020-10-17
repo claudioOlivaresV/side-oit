@@ -18,7 +18,7 @@ export class ChangePasswordComponent implements OnInit {
     error: null
   }
 
-  constructor(public activeModal: NgbActiveModal, private service: DevicesService) { 
+  constructor(public activeModal: NgbActiveModal, private service: DevicesService) {
     this.form = new FormGroup({
       password: new FormControl('', [Validators.required]),
      })

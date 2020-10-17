@@ -5,7 +5,7 @@
     </ol>
 </nav>
 
-<!-- <ng-container *ngIf="status.data && !status.loading && !status.error"> -->
+<ng-container *ngIf="status.data && !status.loading && !status.error">
   <div class="row mt-3">
     <div class="col-md-12 stretch-card">
       <div class="card">
@@ -27,11 +27,10 @@
                 (click)="addType()">
                 <div>
                   <em class="btn-icon-prepend mr-0 d-block  d-md-none " data-feather="plus-circle" appFeatherIcon></em>
-                  <span class="d-none ml-2 d-md-block"  >Agregar Tipo Sensor</span> 
+                  <span class="d-none ml-2 d-md-block"  >Agregar Tipo de Medida</span> 
                 </div>
               </button>
               </div>
-
           </div>
           <div class="row mt-3">
             <div class="col-0 col-md-4 col-xl-6"></div>
@@ -59,9 +58,9 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let type of types; let i = index;" >
+                <ng-container *ngFor="let type of typeSensor; let i = index;" >
                   <tr>
-                    <td>{{type.nombre}}</td>
+                    <td>{{type.prefijo}}</td>
                     <td>{{type.descripcion}}</td>
                     <td>
                     
@@ -75,10 +74,10 @@
                   </tr>
 
                 </ng-container>
-                <ng-container *ngIf="!types.length">
+                <ng-container *ngIf="!typeSensor.length">
                   <tr>
                       <td colspan="6" class="text-center">
-                         No existen clientes registrados
+                         No se encontraro resultados su búsqueda
                       </td>
                   </tr>
               </ng-container>
@@ -90,7 +89,7 @@
       </div>
     </div>
   </div>
-<!-- </ng-container> -->
+</ng-container>
 <ng-container *ngIf="!status.data && status.loading && !status.error">
   <div class="spinner-wrapper d-block">
     <div class="spinner"></div>

@@ -1,167 +1,186 @@
 <div class="modal-header">
     <h5 class="modal-title" id="exampleModalLabel">Sensores</h5>
     <button type="button" class="close" aria-label="Close" (click)="closeModal()">
-      <span aria-hidden="true">&times;</span>
+        <span aria-hidden="true">&times;</span>
     </button>
-  </div>
-  <div class="modal-body">
+</div>
+<div class="modal-body">
     <ng-container *ngIf="!statusType.loading && !statusSave.loading">
         <ng-container *ngIf="!isEdit">
             <form class="forms-sample" [formGroup]="form">
-              <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Prefijo</label>
-                        <div class="col-12">
-                            <input type="email" class="form-control" id="exampleInputEmail2"
-                                autocomplete="off" placeholder="" formControlName="prefijo"
-                                [ngClass]="{ 'is-invalid': form.controls.prefijo.invalid && form.controls.prefijo.touched}">
-                            <div *ngIf="form.controls.prefijo.invalid" class="invalid-feedback">
-                                <p class="text-danger mt-1">Dato Obligatorio</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Prefijo</label>
+                            <div class="col-12">
+                                <input type="email" class="form-control" id="exampleInputEmail2" autocomplete="off"
+                                    placeholder="" formControlName="prefijo"
+                                    [ngClass]="{ 'is-invalid': form.controls.prefijo.invalid && form.controls.prefijo.touched}">
+                                <div *ngIf="form.controls.prefijo.invalid" class="invalid-feedback">
+                                    <p class="text-danger mt-1">Dato Obligatorio</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                  <div class="col-md-4">
-                      <div class="form-group">
-                          <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Nombre</label>
-                          <div class="col-12">
-                              <input type="email" class="form-control" id="exampleInputEmail2"
-                                  autocomplete="off" placeholder="" formControlName="nombre"
-                                  [ngClass]="{ 'is-invalid': form.controls.nombre.invalid && form.controls.nombre.touched}">
-                              <div *ngIf="form.controls.nombre.invalid" class="invalid-feedback">
-                                  <p class="text-danger mt-1">Dato Obligatorio</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-             
-                  <div class="col-md-4">
-                      <div class="form-group">
-                          <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Descripción</label>
-                          <div class="col-12">
-                              <input type="email" class="form-control" id="exampleInputEmail2"
-                                  autocomplete="off" placeholder="" formControlName="descripcion"
-                                  [ngClass]="{ 'is-invalid': form.controls.descripcion.invalid && form.controls.descripcion.touched}">
-                              <div *ngIf="form.controls.descripcion.invalid" class="invalid-feedback">
-                                  <p class="text-danger mt-1">Dato Obligatorio</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Cálculo</label>
-                        <div class="col-12">
-                            <input type="email" class="form-control" id="exampleInputEmail2"
-                                autocomplete="off" placeholder="" formControlName="calculo"
-                                [ngClass]="{ 'is-invalid': form.controls.calculo.invalid && form.controls.calculo.touched}">
-                            <div *ngIf="form.controls.calculo.invalid" class="invalid-feedback">
-                                <p class="text-danger mt-1">Dato Obligatorio</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="exampleInputUsercalculation2"
-                            class="col-sm-12 col-form-label">Tipo</label>
-                        <div class="col-12">
-                            <select class="custom-select form-control" id="exampleFormControlSelect1"
-                                formControlName="tipo"
-                                [ngClass]="{ 'is-invalid': form.controls.tipo.invalid && form.controls.tipo.touched}">
-                                <option selected disabled>Seleccione una opción</option>
-                                <ng-container *ngFor="let item of types; let i = index;" >
-                                    <option [value]="item.idType">{{item.name}}</option>
-                                </ng-container>
-                            </select>
-                            <div *ngIf="form.controls.tipo.invalid" class="invalid-feedback">
-                                <p class="text-danger mt-1">Dato Obligatorio</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 mt-5">
-                    <button type="submit" class="btn btn-primary mr-2 w-100" (click)="saveSensor(form.value)"
-                                [disabled]="form.invalid">
-                           
-                                    Agregar
-    
-                            </button>
-          
-                </div>
-            </div>
-            </form>
-        
-       
-        <div class="table-responsive">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Prefijo</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Cálculo</th>
-                <th>Tipo</th>
-                <th>Activo</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-                <ng-container *ngFor="let sensor of sensors; let i = index;" >
-                    <tr>
-                      <td>{{sensor.prefijo}}</td>
-                      <td>{{sensor.nombre}}</td>
-                      <td>{{sensor.descripcion}}</td>
-                      <td>{{sensor.calculo}}</td>
-                      <td>{{sensor.tipo}}</td>
-                      <td>{{sensor.activo ? 'Activo' : 'No activo'}}</td>
-                      <td>
-                        <button type="button" class="btn btn-outline-primary btn-icon px-1 mr-2" (click)="edit(sensor)" [disabled]="isEdit" >
-                            <i  data-feather="edit" appFeatherIcon></i>
-                           
-                           </button>
-                           <button type="button" class="btn btn-danger btn-icon  px-1 mr-2" (click)="remove(sensor.idSensorDispositivo)" [disabled]="isEdit">
-                            <i  data-feather="trash" appFeatherIcon></i>
-                           </button>
-                      </td>
-                    </tr>
-                </ng-container>
-                <ng-container *ngIf="!sensors.length">
-                    <tr>
-                        <td colspan="7" class="text-center">
-                           Dispositivo sin sensores registrados
-                        </td>
-                    </tr>
-                </ng-container>
-            </tbody>
-          </table>
-        </div>
-       </ng-container>
-        <ng-container  *ngIf="isEdit">
-            <form class="forms-sample" [formGroup]="formEdit">
-                <div class="row mt-2">
-                  <div class="col-md-4">
-                      <div class="form-group">
-                          <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Prefijo</label>
-                          <div class="col-12">
-                              <input type="email" class="form-control" id="exampleInputEmail2"
-                                  autocomplete="off" placeholder="" formControlName="prefijo"
-                                  [ngClass]="{ 'is-invalid': formEdit.controls.prefijo.invalid && formEdit.controls.prefijo.touched}">
-                              <div *ngIf="formEdit.controls.prefijo.invalid" class="invalid-feedback">
-                                  <p class="text-danger mt-1">Dato Obligatorio</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Nombre</label>
                             <div class="col-12">
-                                <input type="email" class="form-control" id="exampleInputEmail2"
-                                    autocomplete="off" placeholder="" formControlName="nombre"
+                                <input type="email" class="form-control" id="exampleInputEmail2" autocomplete="off"
+                                    placeholder="" formControlName="nombre"
+                                    [ngClass]="{ 'is-invalid': form.controls.nombre.invalid && form.controls.nombre.touched}">
+                                <div *ngIf="form.controls.nombre.invalid" class="invalid-feedback">
+                                    <p class="text-danger mt-1">Dato Obligatorio</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Descripción</label>
+                            <div class="col-12">
+                                <input type="email" class="form-control" id="exampleInputEmail2" autocomplete="off"
+                                    placeholder="" formControlName="descripcion"
+                                    [ngClass]="{ 'is-invalid': form.controls.descripcion.invalid && form.controls.descripcion.touched}">
+                                <div *ngIf="form.controls.descripcion.invalid" class="invalid-feedback">
+                                    <p class="text-danger mt-1">Dato Obligatorio</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Cálculo</label>
+                            <div class="col-12">
+                                <input type="email" class="form-control" id="exampleInputEmail2" autocomplete="off"
+                                    placeholder="" formControlName="calculo"
+                                    [ngClass]="{ 'is-invalid': form.controls.calculo.invalid && form.controls.calculo.touched}">
+                                <div *ngIf="form.controls.calculo.invalid" class="invalid-feedback">
+                                    <p class="text-danger mt-1">Dato Obligatorio</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputUsercalculation2" class="col-sm-12 col-form-label">Tipo</label>
+                            <div class="col-12">
+                                <select class="custom-select form-control" id="exampleFormControlSelect1"
+                                    formControlName="idTipoSensor"
+                                    [ngClass]="{ 'is-invalid': form.controls.idTipoSensor.invalid && form.controls.idTipoSensor.touched}">
+                                    <option selected disabled>Seleccione una opción</option>
+                                    <ng-container *ngFor="let item of types; let i = index;">
+                                        <option [value]="item.idTipoSensor">{{item.prefijo}}</option>
+                                    </ng-container>
+                                </select>
+                                <div *ngIf="form.controls.idTipoSensor.invalid" class="invalid-feedback">
+                                    <p class="text-danger mt-1">Dato Obligatorio</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 d-flex align-items-end pl-5">
+                        <div class="form-group">
+                            <input class="form-control" type="checkbox" class="form-check-input" formControlName="output"> Output
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2 mt-5 pr-4">
+                       
+                      
+
+                            <button type="submit" class="btn btn-primary mr-2 w-100" (click)="saveSensor(form.value)"
+                                [disabled]="form.invalid">
+
+                                Agregar
+
+                            </button>
+
+                     
+
+
+
+
+
+
+                    </div>
+                </div>
+            </form>
+
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Prefijo</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Cálculo</th>
+                            <th>Tipo</th>
+                            <th>Activo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let sensor of sensors; let i = index;">
+                            <tr>
+                                <td>{{sensor.prefijo}}</td>
+                                <td>{{sensor.nombre}}</td>
+                                <td>{{sensor.descripcion}}</td>
+                                <td>{{sensor.calculo}}</td>
+                                <td>{{sensor.prefijoTipoSensor}}</td>
+                                <td>{{sensor.activo ? 'Activo' : 'No activo'}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-primary btn-icon px-1 mr-2"
+                                        (click)="edit(sensor)" [disabled]="isEdit">
+                                        <i data-feather="edit" appFeatherIcon></i>
+
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-icon  px-1 mr-2"
+                                        (click)="remove(sensor.idSensorDispositivo)" [disabled]="isEdit">
+                                        <i data-feather="trash" appFeatherIcon></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        <ng-container *ngIf="!sensors.length">
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    Dispositivo sin sensores registrados
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="isEdit">
+            <form class="forms-sample" [formGroup]="formEdit">
+                <div class="row mt-2">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Prefijo</label>
+                            <div class="col-12">
+                                <input type="email" class="form-control" id="exampleInputEmail2" autocomplete="off"
+                                    placeholder="" formControlName="prefijo"
+                                    [ngClass]="{ 'is-invalid': formEdit.controls.prefijo.invalid && formEdit.controls.prefijo.touched}">
+                                <div *ngIf="formEdit.controls.prefijo.invalid" class="invalid-feedback">
+                                    <p class="text-danger mt-1">Dato Obligatorio</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Nombre</label>
+                            <div class="col-12">
+                                <input type="email" class="form-control" id="exampleInputEmail2" autocomplete="off"
+                                    placeholder="" formControlName="nombre"
                                     [ngClass]="{ 'is-invalid': formEdit.controls.nombre.invalid && formEdit.controls.nombre.touched}">
                                 <div *ngIf="formEdit.controls.nombre.invalid" class="invalid-feedback">
                                     <p class="text-danger mt-1">Dato Obligatorio</p>
@@ -169,13 +188,13 @@
                             </div>
                         </div>
                     </div>
-               
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Descripción</label>
                             <div class="col-12">
-                                <input type="email" class="form-control" id="exampleInputEmail2"
-                                    autocomplete="off" placeholder="" formControlName="descripcion"
+                                <input type="email" class="form-control" id="exampleInputEmail2" autocomplete="off"
+                                    placeholder="" formControlName="descripcion"
                                     [ngClass]="{ 'is-invalid': formEdit.controls.descripcion.invalid && formEdit.controls.descripcion.touched}">
                                 <div *ngIf="formEdit.controls.descripcion.invalid" class="invalid-feedback">
                                     <p class="text-danger mt-1">Dato Obligatorio</p>
@@ -185,67 +204,73 @@
                     </div>
                 </div>
                 <div class="row">
-                  <div class="col-md-4">
-                      <div class="form-group">
-                          <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Cálculo</label>
-                          <div class="col-12">
-                              <input type="email" class="form-control" id="exampleInputEmail2"
-                                  autocomplete="off" placeholder="" formControlName="calculo"
-                                  [ngClass]="{ 'is-invalid': formEdit.controls.calculo.invalid && formEdit.controls.calculo.touched}">
-                              <div *ngIf="formEdit.controls.calculo.invalid" class="invalid-feedback">
-                                  <p class="text-danger mt-1">Dato Obligatorio</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-4">
-                      <div class="form-group">
-                          <label for="exampleInputUsercalculation2"
-                              class="col-sm-12 col-form-label">Tipo</label>
-                          <div class="col-12">
-                              <select class="custom-select form-control" id="exampleFormControlSelect1"
-                                  formControlName="tipo"
-                                  [ngClass]="{ 'is-invalid': formEdit.controls.tipo.invalid && formEdit.controls.tipo.touched}">
-                                  <option selected disabled>Seleccione una opción</option>
-                                  <ng-container *ngFor="let item of types; let i = index;" >
-                                      <option [value]="item.idType">{{item.name}}</option>
-                                  </ng-container>
-                              </select>
-                              <div *ngIf="formEdit.controls.tipo.invalid" class="invalid-feedback">
-                                  <p class="text-danger mt-1">Dato Obligatorio</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-2 mt-5">
-                    <button type="submit" class="btn btn-secondary mr-2 w-100" (click)="cancel()">
-                           
-                                    Cancelar
-    
-                            </button>
-          
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputEmail2" class="col-sm-12 col-form-label">Cálculo</label>
+                            <div class="col-12">
+                                <input type="email" class="form-control" id="exampleInputEmail2" autocomplete="off"
+                                    placeholder="" formControlName="calculo"
+                                    [ngClass]="{ 'is-invalid': formEdit.controls.calculo.invalid && formEdit.controls.calculo.touched}">
+                                <div *ngIf="formEdit.controls.calculo.invalid" class="invalid-feedback">
+                                    <p class="text-danger mt-1">Dato Obligatorio</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label for="exampleInputUsercalculation2" class="col-sm-12 col-form-label">Tipo</label>
+                            <div class="col-12">
+                                <select class="custom-select form-control" id="exampleFormControlSelect1"
+                                    formControlName="idTipoSensor"
+                                    [ngClass]="{ 'is-invalid': formEdit.controls.idTipoSensor.invalid && formEdit.controls.idTipoSensor.touched}">
+                                    <option selected disabled>Seleccione una opción</option>
+                                    <ng-container *ngFor="let item of types; let i = index;">
+                                        <option [value]="item.idTipoSensor">{{item.prefijo}}</option>
+                                    </ng-container>
+                                </select>
+                                <div *ngIf="formEdit.controls.idTipoSensor.invalid" class="invalid-feedback">
+                                    <p class="text-danger mt-1">Dato Obligatorio</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 d-flex align-items-end pl-5">
+                        <div class="form-group">
+                            <input class="form-control" type="checkbox" class="form-check-input" formControlName="output"> Output
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-2 mt-5 pl-4">
+                        <button type="submit" class="btn btn-secondary mr-2 w-100" (click)="cancel()">
+
+                            Cancelar
+
+                        </button>
+
+                    </div>
+                    <div class="col-md-2 mt-5 pr-4">
+                        <button type="submit" class="btn btn-primary mr-2 w-100" (click)="editSensor(formEdit.value)"
+                            [disabled]="formEdit.invalid">
+
+                            Editar
+
+                        </button>
+
+                    </div>
                 </div>
-                  <div class="col-md-2 mt-5">
-                      <button type="submit" class="btn btn-primary mr-2 w-100" (click)="editSensor(formEdit.value)"
-                                  [disabled]="formEdit.invalid">
-                             
-                                      Editar
-      
-                              </button>
-            
-                  </div>
-              </div>
-              </form>
+            </form>
         </ng-container>
     </ng-container>
     <ng-container *ngIf="statusType.loading && statusSensors.loading">
         <div class="spinner-wrapper d-block bg-white h-100">
-          <div class="spinner"></div>
+            <div class="spinner"></div>
         </div>
-      </ng-container>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary"(click)="closeModal()" >Cerrar</button>
+    </ng-container>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
     <!-- <button type="button" class="btn btn-primary"  [disabled]="!sensors.length || statusSave.loading || statusType.loading">
     <ng-container *ngIf="statusSave.loading">
         <span class="spinner-grow spinner-grow-sm mr-1" role="status"
@@ -256,4 +281,4 @@
         Guardar
     </ng-container>
     </button> -->
-  </div>
+</div>

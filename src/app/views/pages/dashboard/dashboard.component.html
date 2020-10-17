@@ -35,55 +35,90 @@
   <div class="row mt-5">
     <ng-container *ngFor="let item of devices; let i = index;" >
       <div class="col-md-6 col-lg-6 col-xl-4  col-12 grid-margin stretch-card">
-        <div class="card">
+        <div class="card" [ngClass]="{'notDevice': !item.date}">
           <div class="card-body">
        
-            <div class=" position-absolute cicle rounded-circle " [ngClass]="{ 'on': item.activo, 'off': !item.activo }" ></div>
+            <div class=" position-absolute cicle rounded-circle " [ngClass]="{ 'on': item.date, 'off': !item.date }" ></div>
    
 
             <div class="row">
-              <div class="col-12 mb-2">
-                <h6 class="card-title mb-0">{{item.nombre}}</h6>
+              <div class="col-10 mb-2">
+                <h6 class="card-title mb-0 text-dark">{{item.nombre}}</h6>
                 <p class="text-muted">{{item.numeroSerie}}</p>
+                
                
               </div>
-              <div class="col-12">
+              <div class="col-2">
+                <ng-container *ngIf="isReload">
+                  <i data-feather="refresh-ccw" class="imgr" appFeatherIcon></i>
+                </ng-container>
+              </div>
+              <div class="col-12" *ngIf="item.date">
                 <!-- <h6 class="card-title mb-0">Última actualización</h6> -->
                 <p class="text-primary"><i data-feather="clock" appFeatherIcon></i> {{item.date | date: 'dd/MM/yyyy HH:mm'}}</p>
                 <!-- <button class="btn btn-outline-primary w-100 px-0" (click)="goToDeviceDetail()" >{{item.date | date: 'dd/MM/yyyy HH:mm'}} </button> -->
-    
               </div>
     
             </div>
-            <div class="dropdown-divider"></div>
-            <div class="row mt-4 mb-3">
+            <div class="dropdown-divider" *ngIf="item.date"></div>
+            <div class="row mt-4 mb-3" *ngIf="item.date">
               <ng-container *ngFor="let sensor of item.sensor; let i = index;" >
-                <div class="col-12 d-flex justify-content-start mb-2">
-                  <div>
-                   
-                    
-                    
-                    <label class=" text-muted">{{sensor.nombre}}:</label>
-                    <label class="text-uppercase font-weight-medium"> {{sensor.tipo === 'on/off' ? (sensor.valor === '1.0' ? 'ON' : 'OFF' )  : sensor.valor}} {{sensor.tipo === 'on/off' ? '' : sensor.tipo }}</label>
-                    <ng-container *ngIf="sensor.tipo === 'lts'" >
-                      <em data-feather="droplet" appFeatherIcon></em>
-                    </ng-container>
-                    <ng-container *ngIf="sensor.tipo === 'Kw/h'" >
-                      <em data-feather="zap" appFeatherIcon></em>
-                    </ng-container>
-                    <ng-container *ngIf="sensor.tipo === 'm3'" >
-                      <em data-feather="box" appFeatherIcon></em>
-                    </ng-container>
-                    <ng-container *ngIf="sensor.tipo === 'mts' || sensor.tipo === 'cms' " >
-                      <em data-feather="layers" appFeatherIcon></em>
-                    </ng-container>
-                    
-                    
+                <ng-container *ngIf="sensor.tipo !== 'on/off'">
+                  <div class="col-12 d-flex justify-content-start mb-2">
+                    <div>
+                     
+                      
+                      
+                      <label class=" text-muted">{{sensor.nombre}}:</label>
+                      <label class="text-uppercase font-weight-medium text-dark"> {{sensor.tipo === 'on/off' ? (sensor.valor === '1.0' ? 'ON' : 'OFF' )  : sensor.valor}} {{sensor.tipo === 'on/off' ? '' : sensor.tipo }}</label>
+                      <ng-container *ngIf="sensor.tipo === 'lts'" >
+                        <em class="text-dark"  data-feather="droplet" appFeatherIcon></em>
+                      </ng-container>
+                      <ng-container *ngIf="sensor.tipo === 'Kw/h'" >
+                        <em class="text-dark" data-feather="zap" appFeatherIcon></em>
+                      </ng-container>
+                      <ng-container *ngIf="sensor.tipo === 'm3'" >
+                        <em class="text-dark" data-feather="box" appFeatherIcon></em>
+                      </ng-container>
+                      <ng-container *ngIf="sensor.tipo === 'mts' || sensor.tipo === 'cms' " >
+                        <em class="text-dark" data-feather="layers" appFeatherIcon></em>
+                      </ng-container>
+                      
+                      
+                    </div>
                   </div>
-                </div>
+                  
+
+
+                </ng-container>
+              </ng-container>
+            
+            </div>
+            <div class="dropdown-divider"  *ngIf="item.date"></div>
+
+            <div class="row"  *ngIf="item.date">
+              <ng-container *ngFor="let sensor of item.sensor; let i = index;" >
+
+                <ng-container *ngIf="sensor.tipo === 'on/off'">
+
+                  <div class="col-6 d-flex justify-content-start mb-2">
+                    <div>
+                     
+                      <label class=" text-muted">{{sensor.nombre}}:</label><br/>
+                      <mat-slide-toggle (change)="onChange($event.checked, sensor)" [checked]="sensor.valor === '1.0' ? true : false"> </mat-slide-toggle>
+                     
+                      <!-- <label class="text-uppercase font-weight-medium"> {{sensor.tipo === 'on/off' ? (sensor.valor === '1.0' ? 'ON' : 'OFF' )  : sensor.valor}} {{sensor.tipo === 'on/off' ? '' : sensor.tipo }}</label> -->
+                    </div>
+                  </div>
+  
+                </ng-container>
               </ng-container>
             </div>
-            <button class="btn btn-primary btn-block" (click)="goToDeviceDetail()">Ver detalle</button>
+            <ng-container *ngIf="!item.date">
+              <p class="text-dark mb-3">Dispositivo no posee sensores registrados</p>
+
+            </ng-container>
+            <button class="btn btn-primary btn-block " (click)="goToDeviceDetail()">Ver detalle</button>
           </div>
         </div>
       </div>
