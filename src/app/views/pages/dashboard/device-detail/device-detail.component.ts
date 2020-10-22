@@ -165,9 +165,7 @@ export class DeviceDetailComponent implements OnInit {
     }
 
     this.service.getDeviceDetail(query).toPromise().then((rsp: any) => {
-      console.log(rsp);
       rsp.forEach(element => {
-        console.log(element.data.sensores);
 
       });
       // let series = rsp.data.sensores.map((dataValues => {
@@ -183,7 +181,6 @@ export class DeviceDetailComponent implements OnInit {
 
 
     }, err => {
-      console.log(err);
     });
   }
 

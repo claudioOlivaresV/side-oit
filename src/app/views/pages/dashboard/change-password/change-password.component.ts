@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DevicesService } from 'src/app/services/devices/devices.service';
 import Swal from 'sweetalert2';
@@ -18,7 +19,7 @@ export class ChangePasswordComponent implements OnInit {
     error: null
   }
 
-  constructor(public activeModal: NgbActiveModal, private service: DevicesService) {
+  constructor(public activeModal: NgbActiveModal, private service: DevicesService, private router: Router) {
     this.form = new FormGroup({
       password: new FormControl('', [Validators.required]),
      })
@@ -33,16 +34,31 @@ export class ChangePasswordComponent implements OnInit {
       idUsuario: this.userInfo,
       contraseña: values.password
     }
-    console.log(user);
     this.statusSave.loading = true;
       this.service.changePassword(user).toPromise().then((rsp: any) => {
-        console.log(rsp);
           this.statusSave.loading = false;
           this.activeModal.close(true);
           Swal.fire(
             { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Contraseña actualizada correctamente', icon: 'success'}
           );
       }, err => {
+        if (err.error.message === 'TOKEN CADUCADO') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'La sesión expiro',
+            text: 'Porfavor, vuelva a iniciar sessión',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sessionStorage.removeItem('isLoggedin');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('user-info');
+              if (!sessionStorage.getItem('isLoggedin')) {
+                this.router.navigate(['/auth/login']);
+              }
+            }
+            console.log(result);
+          })
+        }
         Swal.fire(
           { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning'}
         );

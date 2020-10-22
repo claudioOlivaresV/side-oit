@@ -48,6 +48,7 @@ export class DashboardComponent implements OnInit {
   public sensorFire: any = [];
   idUser: any;
   logIds = ['12345678', '23456789']
+  token: any;
 
 
 
@@ -72,6 +73,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.idUser = JSON.parse(sessionStorage.getItem('user-info')).datosUsuario.idCliente;
+    this.token = JSON.parse(sessionStorage.getItem('token'));
     this.getData(this.idUser);
 
 
@@ -90,7 +92,6 @@ export class DashboardComponent implements OnInit {
     this.service.getDataDashboard().subscribe((data) => {
       data.forEach((data: any) => {
 
-        console.log(data.payload.doc.data());
 
 
         this.devices.forEach(element => {
@@ -98,17 +99,13 @@ export class DashboardComponent implements OnInit {
 
             const unix = (parseInt(data.payload.doc.data().data.timestamp) * 1000);
             const dateObject = new Date(unix)
-            console.log(dateObject);
             element.date = dateObject;
-            console.log(data.payload.doc.data().data.sensores);
             // element.sensores = data.payload.doc.data().data.sensores;
 
             data.payload.doc.data().data.sensores.forEach(elementInt => {
               const index = element.sensor.map(function (e) { return e.prefijo; }).indexOf((elementInt.nombre));
-              console.log(index);
               if (index >= 0) {
 
-                console.log('actulizando');
 
                 element.sensor[index].valor = elementInt.valor
                 this.status.data = true;
@@ -127,7 +124,6 @@ export class DashboardComponent implements OnInit {
           this.status.data = true;
           this.status.loading = false;
         });
-        console.log(this.devices);
       })
     });
 
@@ -137,21 +133,43 @@ export class DashboardComponent implements OnInit {
 
   getData(idClient) {
     const device = {
-      option: "OBTENER-DISPOSITIVO-POR-ID-CLIENTE",
-      idCliente: idClient
+      option: 'OBTENER-DISPOSITIVO-POR-ID-CLIENTE',
+      idCliente: idClient,
+      token: this.token,
     }
     this.status.data = false;
     this.status.loading = true;
     this.status.error = false;
     this.service.getDevices(device).toPromise().then((rsp: any) => {
       console.log(rsp);
+
       this.devices = rsp.data;
       this.devicesFilter = rsp.data;
       this.getDataFire();
 
 
     }, err => {
-      console.log(err);
+      if (err.error.message === 'TOKEN CADUCADO') {
+        Swal.fire({
+          icon: 'warning',
+          title: 'La sesión expiro',
+          text: 'Porfavor, vuelva a iniciar sessión',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            sessionStorage.removeItem('isLoggedin');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('user-info');
+
+            if (!sessionStorage.getItem('isLoggedin')) {
+              this.router.navigate(['/auth/login']);
+            }
+          }
+          console.log(result);
+        })
+      }
+
+      console.log(err.error.message);
+
       this.status.error = true;
       this.status.loading = false;
     });
@@ -171,7 +189,6 @@ export class DashboardComponent implements OnInit {
       return item.nombre.trim().toLocaleLowerCase().includes(filterValue.toLocaleLowerCase().trim());
     });
 
-    console.log(this.devices);
   }
   goToNewDevice() {
     this.router.navigate(['/dashboard/new-device']);
@@ -182,7 +199,6 @@ export class DashboardComponent implements OnInit {
   openBasicModal(content) {
     this.modalReference = this.modalService.open(content, { size: 'xl', scrollable: true }).result.then((result) => {
       this.basicModalCloseResult = 'Modal closed' + result;
-      console.log(this.basicModalCloseResult);
     }).catch((res) => { });
   }
 
@@ -194,10 +210,8 @@ export class DashboardComponent implements OnInit {
         { toast: true, position: 'bottom-end', showConfirmButton: true, timer: 10000, title: 'Signed in successfully', icon: 'success' }
       );
     }, 3000);
-    console.log(values);
   }
   onChange(status, data) {
-    console.log(status, data);
 
   }
 

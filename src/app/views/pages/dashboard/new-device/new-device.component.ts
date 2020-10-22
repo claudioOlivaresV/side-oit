@@ -30,12 +30,13 @@ export class NewDeviceComponent implements OnInit {
   }
   clients: any [];
   basicModalCloseResult = '';
+  token: any;
   constructor(private router: Router,  private modalService: NgbModal, public activeModal: NgbActiveModal,
               private service: DevicesService) {
    }
   ngOnInit(): void {
-    console.log(this.device);
-    
+    this.token =  JSON.parse(sessionStorage.getItem('token'));
+
     this.getClients();
     this.form = new FormGroup({
       client: new FormControl(this.device.isEdit ? this.device.data.idClient : '', Validators.required),
@@ -54,8 +55,11 @@ export class NewDeviceComponent implements OnInit {
     this.status.data = false;
     this.status.loading = true;
     this.status.error = false;
-      this.service.getCliente().toPromise().then((rsp: any) => {
-        console.log(rsp);
+    const objectQuery = {
+      option: 'GET-CLIENTE',
+      token: this.token,
+    }
+      this.service.getCliente(objectQuery).toPromise().then((rsp: any) => {
           this.clients = rsp.data.map((data) => {
           let object = {};
             if(data.activo){
@@ -69,6 +73,23 @@ export class NewDeviceComponent implements OnInit {
           this.status.data = true;
           this.status.loading = false;
       }, err => {
+        if (err.error.message === 'TOKEN CADUCADO') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'La sesión expiro',
+            text: 'Porfavor, vuelva a iniciar sessión',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sessionStorage.removeItem('isLoggedin');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('user-info');
+              if (!sessionStorage.getItem('isLoggedin')) {
+                this.router.navigate(['/auth/login']);
+              }
+            }
+            console.log(result);
+          })
+        }
         this.status.error = true;
         this.status.loading = false;
       });
@@ -86,7 +107,8 @@ export class NewDeviceComponent implements OnInit {
       latitud: values.latitude,
       longitud: values.length,
       altura: values.height,
-      intervaloTiempo: values.timeInterval
+      intervaloTiempo: values.timeInterval,
+      token: this.token,
     }
     this.statusSave.loading = true;
 
@@ -98,6 +120,23 @@ export class NewDeviceComponent implements OnInit {
             { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo editado', icon: 'success'}
           );
       }, err => {
+        if (err.error.message === 'TOKEN CADUCADO') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'La sesión expiro',
+            text: 'Porfavor, vuelva a iniciar sessión',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sessionStorage.removeItem('isLoggedin');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('user-info');
+              if (!sessionStorage.getItem('isLoggedin')) {
+                this.router.navigate(['/auth/login']);
+              }
+            }
+            console.log(result);
+          })
+        }
         this.statusSave.error = true;
         this.statusSave.loading = false;
         Swal.fire(
@@ -113,6 +152,23 @@ export class NewDeviceComponent implements OnInit {
               { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo agregado', icon: 'success'}
             );
         }, err => {
+          if (err.error.message === 'TOKEN CADUCADO') {
+            Swal.fire({
+              icon: 'warning',
+              title: 'La sesión expiro',
+              text: 'Porfavor, vuelva a iniciar sessión',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                sessionStorage.removeItem('isLoggedin');
+                sessionStorage.removeItem('token');
+                sessionStorage.removeItem('user-info');
+                if (!sessionStorage.getItem('isLoggedin')) {
+                  this.router.navigate(['/auth/login']);
+                }
+              }
+              console.log(result);
+            })
+          }
           this.statusSave.error = true;
           this.statusSave.loading = false;
           Swal.fire(

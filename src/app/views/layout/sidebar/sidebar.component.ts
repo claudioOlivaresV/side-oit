@@ -44,7 +44,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.menuItems = MENU;
     this.role = JSON.parse(sessionStorage.getItem('user-info')).idRol;
-    console.log(this.role);
     /**
      * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
      */

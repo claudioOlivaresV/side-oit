@@ -35,7 +35,7 @@
   <div class="row mt-5">
     <ng-container *ngFor="let item of devices; let i = index;" >
       <div class="col-md-6 col-lg-6 col-xl-4  col-12 grid-margin stretch-card">
-        <div class="card" [ngClass]="{'notDevice': !item.date}">
+        <div class="card" [ngClass]="{'notDevice': !item.date || !item.sensor.length}">
           <div class="card-body">
        
             <div class=" position-absolute cicle rounded-circle " [ngClass]="{ 'on': item.date, 'off': !item.date }" ></div>
@@ -53,17 +53,17 @@
                   <i data-feather="refresh-ccw" class="imgr" appFeatherIcon></i>
                 </ng-container>
               </div>
-              <div class="col-12" *ngIf="item.date">
+              <div class="col-12" *ngIf="item.date && item.sensor.length">
                 <!-- <h6 class="card-title mb-0">Última actualización</h6> -->
                 <p class="text-primary"><i data-feather="clock" appFeatherIcon></i> {{item.date | date: 'dd/MM/yyyy HH:mm'}}</p>
                 <!-- <button class="btn btn-outline-primary w-100 px-0" (click)="goToDeviceDetail()" >{{item.date | date: 'dd/MM/yyyy HH:mm'}} </button> -->
               </div>
     
             </div>
-            <div class="dropdown-divider" *ngIf="item.date"></div>
-            <div class="row mt-4 mb-3" *ngIf="item.date">
+            <div class="dropdown-divider" *ngIf="item.date && item.sensor.length"></div>
+            <div class="row mt-4 mb-3" *ngIf="item.date && item.sensor.length">
               <ng-container *ngFor="let sensor of item.sensor; let i = index;" >
-                <ng-container *ngIf="sensor.tipo !== 'on/off'">
+                <ng-container *ngIf="sensor.tipo !== 10">
                   <div class="col-12 d-flex justify-content-start mb-2">
                     <div>
                      
@@ -94,12 +94,12 @@
               </ng-container>
             
             </div>
-            <div class="dropdown-divider"  *ngIf="item.date"></div>
+            <!-- <div class="dropdown-divider"  *ngIf="item.date && item.sensor.length"></div> -->
 
-            <div class="row"  *ngIf="item.date">
+            <div class="row"  *ngIf="item.date && item.sensor.length">
               <ng-container *ngFor="let sensor of item.sensor; let i = index;" >
 
-                <ng-container *ngIf="sensor.tipo === 'on/off'">
+                <ng-container *ngIf="sensor.tipo === 10">
 
                   <div class="col-6 d-flex justify-content-start mb-2">
                     <div>
@@ -114,7 +114,7 @@
                 </ng-container>
               </ng-container>
             </div>
-            <ng-container *ngIf="!item.date">
+            <ng-container *ngIf="!item.date || !item.sensor.length">
               <p class="text-dark mb-3">Dispositivo no posee sensores registrados</p>
 
             </ng-container>

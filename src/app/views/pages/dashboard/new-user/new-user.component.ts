@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DevicesService } from 'src/app/services/devices/devices.service';
 import Swal from 'sweetalert2';
@@ -40,12 +41,13 @@ export class NewUserComponent implements OnInit {
     loading: null,
     error: null
   }
+  token: any;
 
-  constructor(public activeModal: NgbActiveModal, private service: DevicesService) {
+  constructor(public activeModal: NgbActiveModal, private service: DevicesService, private router: Router) {
   }
 
   ngOnInit(): void {
-    console.log(this.user);
+    this.token =  JSON.parse(sessionStorage.getItem('token'));
     this.getClients();
     this.form = new FormGroup({
       name: new FormControl(this.user.isEdit ? this.user.data.nombre : '', Validators.required),
@@ -60,12 +62,32 @@ export class NewUserComponent implements OnInit {
     this.status.data = false;
     this.status.loading = true;
     this.status.error = false;
-      this.service.getCliente().toPromise().then((rsp: any) => {
-        console.log(rsp);
+    const object = {
+      option: 'GET-CLIENTE',
+      token: this.token,
+    }
+      this.service.getCliente(object).toPromise().then((rsp: any) => {
           this.clients = rsp.data;
           this.status.data = true;
           this.status.loading = false;
       }, err => {
+        if (err.error.message === 'TOKEN CADUCADO') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'La sesión expiro',
+            text: 'Porfavor, vuelva a iniciar sessión',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sessionStorage.removeItem('isLoggedin');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('user-info');
+              if (!sessionStorage.getItem('isLoggedin')) {
+                this.router.navigate(['/auth/login']);
+              }
+            }
+            console.log(result);
+          })
+        }
         this.status.error = true;
         this.status.loading = false;
       });
@@ -80,19 +102,36 @@ export class NewUserComponent implements OnInit {
       nombre: values.name,
       cargo: values.position,
       correoElectronico: values.email,
-      contraseña: values.password
+      contraseña: values.password,
+      token: this.token
+
     }
-    console.log(values);
     this.statusSave.loading = true;
     if(!this.user.isEdit) {
       this.service.addUser(user).toPromise().then((rsp: any) => {
-        console.log(rsp);
           this.statusSave.loading = false;
           this.activeModal.close(true);
           Swal.fire(
             { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Usuario agregado correctamente', icon: 'success'}
           );
       }, err => {
+        if (err.error.message === 'TOKEN CADUCADO') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'La sesión expiro',
+            text: 'Porfavor, vuelva a iniciar sessión',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sessionStorage.removeItem('isLoggedin');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('user-info');
+              if (!sessionStorage.getItem('isLoggedin')) {
+                this.router.navigate(['/auth/login']);
+              }
+            }
+            console.log(result);
+          })
+        }
         Swal.fire(
           { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning'}
         );
@@ -101,13 +140,29 @@ export class NewUserComponent implements OnInit {
       });
     } else {
       this.service.editUser(user).toPromise().then((rsp: any) => {
-        console.log(rsp);
           this.statusSave.loading = false;
           this.activeModal.close(true);
           Swal.fire(
             { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Usuario editado correctamente', icon: 'success'}
           );
       }, err => {
+        if (err.error.message === 'TOKEN CADUCADO') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'La sesión expiro',
+            text: 'Porfavor, vuelva a iniciar sessión',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sessionStorage.removeItem('isLoggedin');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('user-info');
+              if (!sessionStorage.getItem('isLoggedin')) {
+                this.router.navigate(['/auth/login']);
+              }
+            }
+            console.log(result);
+          })
+        }
         Swal.fire(
           { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning'}
         );

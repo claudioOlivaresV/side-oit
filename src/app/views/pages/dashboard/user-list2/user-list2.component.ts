@@ -23,12 +23,13 @@ export class UserList2Component implements OnInit {
   usersFilter: any[];
   myModel:string;
   role: any;
+  token: any;
 
   constructor(private router: Router, private modalService: NgbModal, private service: DevicesService) { }
 
   ngOnInit(): void {
+    this.token =  JSON.parse(sessionStorage.getItem('token'));
     this.role = JSON.parse(sessionStorage.getItem('user-info')).idRol;
-    console.log(this.role);
     if( this.role === 2 || this.role === undefined ) {
       this.router.navigate(['/dashboard'])
     }
@@ -38,14 +39,34 @@ export class UserList2Component implements OnInit {
     this.status.data = false;
     this.status.loading = true;
     this.status.error = false;
-      this.service.getUsers().toPromise().then((rsp: any) => {
-        console.log(rsp);
+    const object = {
+      option: 'GET-USUARIO',
+      token: this.token
+
+    };
+      this.service.getUsers(object).toPromise().then((rsp: any) => {
         this.users = rsp.data;
         this.usersFilter = rsp.data;
         this.status.data = true;
         this.status.loading = false;
       }, err => {
-        console.log(err);
+        if (err.error.message === 'TOKEN CADUCADO') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'La sesión expiro',
+            text: 'Porfavor, vuelva a iniciar sessión',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sessionStorage.removeItem('isLoggedin');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('user-info');
+              if (!sessionStorage.getItem('isLoggedin')) {
+                this.router.navigate(['/auth/login']);
+              }
+            }
+            console.log(result);
+          })
+        }
         this.status.error = true;
         this.status.loading = false;
       });
@@ -61,7 +82,6 @@ export class UserList2Component implements OnInit {
     modalRef.componentInstance.user = user;
     modalRef.result.then((result) => {
       if (result) {
-        console.log(result);
         this.tryAgain();
       }
     });
@@ -79,17 +99,32 @@ export class UserList2Component implements OnInit {
       if (result.isConfirmed) {
         const user = {
           option: 'DELETE-USUARIO',
-          idUsuario: userId
+          idUsuario: userId,
+          token: this.token
         }
-        console.log(user);
         this.service.deleteUser(user).toPromise().then((rsp: any) => {
-          console.log(rsp);
           Swal.fire(
             { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Usuario eliminado correctamente', icon: 'success'}
           )
           this.tryAgain();
         }, err => {
-          console.log(err);
+          if (err.error.message === 'TOKEN CADUCADO') {
+            Swal.fire({
+              icon: 'warning',
+              title: 'La sesión expiro',
+              text: 'Porfavor, vuelva a iniciar sessión',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                sessionStorage.removeItem('isLoggedin');
+                sessionStorage.removeItem('token');
+                sessionStorage.removeItem('user-info');
+                if (!sessionStorage.getItem('isLoggedin')) {
+                  this.router.navigate(['/auth/login']);
+                }
+              }
+              console.log(result);
+            })
+          }
           Swal.fire(
             { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, intentelo nuevamente',
             icon: 'warning'}
@@ -108,7 +143,6 @@ export class UserList2Component implements OnInit {
     modalRef.componentInstance.user = user;
     modalRef.result.then((result) => {
       if (result) {
-        console.log(result);
         this.tryAgain();
       }
     });

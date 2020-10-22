@@ -32,6 +32,7 @@ export class DeviceListComponent implements OnInit {
   basicModalCloseResult = '';
   myModel:string;
   role: number;
+  token: any;
 
 
 
@@ -51,9 +52,9 @@ export class DeviceListComponent implements OnInit {
 
   ngOnInit(): void {
     // const dataTable = new DataTable("#dataTableExample");
+    this.token =  JSON.parse(sessionStorage.getItem('token'));
     this.getData();
     this.role = JSON.parse(sessionStorage.getItem('user-info')).idRol;
-    console.log(this.role);
     if( this.role === 2 || this.role === undefined ) {
       this.router.navigate(['/dashboard'])
     }
@@ -63,8 +64,11 @@ export class DeviceListComponent implements OnInit {
     this.status.data = false;
     this.status.loading = true;
     this.status.error = false;
-      this.service.getDevicesData().toPromise().then((rsp: any) => {
-        console.log(rsp);
+    const objectquery = {
+      option: 'OBTENER-DISPOSITIVOS',
+      token: this.token
+    }
+      this.service.getDevicesData(objectquery).toPromise().then((rsp: any) => {
         this.devices = rsp.data.map((data) => {
           const object = {
             id: data.idDispositivo,
@@ -106,7 +110,23 @@ export class DeviceListComponent implements OnInit {
         this.status.data = true;
         this.status.loading = false;
       }, err => {
-        console.log(err);
+        if (err.error.message === 'TOKEN CADUCADO') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'La sesión expiro',
+            text: 'Porfavor, vuelva a iniciar sessión',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sessionStorage.removeItem('isLoggedin');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('user-info');
+              if (!sessionStorage.getItem('isLoggedin')) {
+                this.router.navigate(['/auth/login']);
+              }
+            }
+            console.log(result);
+          })
+        }
         this.status.error = true;
         this.status.loading = false;
       });
@@ -119,12 +139,10 @@ export class DeviceListComponent implements OnInit {
       isEdit: true,
       data: deviceData
     }
-    console.log('click');
     const modalRef = this.modalService.open(NewDeviceComponent, {size: 'lg', scrollable: true});
     modalRef.componentInstance.device = device;
     modalRef.result.then((result) => {
       if (result) {
-        console.log(result);
         this.tryAgain();
       }
     });
@@ -135,13 +153,11 @@ export class DeviceListComponent implements OnInit {
       isEdit: false,
       data: null,
     }
-    console.log('click');
     const modalRef = this.modalService.open(NewDeviceComponent, {size: 'lg', scrollable: true,  backdrop: 'static',
     keyboard: false});
     modalRef.componentInstance.device = device;
     modalRef.result.then((result) => {
       if (result) {
-        console.log(result);
         this.tryAgain();
       }
     });
@@ -152,19 +168,16 @@ export class DeviceListComponent implements OnInit {
   }
   addSensor(device) {
 
-    console.log('click');
     const modalRef = this.modalService.open(AddSensorComponent, {size: 'lg', scrollable: true,  backdrop: 'static',
     keyboard: false});
     modalRef.componentInstance.device = device;
     modalRef.result.then((result) => {
       if (result) {
-        console.log(result);
       }
     });
 
   }
   removeDevice(deviceId){
-    console.log(deviceId);
     Swal.fire({
       title: 'Está eliminando un dispositivo',
       text: '¿Está seguro?',
@@ -176,17 +189,32 @@ export class DeviceListComponent implements OnInit {
       if (result.isConfirmed) {
           const device = {
             option: 'DELETE-DISPOSITIVO',
-            idDispositivo: deviceId
+            idDispositivo: deviceId,
+            token: this.token
           }
-          console.log(device);
           this.service.deleteDevice(device).toPromise().then((rsp: any) => {
-            console.log(rsp);
             Swal.fire(
               { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Dispositivo eliminado correctamente', icon: 'success'}
             )
             this.tryAgain();
           }, err => {
-            console.log(err);
+            if (err.error.message === 'TOKEN CADUCADO') {
+              Swal.fire({
+                icon: 'warning',
+                title: 'La sesión expiro',
+                text: 'Porfavor, vuelva a iniciar sessión',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  sessionStorage.removeItem('isLoggedin');
+                  sessionStorage.removeItem('token');
+                  sessionStorage.removeItem('user-info');
+                  if (!sessionStorage.getItem('isLoggedin')) {
+                    this.router.navigate(['/auth/login']);
+                  }
+                }
+                console.log(result);
+              })
+            }
             Swal.fire(
               { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, intentelo nuevamente',
               icon: 'warning'}

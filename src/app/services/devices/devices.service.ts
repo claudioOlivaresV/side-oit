@@ -25,10 +25,10 @@ export class DevicesService {
     //  return this.http.get('./assets/data/devices.json');
   }
   // device maintainer
-  public getDevicesData() {
+  public getDevicesData(body) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
-    return this.http.get(environment.baseUrl + environment.api.deviceData, { headers });
+    return this.http.post(environment.baseUrl + environment.api.deviceData, body,  { headers });
   }
   public addDevice(device) {
     let headers: HttpHeaders = new HttpHeaders();
@@ -47,10 +47,10 @@ export class DevicesService {
   }
 
   // cliente maintainer
-  public getCliente() {
+  public getCliente(body) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
-    return this.http.get(environment.baseUrl + environment.api.clienteData, { headers });
+    return this.http.post(environment.baseUrl + environment.api.clienteData, body, { headers });
   }
   public addCliente(client) {
     let headers: HttpHeaders = new HttpHeaders();
@@ -69,10 +69,10 @@ export class DevicesService {
     return this.http.post(environment.baseUrl + environment.api.clienteData, user, { headers });
   }
    // user maintainer
-   public getUsers() {
+   public getUsers(body) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
-    return this.http.get(environment.baseUrl + environment.api.userData, { headers });
+    return this.http.post(environment.baseUrl + environment.api.userData, body, { headers });
   }
   public addUser(user) {
     let headers: HttpHeaders = new HttpHeaders();
@@ -126,10 +126,10 @@ export class DevicesService {
     // return this.http.get(environment.baseUrl + environment.api.getDevices);
      return this.http.get('./assets/data/dataType.json');
   }
-  public getTypeSensor() {
+  public getTypeSensor(body) {
     let headers: HttpHeaders = new HttpHeaders();
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
-    return this.http.get(environment.baseUrl + environment.api.typeSensor, { headers });
+    return this.http.post(environment.baseUrl + environment.api.typeSensor, body, { headers });
   }
   public addTypeSensor(typeSensor) {
     let headers: HttpHeaders = new HttpHeaders();

@@ -44,15 +44,14 @@ export class LoginComponent implements OnInit {
     this.status.loading = true;
     this.status.error = false;
       this.service.login(user).toPromise().then((rsp: any) => {
-        console.log(rsp);
         sessionStorage.setItem('isLoggedin', 'true');
+        sessionStorage.setItem('token', JSON.stringify(rsp.token))
         sessionStorage.setItem('user-info', JSON.stringify(rsp));
         this.router.navigate([this.returnUrl]);
         this.status.data = true;
         this.status.loading = false;
       }, err => {
         this.form.reset();
-        console.log(err);
         this.status.error = true;
         this.status.loading = false;
       });

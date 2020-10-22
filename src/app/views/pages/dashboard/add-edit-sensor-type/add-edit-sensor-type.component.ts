@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DevicesService } from 'src/app/services/devices/devices.service';
 import Swal from 'sweetalert2';
@@ -18,11 +19,13 @@ export class AddEditSensorTypeComponent implements OnInit {
     error: null
   }
   @Input() public senorType;
+  token: any;
 
-  constructor(public activeModal: NgbActiveModal, private service: DevicesService) { }
+  constructor(public activeModal: NgbActiveModal, private service: DevicesService, private router: Router) { }
 
   ngOnInit(): void {
-    console.log(this.senorType);
+    this.token =  JSON.parse(sessionStorage.getItem('token'));
+
     this.form = new FormGroup({
       prefijo: new FormControl(this.senorType.isEdit ? this.senorType.data.prefijo : '', [Validators.required]),
       descripcion: new FormControl(this.senorType.isEdit ? this.senorType.data.descripcion : '', [Validators.required])
@@ -36,10 +39,10 @@ export class AddEditSensorTypeComponent implements OnInit {
         option: 'MODIFICAR-TIPO-SENSOR',
         idTipoSensor: this.senorType.data.idTipoSensor,
         prefijo: values.prefijo,
-        descripcion: values.descripcion
+        descripcion: values.descripcion,
+        token: this.token
       }
       this.service.addTypeSensor(user).toPromise().then((rsp: any) => {
-        console.log(rsp);
         this.statusSave.loading = false;
         this.activeModal.close(true);
         Swal.fire(
@@ -49,6 +52,23 @@ export class AddEditSensorTypeComponent implements OnInit {
           }
         );
       }, err => {
+        if (err.error.message === 'TOKEN CADUCADO') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'La sesión expiro',
+            text: 'Porfavor, vuelva a iniciar sessión',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sessionStorage.removeItem('isLoggedin');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('user-info');
+              if (!sessionStorage.getItem('isLoggedin')) {
+                this.router.navigate(['/auth/login']);
+              }
+            }
+            console.log(result);
+          })
+        }
         Swal.fire(
           { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning' }
         );
@@ -60,10 +80,10 @@ export class AddEditSensorTypeComponent implements OnInit {
       user = {
         option: 'CREAR-TIPO-SENSOR',
         prefijo: values.prefijo,
-        descripcion: values.descripcion
+        descripcion: values.descripcion,
+        token: this.token
       }
       this.service.addTypeSensor(user).toPromise().then((rsp: any) => {
-        console.log(rsp);
         this.statusSave.loading = false;
         this.activeModal.close(true);
         Swal.fire(
@@ -73,6 +93,23 @@ export class AddEditSensorTypeComponent implements OnInit {
           }
         );
       }, err => {
+        if (err.error.message === 'TOKEN CADUCADO') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'La sesión expiro',
+            text: 'Porfavor, vuelva a iniciar sessión',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sessionStorage.removeItem('isLoggedin');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('user-info');
+              if (!sessionStorage.getItem('isLoggedin')) {
+                this.router.navigate(['/auth/login']);
+              }
+            }
+            console.log(result);
+          })
+        }
         Swal.fire(
           { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, vuelva a intentarlo', icon: 'warning' }
         );
@@ -80,7 +117,6 @@ export class AddEditSensorTypeComponent implements OnInit {
         this.statusSave.loading = false;
       });
     }
-    console.log(user);
   }
 
   closeModal() {

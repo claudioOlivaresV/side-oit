@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DevicesService } from 'src/app/services/devices/devices.service';
 import Swal from 'sweetalert2';
@@ -20,11 +21,13 @@ export class NewClientComponent implements OnInit {
     loading: null,
     error: null
   }
+  token: any;
 
-  constructor(public activeModal: NgbActiveModal, private service: DevicesService) {
+  constructor(public activeModal: NgbActiveModal, private service: DevicesService, private router: Router) {
    }
 
   ngOnInit(): void {
+    this.token =  JSON.parse(sessionStorage.getItem('token'));
     this.form = new FormGroup({
       name: new FormControl(this.client.isEdit ? this.client.data.nombre : '', Validators.required),
       businessName: new FormControl(this.client.isEdit ? this.client.data.razonSocial : '', Validators.required),
@@ -48,10 +51,10 @@ export class NewClientComponent implements OnInit {
       region: values.region,
       comuna: values.commune,
       telefono: values.phone,
-      correoElectronico: values.email
+      correoElectronico: values.email,
+      token: this.token
 
     };
-    console.log(values);
     this.status.loading = true;
     if(!this.client.isEdit){
       this.service.addCliente(client).toPromise().then((rsp: any) => {
@@ -61,6 +64,23 @@ export class NewClientComponent implements OnInit {
           { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Cliente agregado', icon: 'success'}
         );
     }, err => {
+      if (err.error.message === 'TOKEN CADUCADO') {
+        Swal.fire({
+          icon: 'warning',
+          title: 'La sesión expiro',
+          text: 'Porfavor, vuelva a iniciar sessión',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            sessionStorage.removeItem('isLoggedin');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('user-info');
+            if (!sessionStorage.getItem('isLoggedin')) {
+              this.router.navigate(['/auth/login']);
+            }
+          }
+          console.log(result);
+        })
+      }
       this.status.error = true;
       this.status.loading = false;
       Swal.fire(
@@ -75,6 +95,23 @@ export class NewClientComponent implements OnInit {
           { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Cliente modificado', icon: 'success'}
         );
     }, err => {
+      if (err.error.message === 'TOKEN CADUCADO') {
+        Swal.fire({
+          icon: 'warning',
+          title: 'La sesión expiro',
+          text: 'Porfavor, vuelva a iniciar sessión',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            sessionStorage.removeItem('isLoggedin');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('user-info');
+            if (!sessionStorage.getItem('isLoggedin')) {
+              this.router.navigate(['/auth/login']);
+            }
+          }
+          console.log(result);
+        })
+      }
       this.status.error = true;
       this.status.loading = false;
       Swal.fire(

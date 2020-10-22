@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DevicesService } from 'src/app/services/devices/devices.service';
 import Swal from 'sweetalert2';
@@ -32,8 +33,9 @@ export class GeneralComponent implements OnInit {
     loading: null,
     error: null
   }
+  token: any;
 
-  constructor( private service: DevicesService,  private modalService: NgbModal) {
+  constructor( private service: DevicesService,  private modalService: NgbModal, private router: Router) {
     this.form = new FormGroup({
       sensorsMax: new FormControl('', Validators.required),
      })
@@ -46,20 +48,42 @@ export class GeneralComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.token =  JSON.parse(sessionStorage.getItem('token'));
     this.getData();
   }
   getData(){
     this.status.data = false;
     this.status.loading = true;
     this.status.error = false;
-      this.service.getTypeSensor().toPromise().then((rsp: any) => {
-        console.log(rsp);
+    const object = {
+      option: 'GET-TIPO-SENSOR',
+      token: this.token,
+    }
+      this.service.getTypeSensor(object).toPromise().then((rsp: any) => {
+        console.log(rsp.data);
+        
         this.typeSensor = rsp.data;
         this.typeSensorFilter = rsp.data;
         this.status.data = true;
         this.status.loading = false;
       }, err => {
-        console.log(err);
+        if (err.error.message === 'TOKEN CADUCADO') {
+          Swal.fire({
+            icon: 'warning',
+            title: 'La sesión expiro',
+            text: 'Porfavor, vuelva a iniciar sessión',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              sessionStorage.removeItem('isLoggedin');
+              sessionStorage.removeItem('token');
+              sessionStorage.removeItem('user-info');
+              if (!sessionStorage.getItem('isLoggedin')) {
+                this.router.navigate(['/auth/login']);
+              }
+            }
+            console.log(result);
+          })
+        }
         this.status.error = true;
         this.status.loading = false;
       });
@@ -75,7 +99,6 @@ export class GeneralComponent implements OnInit {
         showConfirmButton: true,
       });
     }, 3000);
-    console.log(values);
   }
   saveSensor(values) {
     this.statusSensor.loading = true;
@@ -87,20 +110,17 @@ export class GeneralComponent implements OnInit {
         showConfirmButton: true,
       });
     }, 3000);
-    console.log(values);
   }
   addType() {
     const senorType = {
       isEdit: false,
       data: null,
     }
-    console.log('click');
     const modalRef = this.modalService.open(AddEditSensorTypeComponent, {size: 'lg', scrollable: true,  backdrop: 'static',
     keyboard: false});
     modalRef.componentInstance.senorType = senorType;
     modalRef.result.then((result) => {
       if (result) {
-        console.log(result);
         this.tryAgain();
       }
     });
@@ -111,13 +131,11 @@ export class GeneralComponent implements OnInit {
       isEdit: true,
       data: type,
     }
-    console.log('click');
     const modalRef = this.modalService.open(AddEditSensorTypeComponent, {size: 'lg', scrollable: true,  backdrop: 'static',
     keyboard: false});
     modalRef.componentInstance.senorType = senorType;
     modalRef.result.then((result) => {
       if (result) {
-        console.log(result);
         this.tryAgain();
       }
     });
@@ -135,17 +153,33 @@ export class GeneralComponent implements OnInit {
       if (result.isConfirmed) {
         const client = {
           option: 'DELETE-TIPO-SENSOR',
-          idTipoSensor: type.idTipoSensor
+          idTipoSensor: type.idTipoSensor,
+          token: this.token
         }
         this.service.deleteTypeSensor(client).toPromise().then((rsp: any) => {
-          console.log(rsp);
           Swal.fire(
             { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Tipo de medida eliminada correctamente', 
               icon: 'success'}
           )
           this.tryAgain();
         }, err => {
-          console.log(err);
+          if (err.error.message === 'TOKEN CADUCADO') {
+            Swal.fire({
+              icon: 'warning',
+              title: 'La sesión expiro',
+              text: 'Porfavor, vuelva a iniciar sessión',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                sessionStorage.removeItem('isLoggedin');
+                sessionStorage.removeItem('token');
+                sessionStorage.removeItem('user-info');
+                if (!sessionStorage.getItem('isLoggedin')) {
+                  this.router.navigate(['/auth/login']);
+                }
+              }
+              console.log(result);
+            })
+          }
           Swal.fire(
             { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Error, intentelo nuevamente',
             icon: 'warning'}
