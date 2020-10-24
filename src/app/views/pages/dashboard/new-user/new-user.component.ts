@@ -72,7 +72,9 @@ export class NewUserComponent implements OnInit {
           this.status.loading = false;
       }, err => {
         if (err.error.message === 'TOKEN CADUCADO') {
+          this.activeModal.close();
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'warning',
             title: 'La sesión expiro',
             text: 'Porfavor, vuelva a iniciar sessión',
@@ -116,7 +118,9 @@ export class NewUserComponent implements OnInit {
           );
       }, err => {
         if (err.error.message === 'TOKEN CADUCADO') {
+          this.activeModal.close();
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'warning',
             title: 'La sesión expiro',
             text: 'Porfavor, vuelva a iniciar sessión',
@@ -147,7 +151,9 @@ export class NewUserComponent implements OnInit {
           );
       }, err => {
         if (err.error.message === 'TOKEN CADUCADO') {
+          this.activeModal.close();
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'warning',
             title: 'La sesión expiro',
             text: 'Porfavor, vuelva a iniciar sessión',
@@ -174,6 +180,13 @@ export class NewUserComponent implements OnInit {
   }
   closeModal() {
     this.activeModal.close();
+  }
+  tryAgain(){
+    this.status.data = false;
+    this.status.loading = false;
+    this.status.error = false;
+    this.getClients();
+
   }
 
 }

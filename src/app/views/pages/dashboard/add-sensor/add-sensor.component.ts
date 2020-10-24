@@ -47,6 +47,8 @@ export class AddSensorComponent implements OnInit {
 
   ngOnInit(): void {
     this.token =  JSON.parse(sessionStorage.getItem('token'));
+    this.getType();
+    this.getSensors();
     this.statusRemove.data = true;
     this.form = new FormGroup({
       idDispositivo: new FormControl(this.device.id, Validators.required),
@@ -65,8 +67,7 @@ export class AddSensorComponent implements OnInit {
       idTipoSensor: new FormControl('', Validators.required),
       output: new FormControl('')
     })
-    this.getType();
-    this.getSensors();
+
   }
   getSensors() {
     console.log(this.device);
@@ -80,9 +81,14 @@ export class AddSensorComponent implements OnInit {
     this.statusSensors.error = false;
     this.service.getSensor(dataDevice).toPromise().then((rsp: any) => {
       this.sensors = rsp.data;
+      this.statusSensors.data = true;
+      this.statusSensors.loading = false;
     }, err => {
+      this.activeModal.close();
       if (err.error.message === 'TOKEN CADUCADO') {
+        this.activeModal.close();
         Swal.fire({
+          allowOutsideClick: false,
           icon: 'warning',
           title: 'La sesión expiro',
           text: 'Porfavor, vuelva a iniciar sessión',
@@ -124,7 +130,9 @@ export class AddSensorComponent implements OnInit {
         this.statusType.loading = false;
     }, err => {
       if (err.error.message === 'TOKEN CADUCADO') {
+        this.activeModal.close();
         Swal.fire({
+          allowOutsideClick: false,
           icon: 'warning',
           title: 'La sesión expiro',
           text: 'Porfavor, vuelva a iniciar sessión',
@@ -163,7 +171,9 @@ export class AddSensorComponent implements OnInit {
       );
     }, err => {
       if (err.error.message === 'TOKEN CADUCADO') {
+        this.activeModal.close();
         Swal.fire({
+          allowOutsideClick: false,
           icon: 'warning',
           title: 'La sesión expiro',
           text: 'Porfavor, vuelva a iniciar sessión',
@@ -204,7 +214,9 @@ export class AddSensorComponent implements OnInit {
       );
     }, err => {
       if (err.error.message === 'TOKEN CADUCADO') {
+        this.activeModal.close();
         Swal.fire({
+          allowOutsideClick: false,
           icon: 'warning',
           title: 'La sesión expiro',
           text: 'Porfavor, vuelva a iniciar sessión',
@@ -240,10 +252,10 @@ export class AddSensorComponent implements OnInit {
   }
   tryAgain() {
     this.statusType.data = false;
-    this.statusType.loading = false;
+    this.statusType.loading = true;
     this.statusType.error = false;
     this.statusSensors.data = false;
-    this.statusSensors.loading = false;
+    this.statusSensors.loading = true;
     this.statusSensors.error = false;
     this.getSensors();
     this.getType();
@@ -272,7 +284,9 @@ export class AddSensorComponent implements OnInit {
       );
     }, err => {
       if (err.error.message === 'TOKEN CADUCADO') {
+        this.activeModal.close();
         Swal.fire({
+          allowOutsideClick: false,
           icon: 'warning',
           title: 'La sesión expiro',
           text: 'Porfavor, vuelva a iniciar sessión',

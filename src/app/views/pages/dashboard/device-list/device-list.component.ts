@@ -112,6 +112,7 @@ export class DeviceListComponent implements OnInit {
       }, err => {
         if (err.error.message === 'TOKEN CADUCADO') {
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'warning',
             title: 'La sesión expiro',
             text: 'Porfavor, vuelva a iniciar sessión',
@@ -200,6 +201,7 @@ export class DeviceListComponent implements OnInit {
           }, err => {
             if (err.error.message === 'TOKEN CADUCADO') {
               Swal.fire({
+                allowOutsideClick: false,
                 icon: 'warning',
                 title: 'La sesión expiro',
                 text: 'Porfavor, vuelva a iniciar sessión',

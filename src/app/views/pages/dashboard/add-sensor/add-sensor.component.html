@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
-    <ng-container *ngIf="!statusType.loading && !statusSave.loading">
+    <ng-container *ngIf="!statusType.loading && statusType.data && !statusSave.loading && !statusSensors.loading && statusSensors.data">
         <ng-container *ngIf="!isEdit">
             <form class="forms-sample" [formGroup]="form">
                 <div class="row">
@@ -263,11 +263,15 @@
             </form>
         </ng-container>
     </ng-container>
-    <ng-container *ngIf="statusType.loading && statusSensors.loading">
+    <ng-container *ngIf="statusType.loading && statusSensors.loading && statusSensors.loading">
         <div class="spinner-wrapper d-block bg-white h-100">
             <div class="spinner"></div>
         </div>
     </ng-container>
+    <ng-container *ngIf="(!statusType.data && !statusType.loading && statusType.error) ||
+                         (!statusSensors.data && !statusSensors.loading && statusSensors.error)">
+        <app-error-modal (tryAgain)="tryAgain()" ></app-error-modal>
+      </ng-container>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>

@@ -172,6 +172,9 @@
       <div class="spinner"></div>
     </div>
   </ng-container>
+  <ng-container *ngIf="!status.data && !status.loading && status.error">
+    <app-error-modal (tryAgain)="tryAgain()" ></app-error-modal>
+  </ng-container>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary"  (click)="closeModal()">Cerrar</button>

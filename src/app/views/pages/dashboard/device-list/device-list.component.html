@@ -115,6 +115,9 @@
       <div class="spinner"></div>
     </div>
   </ng-container>
+  <ng-container *ngIf="!status.data && !status.loading && status.error">
+    <app-error-service (tryAgain)="tryAgain()" ></app-error-service>
+  </ng-container>
   
 
 

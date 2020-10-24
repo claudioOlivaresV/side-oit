@@ -61,7 +61,6 @@ export class GeneralComponent implements OnInit {
     }
       this.service.getTypeSensor(object).toPromise().then((rsp: any) => {
         console.log(rsp.data);
-        
         this.typeSensor = rsp.data;
         this.typeSensorFilter = rsp.data;
         this.status.data = true;
@@ -69,6 +68,7 @@ export class GeneralComponent implements OnInit {
       }, err => {
         if (err.error.message === 'TOKEN CADUCADO') {
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'warning',
             title: 'La sesión expiro',
             text: 'Porfavor, vuelva a iniciar sessión',
@@ -165,6 +165,7 @@ export class GeneralComponent implements OnInit {
         }, err => {
           if (err.error.message === 'TOKEN CADUCADO') {
             Swal.fire({
+              allowOutsideClick: false,
               icon: 'warning',
               title: 'La sesión expiro',
               text: 'Porfavor, vuelva a iniciar sessión',

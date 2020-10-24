@@ -151,6 +151,7 @@ export class DashboardComponent implements OnInit {
     }, err => {
       if (err.error.message === 'TOKEN CADUCADO') {
         Swal.fire({
+          allowOutsideClick: false,
           icon: 'warning',
           title: 'La sesión expiro',
           text: 'Porfavor, vuelva a iniciar sessión',
@@ -213,6 +214,12 @@ export class DashboardComponent implements OnInit {
   }
   onChange(status, data) {
 
+  }
+  tryAgain() {
+    this.status.data = false;
+    this.status.loading = false;
+    this.status.error = false;
+    this.getData(this.idUser);
   }
 
 }

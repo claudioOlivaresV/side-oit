@@ -53,7 +53,9 @@ export class AddEditSensorTypeComponent implements OnInit {
         );
       }, err => {
         if (err.error.message === 'TOKEN CADUCADO') {
+          this.activeModal.close();
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'warning',
             title: 'La sesión expiro',
             text: 'Porfavor, vuelva a iniciar sessión',
@@ -94,7 +96,9 @@ export class AddEditSensorTypeComponent implements OnInit {
         );
       }, err => {
         if (err.error.message === 'TOKEN CADUCADO') {
+          this.activeModal.close();
           Swal.fire({
+            allowOutsideClick: false,
             icon: 'warning',
             title: 'La sesión expiro',
             text: 'Porfavor, vuelva a iniciar sessión',

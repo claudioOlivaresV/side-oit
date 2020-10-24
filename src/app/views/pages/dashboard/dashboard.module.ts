@@ -33,6 +33,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { AddEditSensorTypeComponent } from './add-edit-sensor-type/add-edit-sensor-type.component';
 import { ErrorServiceComponent } from './error-service/error-service.component';
+import { ErrorModalComponent } from './error-modal/error-modal.component';
 
 
 
@@ -80,7 +81,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [DashboardComponent, NewDeviceComponent, DeviceListComponent, DeviceDetailComponent, NewUserComponent, ClientListComponent, NewClientComponent, GeneralComponent, UserList2Component, AddSensorComponent, ChangePasswordComponent, AddEditSensorTypeComponent, ErrorServiceComponent],
+  declarations: [DashboardComponent, NewDeviceComponent, DeviceListComponent, DeviceDetailComponent, NewUserComponent, ClientListComponent, NewClientComponent, GeneralComponent, UserList2Component, AddSensorComponent, ChangePasswordComponent, AddEditSensorTypeComponent, ErrorServiceComponent, ErrorModalComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

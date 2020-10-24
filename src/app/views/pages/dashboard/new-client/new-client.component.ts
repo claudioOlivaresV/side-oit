@@ -65,7 +65,9 @@ export class NewClientComponent implements OnInit {
         );
     }, err => {
       if (err.error.message === 'TOKEN CADUCADO') {
+        this.activeModal.close();
         Swal.fire({
+          allowOutsideClick: false,
           icon: 'warning',
           title: 'La sesión expiro',
           text: 'Porfavor, vuelva a iniciar sessión',
@@ -96,7 +98,9 @@ export class NewClientComponent implements OnInit {
         );
     }, err => {
       if (err.error.message === 'TOKEN CADUCADO') {
+        this.activeModal.close();
         Swal.fire({
+          allowOutsideClick: false,
           icon: 'warning',
           title: 'La sesión expiro',
           text: 'Porfavor, vuelva a iniciar sessión',
