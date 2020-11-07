@@ -3,7 +3,7 @@
 
     <!--- Logo -->
     <a routerLink="/" class="sidebar-brand">
-      <img src="../../../../assets/images/logo.webp">
+      <!-- <img src="../../../../assets/images/logo.webp"> -->
     </a>
 
     <!--- Toggler -->
@@ -31,28 +31,33 @@
             <li class="nav-item"  >
               <a class="nav-link nav-link-ref" [routerLink]="'/dashboard/device-list'" >
                 <em class="link-icon" [attr.data-feather]="'cpu'" appFeatherIcon ></em>
-                <span class="link-title"> Dispositivos</span>
+                <span class="link-title"> 
+                  <!-- Dispositivos -->
+                  Proyectos
+                </span>
               </a>
             </li>
             <li class="nav-item"  >
               <a class="nav-link nav-link-ref" [routerLink]="'/dashboard/user-list'" >
                 <em class="link-icon" [attr.data-feather]="'users'" appFeatherIcon ></em>
-                <span class="link-title"> Usuariarios</span>
+                <span class="link-title">
+                   Usuariarios
+                  </span>
               </a>
             </li>
-            <li class="nav-item"  >
+            <!-- <li class="nav-item"  >
               <a class="nav-link nav-link-ref" [routerLink]="'/dashboard/client-list'" >
                 <em class="link-icon" [attr.data-feather]="'briefcase'" appFeatherIcon ></em>
                 <span class="link-title"> Clientes</span>
               </a>
-            </li>
-            <li class="nav-item nav-category">Configuración</li>
+            </li> -->
+            <!-- <li class="nav-item nav-category">Configuración</li>
             <li class="nav-item"  >
               <a class="nav-link nav-link-ref" [routerLink]="'/dashboard/general'" >
                 <em class="link-icon" [attr.data-feather]="'settings'" appFeatherIcon ></em>
                 <span class="link-title"> Tipos de Medidas</span>
               </a>
-            </li>
+            </li> -->
           </ng-container>
    
     </ul>

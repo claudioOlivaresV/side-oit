@@ -24,8 +24,10 @@
               </button>
             </div>
             <div class="col-3 col-md-4 col-xl-3">
-              <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center"
-                (click)="add()">
+              <!-- <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center"
+                (click)="add()"> -->
+                <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center"
+                >
                 <div>
                   <em class="btn-icon-prepend mr-0 d-block  d-md-none " data-feather="plus-circle" appFeatherIcon></em>
                   <span class="d-none ml-2 d-md-block"  >Agregar Usuario</span> 
@@ -86,10 +88,13 @@
                     <td>{{user.correoElectronico }}</td>
                     <td>
 
-                      <button type="button" class="btn btn-outline-primary btn-icon px-1 mr-2" (click)="edit(user)">
+                      <!-- <button type="button" class="btn btn-outline-primary btn-icon px-1 mr-2" (click)="edit(user)"> -->
+                        <button type="button" class="btn btn-outline-primary btn-icon px-1 mr-2" >
+
                         <em data-feather="edit" appFeatherIcon></em>
                       </button>
-                      <button type="button" class="btn btn-danger btn-icon  px-1 mr-2" (click)="remove(user.idUsuario)">
+                      <!-- <button type="button" class="btn btn-danger btn-icon  px-1 mr-2" (click)="remove(user.idUsuario)"> -->
+                        <button type="button" class="btn btn-danger btn-icon  px-1 mr-2" >
                         <em data-feather="trash" appFeatherIcon></em>
                       </button>
                     </td>

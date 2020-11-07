@@ -1,34 +1,56 @@
 <nav class="page-breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Detalle dispositivo: DEMO</li>
+        <li class="breadcrumb-item active" aria-current="page">
+            <!-- Detalle dispositivo: DEMO -->
+            Detalle proyecto: DEMO
+
+        </li>
     </ol>
 </nav>
 
 <div class="card my-3">
     <div class="card-body">
         <div class="row">
-            <div class="col-md-3 col-6">
-                <h6 class="card-title mb-0">Nombre dispositivo</h6>
-                <p class="text-muted">N° de serie</p>
+            <div class="col-md-3 col-6 mt-2">
+                <h6 class="card-title mb-0">
+                    <!-- Nombre dispositivo -->
+                    Nombre documento
+
+                </h6>
+                <p class="text-muted">
+                    <!-- N° de serie -->
+                    Documento 1
+                </p>
                
             </div>
-            <div class="col-md-3">
-                <h6 class="card-title mb-0">Última Lectura</h6>
+            <div class="col-md-2 col-6 mt-2">
+                <h6 class="card-title mb-0">
+                    <!-- Última Lectura -->
+                   Tipo de documento
+                </h6>
+                <p class="text-muted">Tipo Material</p>
+            </div>
+            <div class="col-md-3 col-6 mt-2">
+                <h6 class="card-title mb-0">
+                    <!-- Última Lectura -->
+                    Fecha de creación
+                </h6>
                 <p class="text-muted">03-10-2020 14:05</p>
             </div>
-            <div class="col-md-2">
+            <!-- <div class="col-md-2">
                 <h6 class="card-title mb-0">Rendimiento</h6>
                 <p class="text-muted">rendimiento</p>
-            </div>
-            <div class="col-2 ">
+            </div> -->
+            <div class="col-md-2 col-6 mt-2">
                 <h6 class="card-title mb-0"> Estado</h6>
                 <p class="text-muted">Activo</p>
             </div>
-            <div class="col-2">
-                <button type="button" class="btn btn-danger btn-icon-text">
-                    <i class="feather icon-slash btn-icon-prepend"></i>
-                    Desactivar
+            <div class="col-md-2 col-12 mt-2">
+                <button type="button" class="btn btn-danger btn-icon-text text-center w-100 d-flex justify-content-center">
+                    <!-- <i class="feather icon-slash btn-icon-prepend"></i> -->
+                    <!-- Desactivar -->
+                    <span class="text-center">Ver documento</span>
                   </button>
             </div>
            
@@ -36,7 +58,56 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="card my-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 col-6 mt-2">
+                <h6 class="card-title mb-0">
+                    <!-- Nombre dispositivo -->
+                    Nombre documento
+
+                </h6>
+                <p class="text-muted">
+                    <!-- N° de serie -->
+                    Factura 1
+                </p>
+               
+            </div>
+            <div class="col-md-2 col-6 mt-2">
+                <h6 class="card-title mb-0">
+                    <!-- Última Lectura -->
+                   Tipo de documento
+                </h6>
+                <p class="text-muted">Factura</p>
+            </div>
+            <div class="col-md-3 col-6 mt-2">
+                <h6 class="card-title mb-0">
+                    <!-- Última Lectura -->
+                    Fecha de creación
+                </h6>
+                <p class="text-muted">04-10-2020 14:05</p>
+            </div>
+            <!-- <div class="col-md-2">
+                <h6 class="card-title mb-0">Rendimiento</h6>
+                <p class="text-muted">rendimiento</p>
+            </div> -->
+            <div class="col-md-2 col-6 mt-2">
+                <h6 class="card-title mb-0"> Estado</h6>
+                <p class="text-muted">Activo</p>
+            </div>
+            <div class="col-md-2 col-12 mt-2">
+                <button type="button" class="btn btn-danger btn-icon-text text-center w-100 d-flex justify-content-center">
+                    <!-- <i class="feather icon-slash btn-icon-prepend"></i> -->
+                    <!-- Desactivar -->
+                    <span class="text-center">Ver documento</span>
+                  </button>
+            </div>
+           
+
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
     <div class="col-2">
         <div class="card mb-3">
             <div class="card-body">
@@ -116,7 +187,6 @@
             <ng-container *ngIf="type === 'solar' " >
                 <div class="col-12">
                     <div class="monthly-sales-chart-wrapper">
-                        <!-- <canvas id="monthly-sales-chart"></canvas> -->
                         <canvas baseChart 
                           [datasets]="ng2BarChart1Data"
                           [labels]="ng2BarChart1Labels"
@@ -131,4 +201,4 @@
             </ng-container>
         </div>
     </div>
-</div>
+</div> -->

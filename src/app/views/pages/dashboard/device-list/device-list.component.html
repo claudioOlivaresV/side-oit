@@ -1,7 +1,10 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Dispositivos</li>
+        <li class="breadcrumb-item active" aria-current="page">
+          <!-- Dispositivos -->
+          Proyectos
+        </li>
     </ol>
 </nav>
 
@@ -13,8 +16,15 @@
             <div class="card-body">
               <div class="row mb-3 mb-md-0">
                   <div class="col-6 col-md-4 col-xl-6">
-                      <h6 class="card-title">Dispositivos</h6>
-                      <p class="card-description mb-0">Lista de dispositivos</p>
+                      <h6 class="card-title">
+                        <!-- Dispositivos -->
+                        Proyectos
+                      </h6>
+                      <p class="card-description mb-0">
+                        <!-- Lista de dispositivos -->
+                        Lista de proyectos
+
+                      </p>
                   </div>
                   <div class="col-3 col-md-4 col-xl-3">
                     <button class="btn btn-outline-primary  btn-icon-text w-100 d-flex justify-content-center" >
@@ -25,10 +35,16 @@
                     </button>
                   </div>
                   <div class="col-3 col-md-4 col-xl-3">
-                    <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" (click)="addDevice()">
+                    <!-- <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" (click)="addDevice()"> -->
+                      <button type="button" class="btn btn-primary btn-icon-text w-100 d-flex justify-content-center" >
+
                        <div>
                          <em class="btn-icon-prepend mr-0 d-block  d-md-none " data-feather="plus-circle" appFeatherIcon></em>
-                         <span class="d-none ml-2 d-md-block"  >Agregar Dispositivo</span> 
+                         <span class="d-none ml-2 d-md-block"  >
+                           <!-- Agregar Dispositivo -->
+                           Agregar Proyecto
+
+                          </span> 
 
                        </div>
                      
@@ -57,35 +73,48 @@
                     <table id="dataTableExample" class="table">
                       <thead>
                         <tr>
+                          <th id="">Nombre</th>
+                          <th id="">Comuna</th>
+                          <th id="">Región</th>
+                          <th id="">Fecha creación</th>
+
+<!--                      
                           <th id="">Descripción</th>
                           <th id="">N° Serie</th>
                           <th id="">Ubicación</th>
                           <th id="">Sensores</th>
                           <th id="">Intervalo</th>
-                          <th id="">Fecha Lectura</th>
+                          <th id="">Fecha Lectura</th> -->
                           <th id="">Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
                         <ng-container *ngFor="let item of devices; let i = index;" >
                             <tr>
-                              <td>{{item.description}}</td>
-                              <td>{{item.serialNumber}}</td>
+                              <!-- <td>{{item.description}}</td>
+                              <>{{item.serialNumber}}</td>
                               <td>{{item.location}}</td>
                               <td>{{item.numberOfSensors}}</td>
-                              <td>{{item.timeInterval}}</td>
+                              <td>{{item.timeInterval}}</td> -->
+                              <td >Proyecto</td>
+                              <td >Las Condes</td>
+                              <td >Región Metropolitana</td>
                               <td>{{item.lastReading | date:"dd/MM/yyyy - HH:mm" }}</td>
                               <td>
                               
-                                <button type="button" class="btn btn-outline-primary btn-icon px-1 mr-2" (click)="editDevice(item)" >
+                                <!-- <button type="button" class="btn btn-outline-primary btn-icon px-1 mr-2" (click)="editDevice(item)" > -->
+                                  <button type="button" class="btn btn-outline-primary btn-icon px-1 mr-2" >
+
                                   <i  data-feather="edit" appFeatherIcon></i>
                                  </button>
-                                 <button type="button" class="btn btn-danger btn-icon  px-1 mr-2" (click)="removeDevice(item.id)">
+                                 <!-- <button type="button" class="btn btn-danger btn-icon  px-1 mr-2" (click)="removeDevice(item.id)"> -->
+                                  <button type="button" class="btn btn-danger btn-icon  px-1 mr-2" >
+
                                   <i  data-feather="trash" appFeatherIcon></i>
                                  </button>
-                                 <button type="button" class="btn btn-primary" (click)="addSensor(item)">
+                                 <!-- <button type="button" class="btn btn-primary" (click)="addSensor(item)">
                                   Agregar Sensor
-                                </button>
+                                </button> -->
                               </td>
                             </tr>
                         </ng-container>

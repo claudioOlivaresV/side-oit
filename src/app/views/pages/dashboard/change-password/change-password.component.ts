@@ -42,6 +42,7 @@ export class ChangePasswordComponent implements OnInit {
             { toast: true, position: 'top-end', showConfirmButton: true, timer: 10000, title: 'Contraseña actualizada correctamente', icon: 'success'}
           );
       }, err => {
+        console.log(err);
         if (err.error.message === 'TOKEN CADUCADO') {
           this.activeModal.close();
           Swal.fire({
