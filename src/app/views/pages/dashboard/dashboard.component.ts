@@ -105,14 +105,32 @@ export class DashboardComponent implements OnInit {
             data.payload.doc.data().data.sensores.forEach(elementInt => {
               const index = element.sensor.map(function (e) { return e.prefijo; }).indexOf((elementInt.nombre));
               if (index >= 0) {
-
-
+                
+                console.log(element.sensor[index].valor)
+                if(element.sensor[index].valor === undefined) {
+                  console.log('es la primera carga');
+                  element.sensor[index].actualizado = false;
+                }else {
+                  console.log('ya tiene datos');
+                  if(element.sensor[index].valorAnt !== elementInt.valor){
+                    console.log('Valor actualizado');
+                    element.sensor[index].actualizado = true;
+                  } else {
+                    console.log('Valor no actualizado');
+                    element.sensor[index].actualizado = false;
+                  }
+                }
                 element.sensor[index].valor = elementInt.valor
+                element.sensor[index].valorAnt = elementInt.valor
                 this.status.data = true;
                 this.status.loading = false;
                 this.isReload = false;
+                console.log(element.sensor);
 
               }
+              setTimeout(() => {
+                element.sensor[index].actualizado = false;
+              }, 5000);
 
             });
             // const date = new Date( unix  * 1000).toISOString().slice(0, 20);

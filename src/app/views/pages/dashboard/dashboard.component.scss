@@ -24,3 +24,17 @@
 .notDevice {
     height: 160px !important;
 }
+.valores {
+    color: black;
+}
+.rojo {
+    
+    animation-name: ejemplo;
+    animation-duration: 5s;
+}
+@keyframes ejemplo {
+    0% {color: black;}
+    15% {color: #ff3366; }
+    75% {color: #ff3366;}
+    100% {color: black;}
+}
