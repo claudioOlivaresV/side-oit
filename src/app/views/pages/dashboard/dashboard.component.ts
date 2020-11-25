@@ -101,43 +101,37 @@ export class DashboardComponent implements OnInit {
             const dateObject = new Date(unix)
             element.date = dateObject;
             // element.sensores = data.payload.doc.data().data.sensores;
-
             data.payload.doc.data().data.sensores.forEach(elementInt => {
-              const index = element.sensor.map(function (e) { return e.prefijo; }).indexOf((elementInt.nombre));
+              const index = element.sensor.map( (e) => { return e.prefijo; }).indexOf((elementInt.nombre));
               if (index >= 0) {
-                
-                console.log(element.sensor[index].valor)
-                if(element.sensor[index].valor === undefined) {
-                  console.log('es la primera carga');
+                if (element.sensor[index].valor === undefined) {
                   element.sensor[index].actualizado = false;
-                }else {
-                  console.log('ya tiene datos');
-                  if(element.sensor[index].valorAnt !== elementInt.valor){
-                    console.log('Valor actualizado');
+                } else {
+                  if (element.sensor[index].valorAnt !== elementInt.valor) {
                     element.sensor[index].actualizado = true;
                   } else {
-                    console.log('Valor no actualizado');
                     element.sensor[index].actualizado = false;
                   }
                 }
-                element.sensor[index].valor = elementInt.valor
-                element.sensor[index].valorAnt = elementInt.valor
+                element.sensor[index].valor = elementInt.valor;
+                element.sensor[index].valorAnt = elementInt.valor;
+                element.sensor[index].lagoValor = element.sensor[index].valor.length;
+                const originalCal = element.sensor[index].calculo;
+                const calculo = originalCal.replace('x', element.sensor[index].valor)
+                function evil(fn) {
+                  return new Function('return ' + fn)();
+                }
+                element.sensor[index].nuevoValor = evil(calculo);
+                element.sensor[index].nuevoCalculo = calculo;
                 this.status.data = true;
                 this.status.loading = false;
                 this.isReload = false;
-                console.log(element.sensor);
-
               }
               setTimeout(() => {
                 element.sensor[index].actualizado = false;
               }, 5000);
 
             });
-            // const date = new Date( unix  * 1000).toISOString().slice(0, 20);
-            // console.log(date);
-            // this.sensorFire.push(data.payload.doc.data());
-
-
           }
           this.status.data = true;
           this.status.loading = false;
@@ -159,7 +153,6 @@ export class DashboardComponent implements OnInit {
     this.status.loading = true;
     this.status.error = false;
     this.service.getDevices(device).toPromise().then((rsp: any) => {
-      console.log(rsp);
 
       this.devices = rsp.data;
       this.devicesFilter = rsp.data;
@@ -183,23 +176,11 @@ export class DashboardComponent implements OnInit {
               this.router.navigate(['/auth/login']);
             }
           }
-          console.log(result);
         })
       }
-
-      console.log(err.error.message);
-
       this.status.error = true;
       this.status.loading = false;
     });
-    // setTimeout(() => {
-    //   this.userInfo = JSON.parse(sessionStorage.getItem('user-info'));
-    //     this.devices = this.userInfo.data;
-    //     this.devicesFilter = this.userInfo.data;
-    //     this.status.data = true;
-    //     this.status.loading = false
-    // }, 2000);
-
   }
 
   filterByCell(filterValue: any): void {

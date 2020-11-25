@@ -70,7 +70,7 @@
                       
                       
                       <label class=" text-muted">{{sensor.nombre}}:</label>
-                      <label class="text-uppercase font-weight-medium valores " [ngClass]="{'rojo': sensor.actualizado, '': !sensor.actualizado}"> {{sensor.valor}} {{sensor.tipo}} </label>
+                      <label class="text-uppercase font-weight-medium valores " [ngClass]="{'rojo': sensor.actualizado, '': !sensor.actualizado}"> {{sensor.nuevoValor}} {{sensor.tipo}} </label>
                       <!-- <ng-container *ngIf="sensor.tipo === 'lts'" >
                         <em class="text-dark"  data-feather="droplet" appFeatherIcon></em>
                       </ng-container>
@@ -88,6 +88,7 @@
                         <ng-container *ngSwitchCase="'Kw/h'"><em class="text-dark" data-feather="zap" appFeatherIcon></em></ng-container>
                         <ng-container *ngSwitchCase="'m3'"><em class="text-dark" data-feather="box" appFeatherIcon></em></ng-container>
                         <ng-container *ngSwitchCase="'mts'"><em class="text-dark" data-feather="layers" appFeatherIcon></em></ng-container>
+                        <ng-container *ngSwitchCase="'%'"></ng-container>
                         <ng-container *ngSwitchDefault><em class="text-dark" data-feather="tag" appFeatherIcon></em> </ng-container>
                     </ng-container>
                       
