@@ -15,7 +15,8 @@ export const environment = {
     login: 'side-login-function',
     sensorData: 'side-dispositivo-function',
     deviceDetail: 'side-historico-function',
-    typeSensor: 'side-tipoSensor-function'
+    typeSensor: 'side-tipoSensor-function',
+    onOff: 'side-exec-function',
 
   },
   firebase: {

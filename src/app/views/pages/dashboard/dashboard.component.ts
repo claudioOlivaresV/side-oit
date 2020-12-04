@@ -182,6 +182,24 @@ export class DashboardComponent implements OnInit {
       this.status.loading = false;
     });
   }
+  onChange(status, data) {
+    console.log(status, data);
+    
+    const obj = {
+      idDispo: "1",
+      idSensor: "1",
+      nomDispo: "Demo 1",
+      nomSensor: "Sensor de agua",
+      comando: "{\"exec\":\"comando1\"}"
+
+    }
+
+    this.service.onOff(obj).toPromise().then((rsp: any) => {
+      console.log(rsp);
+    }, err => {
+      console.log(err);
+    });
+  }
 
   filterByCell(filterValue: any): void {
     this.devices = this.devicesFilter;
@@ -190,6 +208,7 @@ export class DashboardComponent implements OnInit {
     });
 
   }
+
   goToNewDevice() {
     this.router.navigate(['/dashboard/new-device']);
   }
@@ -211,9 +230,9 @@ export class DashboardComponent implements OnInit {
       );
     }, 3000);
   }
-  onChange(status, data) {
+  // onChange(status, data) {
 
-  }
+  // }
   tryAgain() {
     this.status.data = false;
     this.status.loading = false;

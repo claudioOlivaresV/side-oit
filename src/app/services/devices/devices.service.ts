@@ -146,6 +146,11 @@ export class DevicesService {
     headers = headers.append('Authorization', 'c2lkZTIwMjA=');
     return this.http.post(environment.baseUrl + environment.api.typeSensor, typeSensor, { headers });
   }
+  public onOff(body) {
+    let headers: HttpHeaders = new HttpHeaders();
+    headers = headers.append('Authorization', 'c2lkZTIwMjA=');
+    return this.http.post(environment.baseUrl + environment.api.onOff, body, { headers });
+  }
 
 
 
